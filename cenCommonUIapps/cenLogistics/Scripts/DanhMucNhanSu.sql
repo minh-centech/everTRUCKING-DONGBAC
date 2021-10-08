@@ -21,7 +21,7 @@ create table DanhMucNhanSu
 	Email						nvarchar(255),
 	TrinhDo						nvarchar(255),
 	NgayVaoLam					date,
-	IDDanhMucTinhTrangLamViec	bigint			not null,
+	IDDanhMucTinhTrangLamViec	bigint,
 	GhiChu						nvarchar(512),
 	--
 	IDDanhMucNguoiSuDungCreate	bigint			not null,
@@ -115,7 +115,7 @@ alter procedure Insert_DanhMucNhanSu
 	@Email						nvarchar(255) = null,
 	@TrinhDo					nvarchar(255) = null,
 	@NgayVaoLam					date = null,
-	@IDDanhMucTinhTrangLamViec	bigint,
+	@IDDanhMucTinhTrangLamViec	bigint = null,
 	@GhiChu						nvarchar(512) = null,
 	@IDDanhMucNguoiSuDungCreate	bigint,
 	@CreateDate					datetime = null out
@@ -205,7 +205,7 @@ alter procedure Update_DanhMucNhanSu
 	@Email						nvarchar(255) = null,
 	@TrinhDo					nvarchar(255) = null,
 	@NgayVaoLam					date = null,
-	@IDDanhMucTinhTrangLamViec	bigint,
+	@IDDanhMucTinhTrangLamViec	bigint = null,
 	@GhiChu						nvarchar(512) = null,
 	@IDDanhMucNguoiSuDungEdit	bigint,
 	@EditDate					datetime = null out

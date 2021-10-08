@@ -2669,6 +2669,6 @@ D:\everTRUCKING-DONGBAC\cenCommonUIapps\obj\Debug\cenCommonUIapps.Properties.Res
 D:\everTRUCKING-DONGBAC\cenCommonUIapps\obj\Debug\cenCommonUIapps.csproj.GenerateResource.cache
 D:\everTRUCKING-DONGBAC\cenCommonUIapps\obj\Debug\cenCommonUIapps.dll.licenses
 D:\everTRUCKING-DONGBAC\cenCommonUIapps\obj\Debug\cenCommonUIapps.csproj.CoreCompileInputs.cache
-D:\everTRUCKING-DONGBAC\cenCommonUIapps\obj\Debug\cenCommonUIapps.csproj.CopyComplete
 D:\everTRUCKING-DONGBAC\cenCommonUIapps\obj\Debug\cenCommonUIapps.dll
 D:\everTRUCKING-DONGBAC\cenCommonUIapps\obj\Debug\cenCommonUIapps.pdb
+D:\everTRUCKING-DONGBAC\cenCommonUIapps\obj\Debug\cenCommonUIapps.csproj.CopyComplete

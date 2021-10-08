@@ -1457,3 +1457,4 @@ D:\everTRUCKING-DONGBAC\cenBase\obj\Debug\cenBase.dll.licenses
 D:\everTRUCKING-DONGBAC\cenBase\obj\Debug\cenBase.csproj.CoreCompileInputs.cache
 D:\everTRUCKING-DONGBAC\cenBase\obj\Debug\cenBase.dll
 D:\everTRUCKING-DONGBAC\cenBase\obj\Debug\cenBase.pdb
+D:\everTRUCKING-DONGBAC\cenBase\obj\Debug\cenBase.csproj.CopyComplete

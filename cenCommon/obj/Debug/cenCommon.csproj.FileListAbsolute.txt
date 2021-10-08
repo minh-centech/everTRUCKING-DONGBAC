@@ -426,3 +426,4 @@ D:\everTRUCKING-DONGBAC\cenCommon\obj\Debug\cenCommon.csproj.CoreCompileInputs.c
 D:\everTRUCKING-DONGBAC\cenCommon\obj\Debug\cenCommon.csproj.CopyComplete
 D:\everTRUCKING-DONGBAC\cenCommon\obj\Debug\cenCommon.dll
 D:\everTRUCKING-DONGBAC\cenCommon\obj\Debug\cenCommon.pdb
+D:\everTRUCKING-DONGBAC\cenCommon\obj\Debug\cenCommon.csproj.AssemblyReference.cache

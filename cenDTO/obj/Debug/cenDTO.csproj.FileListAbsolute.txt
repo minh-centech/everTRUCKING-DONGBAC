@@ -385,3 +385,4 @@ D:\everTRUCKING-DONGBAC\cenDTO\obj\Debug\cenDTO.csproj.AssemblyReference.cache
 D:\everTRUCKING-DONGBAC\cenDTO\obj\Debug\cenDTO.csproj.CoreCompileInputs.cache
 D:\everTRUCKING-DONGBAC\cenDTO\obj\Debug\cenDTO.dll
 D:\everTRUCKING-DONGBAC\cenDTO\obj\Debug\cenDTO.pdb
+D:\everTRUCKING-DONGBAC\cenDTO\obj\Debug\cenDTO.csproj.CopyComplete

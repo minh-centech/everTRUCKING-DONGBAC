@@ -79,7 +79,7 @@ namespace cenCommonUIapps.cenLogistics.Forms
             cboIDDanhMucHangTau.procedureName = DanhMucDoiTuong.listProcedureName;
             cboIDDanhMucHangTau.DataSource = dtHangTau;
             cboIDDanhMucHangTau.ValueMember = "ID";
-            cboIDDanhMucHangTau.DisplayMember = "Ten";
+            cboIDDanhMucHangTau.DisplayMember = "Ma";
             this.cboIDDanhMucHangTau.KeyDown += new System.Windows.Forms.KeyEventHandler(cenCommonUIapps.validDanhMuc.cboDanhMuc_KeyDown);
             //Hàng hóa
             DanhMucHangHoaBUS DanhMucHangHoaBUS = new DanhMucHangHoaBUS();
