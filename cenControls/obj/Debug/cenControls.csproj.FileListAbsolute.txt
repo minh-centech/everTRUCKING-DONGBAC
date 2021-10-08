@@ -646,3 +646,42 @@ D:\everTRUCKING-DONGBAC\cenControls\obj\Debug\cenControls.csproj.CoreCompileInpu
 D:\everTRUCKING-DONGBAC\cenControls\obj\Debug\cenControls.csproj.CopyComplete
 D:\everTRUCKING-DONGBAC\cenControls\obj\Debug\cenControls.dll
 D:\everTRUCKING-DONGBAC\cenControls\obj\Debug\cenControls.pdb
+C:\Users\Duong Pham\OneDrive\Desktop\DoAN\everTRUCKING-DONGBAC\cenControls\bin\Debug\cenControls.dll
+C:\Users\Duong Pham\OneDrive\Desktop\DoAN\everTRUCKING-DONGBAC\cenControls\bin\Debug\cenControls.pdb
+C:\Users\Duong Pham\OneDrive\Desktop\DoAN\everTRUCKING-DONGBAC\cenControls\bin\Debug\cenBUS.dll
+C:\Users\Duong Pham\OneDrive\Desktop\DoAN\everTRUCKING-DONGBAC\cenControls\bin\Debug\cenCommon.dll
+C:\Users\Duong Pham\OneDrive\Desktop\DoAN\everTRUCKING-DONGBAC\cenControls\bin\Debug\Infragistics4.Shared.v18.1.dll
+C:\Users\Duong Pham\OneDrive\Desktop\DoAN\everTRUCKING-DONGBAC\cenControls\bin\Debug\Infragistics4.Win.Misc.v18.1.dll
+C:\Users\Duong Pham\OneDrive\Desktop\DoAN\everTRUCKING-DONGBAC\cenControls\bin\Debug\Infragistics4.Win.UltraWinEditors.v18.1.dll
+C:\Users\Duong Pham\OneDrive\Desktop\DoAN\everTRUCKING-DONGBAC\cenControls\bin\Debug\Infragistics4.Win.UltraWinGrid.v18.1.dll
+C:\Users\Duong Pham\OneDrive\Desktop\DoAN\everTRUCKING-DONGBAC\cenControls\bin\Debug\Infragistics4.Win.v18.1.dll
+C:\Users\Duong Pham\OneDrive\Desktop\DoAN\everTRUCKING-DONGBAC\cenControls\bin\Debug\cenDAO.dll
+C:\Users\Duong Pham\OneDrive\Desktop\DoAN\everTRUCKING-DONGBAC\cenControls\bin\Debug\cenDTO.dll
+C:\Users\Duong Pham\OneDrive\Desktop\DoAN\everTRUCKING-DONGBAC\cenControls\bin\Debug\Infragistics4.Win.UltraWinGrid.ExcelExport.v18.1.dll
+C:\Users\Duong Pham\OneDrive\Desktop\DoAN\everTRUCKING-DONGBAC\cenControls\bin\Debug\Infragistics4.Documents.Excel.v18.1.dll
+C:\Users\Duong Pham\OneDrive\Desktop\DoAN\everTRUCKING-DONGBAC\cenControls\bin\Debug\Infragistics4.Documents.Core.v18.1.dll
+C:\Users\Duong Pham\OneDrive\Desktop\DoAN\everTRUCKING-DONGBAC\cenControls\bin\Debug\cenBUS.pdb
+C:\Users\Duong Pham\OneDrive\Desktop\DoAN\everTRUCKING-DONGBAC\cenControls\bin\Debug\cenCommon.pdb
+C:\Users\Duong Pham\OneDrive\Desktop\DoAN\everTRUCKING-DONGBAC\cenControls\bin\Debug\Infragistics4.Win.v18.1.xml
+C:\Users\Duong Pham\OneDrive\Desktop\DoAN\everTRUCKING-DONGBAC\cenControls\bin\Debug\Infragistics4.Win.UltraWinGrid.v18.1.xml
+C:\Users\Duong Pham\OneDrive\Desktop\DoAN\everTRUCKING-DONGBAC\cenControls\bin\Debug\Infragistics4.Win.UltraWinEditors.v18.1.xml
+C:\Users\Duong Pham\OneDrive\Desktop\DoAN\everTRUCKING-DONGBAC\cenControls\bin\Debug\Infragistics4.Win.Misc.v18.1.xml
+C:\Users\Duong Pham\OneDrive\Desktop\DoAN\everTRUCKING-DONGBAC\cenControls\bin\Debug\Infragistics4.Shared.v18.1.xml
+C:\Users\Duong Pham\OneDrive\Desktop\DoAN\everTRUCKING-DONGBAC\cenControls\bin\Debug\cenDAO.pdb
+C:\Users\Duong Pham\OneDrive\Desktop\DoAN\everTRUCKING-DONGBAC\cenControls\bin\Debug\cenDTO.pdb
+C:\Users\Duong Pham\OneDrive\Desktop\DoAN\everTRUCKING-DONGBAC\cenControls\bin\Debug\Infragistics4.Win.UltraWinGrid.ExcelExport.v18.1.xml
+C:\Users\Duong Pham\OneDrive\Desktop\DoAN\everTRUCKING-DONGBAC\cenControls\bin\Debug\Infragistics4.Documents.Excel.v18.1.xml
+C:\Users\Duong Pham\OneDrive\Desktop\DoAN\everTRUCKING-DONGBAC\cenControls\bin\Debug\Infragistics4.Documents.Core.v18.1.xml
+C:\Users\Duong Pham\OneDrive\Desktop\DoAN\everTRUCKING-DONGBAC\cenControls\obj\Debug\cenControls.csproj.AssemblyReference.cache
+C:\Users\Duong Pham\OneDrive\Desktop\DoAN\everTRUCKING-DONGBAC\cenControls\obj\Debug\cenControls.saCheckBox.resources
+C:\Users\Duong Pham\OneDrive\Desktop\DoAN\everTRUCKING-DONGBAC\cenControls\obj\Debug\cenControls.saDateTimeBox.resources
+C:\Users\Duong Pham\OneDrive\Desktop\DoAN\everTRUCKING-DONGBAC\cenControls\obj\Debug\cenControls.saNonUpdateGrid.resources
+C:\Users\Duong Pham\OneDrive\Desktop\DoAN\everTRUCKING-DONGBAC\cenControls\obj\Debug\cenControls.saNumericBox.resources
+C:\Users\Duong Pham\OneDrive\Desktop\DoAN\everTRUCKING-DONGBAC\cenControls\obj\Debug\cenControls.saTextBox.resources
+C:\Users\Duong Pham\OneDrive\Desktop\DoAN\everTRUCKING-DONGBAC\cenControls\obj\Debug\cenControls.saUpdateGrid.resources
+C:\Users\Duong Pham\OneDrive\Desktop\DoAN\everTRUCKING-DONGBAC\cenControls\obj\Debug\cenControls.csproj.GenerateResource.cache
+C:\Users\Duong Pham\OneDrive\Desktop\DoAN\everTRUCKING-DONGBAC\cenControls\obj\Debug\cenControls.dll.licenses
+C:\Users\Duong Pham\OneDrive\Desktop\DoAN\everTRUCKING-DONGBAC\cenControls\obj\Debug\cenControls.csproj.CoreCompileInputs.cache
+C:\Users\Duong Pham\OneDrive\Desktop\DoAN\everTRUCKING-DONGBAC\cenControls\obj\Debug\cenControls.csproj.CopyComplete
+C:\Users\Duong Pham\OneDrive\Desktop\DoAN\everTRUCKING-DONGBAC\cenControls\obj\Debug\cenControls.dll
+C:\Users\Duong Pham\OneDrive\Desktop\DoAN\everTRUCKING-DONGBAC\cenControls\obj\Debug\cenControls.pdb

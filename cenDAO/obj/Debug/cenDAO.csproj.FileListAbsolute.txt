@@ -467,3 +467,32 @@ D:\everTRUCKING-DONGBAC\cenDAO\obj\Debug\cenDAO.csproj.CoreCompileInputs.cache
 D:\everTRUCKING-DONGBAC\cenDAO\obj\Debug\cenDAO.csproj.CopyComplete
 D:\everTRUCKING-DONGBAC\cenDAO\obj\Debug\cenDAO.dll
 D:\everTRUCKING-DONGBAC\cenDAO\obj\Debug\cenDAO.pdb
+C:\Users\Duong Pham\OneDrive\Desktop\DoAN\everTRUCKING-DONGBAC\cenDAO\bin\Debug\cenDAO.dll
+C:\Users\Duong Pham\OneDrive\Desktop\DoAN\everTRUCKING-DONGBAC\cenDAO\bin\Debug\cenDAO.pdb
+C:\Users\Duong Pham\OneDrive\Desktop\DoAN\everTRUCKING-DONGBAC\cenDAO\bin\Debug\cenCommon.dll
+C:\Users\Duong Pham\OneDrive\Desktop\DoAN\everTRUCKING-DONGBAC\cenDAO\bin\Debug\cenDTO.dll
+C:\Users\Duong Pham\OneDrive\Desktop\DoAN\everTRUCKING-DONGBAC\cenDAO\bin\Debug\Newtonsoft.Json.dll
+C:\Users\Duong Pham\OneDrive\Desktop\DoAN\everTRUCKING-DONGBAC\cenDAO\bin\Debug\System.Net.Http.Formatting.dll
+C:\Users\Duong Pham\OneDrive\Desktop\DoAN\everTRUCKING-DONGBAC\cenDAO\bin\Debug\Infragistics4.Win.Misc.v18.1.dll
+C:\Users\Duong Pham\OneDrive\Desktop\DoAN\everTRUCKING-DONGBAC\cenDAO\bin\Debug\Infragistics4.Win.UltraWinGrid.v18.1.dll
+C:\Users\Duong Pham\OneDrive\Desktop\DoAN\everTRUCKING-DONGBAC\cenDAO\bin\Debug\Infragistics4.Win.UltraWinGrid.ExcelExport.v18.1.dll
+C:\Users\Duong Pham\OneDrive\Desktop\DoAN\everTRUCKING-DONGBAC\cenDAO\bin\Debug\Infragistics4.Win.v18.1.dll
+C:\Users\Duong Pham\OneDrive\Desktop\DoAN\everTRUCKING-DONGBAC\cenDAO\bin\Debug\Infragistics4.Shared.v18.1.dll
+C:\Users\Duong Pham\OneDrive\Desktop\DoAN\everTRUCKING-DONGBAC\cenDAO\bin\Debug\Infragistics4.Documents.Excel.v18.1.dll
+C:\Users\Duong Pham\OneDrive\Desktop\DoAN\everTRUCKING-DONGBAC\cenDAO\bin\Debug\Infragistics4.Documents.Core.v18.1.dll
+C:\Users\Duong Pham\OneDrive\Desktop\DoAN\everTRUCKING-DONGBAC\cenDAO\bin\Debug\cenCommon.pdb
+C:\Users\Duong Pham\OneDrive\Desktop\DoAN\everTRUCKING-DONGBAC\cenDAO\bin\Debug\cenDTO.pdb
+C:\Users\Duong Pham\OneDrive\Desktop\DoAN\everTRUCKING-DONGBAC\cenDAO\bin\Debug\Newtonsoft.Json.xml
+C:\Users\Duong Pham\OneDrive\Desktop\DoAN\everTRUCKING-DONGBAC\cenDAO\bin\Debug\System.Net.Http.Formatting.xml
+C:\Users\Duong Pham\OneDrive\Desktop\DoAN\everTRUCKING-DONGBAC\cenDAO\bin\Debug\Infragistics4.Win.Misc.v18.1.xml
+C:\Users\Duong Pham\OneDrive\Desktop\DoAN\everTRUCKING-DONGBAC\cenDAO\bin\Debug\Infragistics4.Win.UltraWinGrid.v18.1.xml
+C:\Users\Duong Pham\OneDrive\Desktop\DoAN\everTRUCKING-DONGBAC\cenDAO\bin\Debug\Infragistics4.Win.UltraWinGrid.ExcelExport.v18.1.xml
+C:\Users\Duong Pham\OneDrive\Desktop\DoAN\everTRUCKING-DONGBAC\cenDAO\bin\Debug\Infragistics4.Win.v18.1.xml
+C:\Users\Duong Pham\OneDrive\Desktop\DoAN\everTRUCKING-DONGBAC\cenDAO\bin\Debug\Infragistics4.Shared.v18.1.xml
+C:\Users\Duong Pham\OneDrive\Desktop\DoAN\everTRUCKING-DONGBAC\cenDAO\bin\Debug\Infragistics4.Documents.Excel.v18.1.xml
+C:\Users\Duong Pham\OneDrive\Desktop\DoAN\everTRUCKING-DONGBAC\cenDAO\bin\Debug\Infragistics4.Documents.Core.v18.1.xml
+C:\Users\Duong Pham\OneDrive\Desktop\DoAN\everTRUCKING-DONGBAC\cenDAO\obj\Debug\cenDAO.csproj.AssemblyReference.cache
+C:\Users\Duong Pham\OneDrive\Desktop\DoAN\everTRUCKING-DONGBAC\cenDAO\obj\Debug\cenDAO.csproj.CoreCompileInputs.cache
+C:\Users\Duong Pham\OneDrive\Desktop\DoAN\everTRUCKING-DONGBAC\cenDAO\obj\Debug\cenDAO.csproj.CopyComplete
+C:\Users\Duong Pham\OneDrive\Desktop\DoAN\everTRUCKING-DONGBAC\cenDAO\obj\Debug\cenDAO.dll
+C:\Users\Duong Pham\OneDrive\Desktop\DoAN\everTRUCKING-DONGBAC\cenDAO\obj\Debug\cenDAO.pdb

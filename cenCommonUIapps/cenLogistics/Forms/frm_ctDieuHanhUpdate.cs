@@ -27,7 +27,7 @@ namespace cenCommonUIapps.cenLogistics.Forms
         {
             //if (!cenCommon.cenCommon.IsNull(ctDonHangBUS.GetIDctChotDoanhThuGuiKeToan(IDctDonHang))) { cenCommon.cenCommon.ErrorMessageOkOnly("Đơn hàng đã chốt doanh thu, không sửa được thông tin điều hành!"); return false; }
             //if (cenCommon.cenCommon.IsNull(cboIDDanhMucThauPhu.Value) || !cboIDDanhMucThauPhu.IsItemInList()) { cenCommon.cenCommon.ErrorMessageOkOnly("Thiếu mã chủ xe!"); cboIDDanhMucThauPhu.Focus(); return false; }
-            if (!cenCommon.cenCommon.IsNull(cboIDDanhMucXe.Value) || !cboIDDanhMucXe.IsItemInList()) { cenCommon.cenCommon.ErrorMessageOkOnly("Số xe chưa được khai báo!"); cboIDDanhMucXe.Focus(); return false; }
+            if (!cenCommon.cenCommon.IsNull(cboIDDanhMucXe.Value) && !cboIDDanhMucXe.IsItemInList()) { cenCommon.cenCommon.ErrorMessageOkOnly("Số xe chưa được khai báo!"); cboIDDanhMucXe.Focus(); return false; }
             //if (cenCommon.cenCommon.IsNull(cboIDDanhMucTaiXe.Value) || !cboIDDanhMucTaiXe.IsItemInList()) { cenCommon.cenCommon.ErrorMessageOkOnly("Thiếu tên tài xế!"); cboIDDanhMucTaiXe.Focus(); return false; }
 
             if (CapNhat == cenCommon.ThaoTacDuLieu.Them || CapNhat == cenCommon.ThaoTacDuLieu.Copy)
