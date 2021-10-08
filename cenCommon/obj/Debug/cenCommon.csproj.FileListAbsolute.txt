@@ -426,3 +426,31 @@ D:\everTRUCKING-DONGBAC\cenCommon\obj\Debug\cenCommon.csproj.CoreCompileInputs.c
 D:\everTRUCKING-DONGBAC\cenCommon\obj\Debug\cenCommon.csproj.CopyComplete
 D:\everTRUCKING-DONGBAC\cenCommon\obj\Debug\cenCommon.dll
 D:\everTRUCKING-DONGBAC\cenCommon\obj\Debug\cenCommon.pdb
+C:\Users\Duong Pham\OneDrive\Desktop\DoAN\everTRUCKING-DONGBAC\cenCommon\bin\Debug\cenCommon.dll
+C:\Users\Duong Pham\OneDrive\Desktop\DoAN\everTRUCKING-DONGBAC\cenCommon\bin\Debug\cenCommon.pdb
+C:\Users\Duong Pham\OneDrive\Desktop\DoAN\everTRUCKING-DONGBAC\cenCommon\bin\Debug\Infragistics4.Documents.Core.v18.1.dll
+C:\Users\Duong Pham\OneDrive\Desktop\DoAN\everTRUCKING-DONGBAC\cenCommon\bin\Debug\Infragistics4.Documents.Excel.v18.1.dll
+C:\Users\Duong Pham\OneDrive\Desktop\DoAN\everTRUCKING-DONGBAC\cenCommon\bin\Debug\Infragistics4.Shared.v18.1.dll
+C:\Users\Duong Pham\OneDrive\Desktop\DoAN\everTRUCKING-DONGBAC\cenCommon\bin\Debug\Infragistics4.Win.Misc.v18.1.dll
+C:\Users\Duong Pham\OneDrive\Desktop\DoAN\everTRUCKING-DONGBAC\cenCommon\bin\Debug\Infragistics4.Win.UltraWinEditors.v18.1.dll
+C:\Users\Duong Pham\OneDrive\Desktop\DoAN\everTRUCKING-DONGBAC\cenCommon\bin\Debug\Infragistics4.Win.UltraWinGrid.ExcelExport.v18.1.dll
+C:\Users\Duong Pham\OneDrive\Desktop\DoAN\everTRUCKING-DONGBAC\cenCommon\bin\Debug\Infragistics4.Win.UltraWinGrid.v18.1.dll
+C:\Users\Duong Pham\OneDrive\Desktop\DoAN\everTRUCKING-DONGBAC\cenCommon\bin\Debug\Infragistics4.Win.UltraWinToolbars.v18.1.dll
+C:\Users\Duong Pham\OneDrive\Desktop\DoAN\everTRUCKING-DONGBAC\cenCommon\bin\Debug\Infragistics4.Win.v18.1.dll
+C:\Users\Duong Pham\OneDrive\Desktop\DoAN\everTRUCKING-DONGBAC\cenCommon\bin\Debug\Infragistics4.Win.UltraWinTabControl.v18.1.dll
+C:\Users\Duong Pham\OneDrive\Desktop\DoAN\everTRUCKING-DONGBAC\cenCommon\bin\Debug\Infragistics4.Win.UltraWinStatusBar.v18.1.dll
+C:\Users\Duong Pham\OneDrive\Desktop\DoAN\everTRUCKING-DONGBAC\cenCommon\bin\Debug\Infragistics4.Documents.Excel.v18.1.xml
+C:\Users\Duong Pham\OneDrive\Desktop\DoAN\everTRUCKING-DONGBAC\cenCommon\bin\Debug\Infragistics4.Shared.v18.1.xml
+C:\Users\Duong Pham\OneDrive\Desktop\DoAN\everTRUCKING-DONGBAC\cenCommon\bin\Debug\Infragistics4.Win.Misc.v18.1.xml
+C:\Users\Duong Pham\OneDrive\Desktop\DoAN\everTRUCKING-DONGBAC\cenCommon\bin\Debug\Infragistics4.Win.UltraWinEditors.v18.1.xml
+C:\Users\Duong Pham\OneDrive\Desktop\DoAN\everTRUCKING-DONGBAC\cenCommon\bin\Debug\Infragistics4.Win.UltraWinGrid.ExcelExport.v18.1.xml
+C:\Users\Duong Pham\OneDrive\Desktop\DoAN\everTRUCKING-DONGBAC\cenCommon\bin\Debug\Infragistics4.Win.UltraWinGrid.v18.1.xml
+C:\Users\Duong Pham\OneDrive\Desktop\DoAN\everTRUCKING-DONGBAC\cenCommon\bin\Debug\Infragistics4.Win.UltraWinToolbars.v18.1.xml
+C:\Users\Duong Pham\OneDrive\Desktop\DoAN\everTRUCKING-DONGBAC\cenCommon\bin\Debug\Infragistics4.Win.v18.1.xml
+C:\Users\Duong Pham\OneDrive\Desktop\DoAN\everTRUCKING-DONGBAC\cenCommon\bin\Debug\Infragistics4.Documents.Core.v18.1.xml
+C:\Users\Duong Pham\OneDrive\Desktop\DoAN\everTRUCKING-DONGBAC\cenCommon\bin\Debug\Infragistics4.Win.UltraWinTabControl.v18.1.xml
+C:\Users\Duong Pham\OneDrive\Desktop\DoAN\everTRUCKING-DONGBAC\cenCommon\bin\Debug\Infragistics4.Win.UltraWinStatusBar.v18.1.xml
+C:\Users\Duong Pham\OneDrive\Desktop\DoAN\everTRUCKING-DONGBAC\cenCommon\obj\Debug\cenCommon.csproj.CoreCompileInputs.cache
+C:\Users\Duong Pham\OneDrive\Desktop\DoAN\everTRUCKING-DONGBAC\cenCommon\obj\Debug\cenCommon.csproj.CopyComplete
+C:\Users\Duong Pham\OneDrive\Desktop\DoAN\everTRUCKING-DONGBAC\cenCommon\obj\Debug\cenCommon.dll
+C:\Users\Duong Pham\OneDrive\Desktop\DoAN\everTRUCKING-DONGBAC\cenCommon\obj\Debug\cenCommon.pdb

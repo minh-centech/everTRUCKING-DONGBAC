@@ -385,3 +385,26 @@ D:\everTRUCKING-DONGBAC\cenDTO\obj\Debug\cenDTO.csproj.AssemblyReference.cache
 D:\everTRUCKING-DONGBAC\cenDTO\obj\Debug\cenDTO.csproj.CoreCompileInputs.cache
 D:\everTRUCKING-DONGBAC\cenDTO\obj\Debug\cenDTO.dll
 D:\everTRUCKING-DONGBAC\cenDTO\obj\Debug\cenDTO.pdb
+C:\Users\Duong Pham\OneDrive\Desktop\DoAN\everTRUCKING-DONGBAC\cenDTO\bin\Debug\cenDTO.dll
+C:\Users\Duong Pham\OneDrive\Desktop\DoAN\everTRUCKING-DONGBAC\cenDTO\bin\Debug\cenDTO.pdb
+C:\Users\Duong Pham\OneDrive\Desktop\DoAN\everTRUCKING-DONGBAC\cenDTO\bin\Debug\cenCommon.dll
+C:\Users\Duong Pham\OneDrive\Desktop\DoAN\everTRUCKING-DONGBAC\cenDTO\bin\Debug\Infragistics4.Win.Misc.v18.1.dll
+C:\Users\Duong Pham\OneDrive\Desktop\DoAN\everTRUCKING-DONGBAC\cenDTO\bin\Debug\Infragistics4.Win.UltraWinGrid.v18.1.dll
+C:\Users\Duong Pham\OneDrive\Desktop\DoAN\everTRUCKING-DONGBAC\cenDTO\bin\Debug\Infragistics4.Win.UltraWinGrid.ExcelExport.v18.1.dll
+C:\Users\Duong Pham\OneDrive\Desktop\DoAN\everTRUCKING-DONGBAC\cenDTO\bin\Debug\Infragistics4.Win.v18.1.dll
+C:\Users\Duong Pham\OneDrive\Desktop\DoAN\everTRUCKING-DONGBAC\cenDTO\bin\Debug\Infragistics4.Shared.v18.1.dll
+C:\Users\Duong Pham\OneDrive\Desktop\DoAN\everTRUCKING-DONGBAC\cenDTO\bin\Debug\Infragistics4.Documents.Excel.v18.1.dll
+C:\Users\Duong Pham\OneDrive\Desktop\DoAN\everTRUCKING-DONGBAC\cenDTO\bin\Debug\Infragistics4.Documents.Core.v18.1.dll
+C:\Users\Duong Pham\OneDrive\Desktop\DoAN\everTRUCKING-DONGBAC\cenDTO\bin\Debug\cenCommon.pdb
+C:\Users\Duong Pham\OneDrive\Desktop\DoAN\everTRUCKING-DONGBAC\cenDTO\bin\Debug\Infragistics4.Win.Misc.v18.1.xml
+C:\Users\Duong Pham\OneDrive\Desktop\DoAN\everTRUCKING-DONGBAC\cenDTO\bin\Debug\Infragistics4.Win.UltraWinGrid.v18.1.xml
+C:\Users\Duong Pham\OneDrive\Desktop\DoAN\everTRUCKING-DONGBAC\cenDTO\bin\Debug\Infragistics4.Win.UltraWinGrid.ExcelExport.v18.1.xml
+C:\Users\Duong Pham\OneDrive\Desktop\DoAN\everTRUCKING-DONGBAC\cenDTO\bin\Debug\Infragistics4.Win.v18.1.xml
+C:\Users\Duong Pham\OneDrive\Desktop\DoAN\everTRUCKING-DONGBAC\cenDTO\bin\Debug\Infragistics4.Shared.v18.1.xml
+C:\Users\Duong Pham\OneDrive\Desktop\DoAN\everTRUCKING-DONGBAC\cenDTO\bin\Debug\Infragistics4.Documents.Excel.v18.1.xml
+C:\Users\Duong Pham\OneDrive\Desktop\DoAN\everTRUCKING-DONGBAC\cenDTO\bin\Debug\Infragistics4.Documents.Core.v18.1.xml
+C:\Users\Duong Pham\OneDrive\Desktop\DoAN\everTRUCKING-DONGBAC\cenDTO\obj\Debug\cenDTO.csproj.AssemblyReference.cache
+C:\Users\Duong Pham\OneDrive\Desktop\DoAN\everTRUCKING-DONGBAC\cenDTO\obj\Debug\cenDTO.csproj.CoreCompileInputs.cache
+C:\Users\Duong Pham\OneDrive\Desktop\DoAN\everTRUCKING-DONGBAC\cenDTO\obj\Debug\cenDTO.csproj.CopyComplete
+C:\Users\Duong Pham\OneDrive\Desktop\DoAN\everTRUCKING-DONGBAC\cenDTO\obj\Debug\cenDTO.dll
+C:\Users\Duong Pham\OneDrive\Desktop\DoAN\everTRUCKING-DONGBAC\cenDTO\obj\Debug\cenDTO.pdb
