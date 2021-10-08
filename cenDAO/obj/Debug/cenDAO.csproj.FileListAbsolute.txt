@@ -464,7 +464,6 @@ D:\everTRUCKING-DONGBAC\cenDAO\bin\Debug\Infragistics4.Documents.Excel.v18.1.xml
 D:\everTRUCKING-DONGBAC\cenDAO\bin\Debug\Infragistics4.Documents.Core.v18.1.xml
 D:\everTRUCKING-DONGBAC\cenDAO\obj\Debug\cenDAO.csproj.AssemblyReference.cache
 D:\everTRUCKING-DONGBAC\cenDAO\obj\Debug\cenDAO.csproj.CoreCompileInputs.cache
-D:\everTRUCKING-DONGBAC\cenDAO\obj\Debug\cenDAO.csproj.CopyComplete
 D:\everTRUCKING-DONGBAC\cenDAO\obj\Debug\cenDAO.dll
 D:\everTRUCKING-DONGBAC\cenDAO\obj\Debug\cenDAO.pdb
 C:\Users\Duong Pham\OneDrive\Desktop\DoAN\everTRUCKING-DONGBAC\cenDAO\bin\Debug\cenDAO.dll

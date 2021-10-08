@@ -58,10 +58,18 @@ namespace cenBUS.cenLogistics
                 return false;
             }
         }
-        public static void GetSoTien(object IDChungTu, object IDDanhMucTuyenVanTai, object IDDanhMucXe, object LoaiTacNghiep, object SoLuongNhienLieu, object SoTienVeCauDuong, object SoTienLuatAnCa, object SoTienKetHopVeCauDuongLuatAnCa, object SoTienLuuCaKhac, object SoTienLuatDuongCam, object SoTienTongLuuCaKhacLuatDuongCam, object SoTienLuongChuyen)
+        public static void GetSoTien(object IDChungTu, object IDDanhMucTuyenVanTai, object IDDanhMucXe, object LoaiTacNghiep, out object SoLuongNhienLieu, out object SoTienVeCauDuong, out object SoTienLuatAnCa, out object SoTienKetHopVeCauDuongLuatAnCa, out object SoTienLuuCaKhac, out object SoTienLuatDuongCam, out object SoTienTongLuuCaKhacLuatDuongCam, out object SoTienLuongChuyen)
         {
+            SoLuongNhienLieu = null;
+            SoTienVeCauDuong = null;
+            SoTienLuatAnCa = null;
+            SoTienKetHopVeCauDuongLuatAnCa = null;
+            SoTienLuuCaKhac = null;
+            SoTienLuatDuongCam = null;
+            SoTienTongLuuCaKhacLuatDuongCam = null;
+            SoTienLuongChuyen = null;
             DanhMucDinhMucChiPhiDAO dao = new DanhMucDinhMucChiPhiDAO();
-            dao.GetSoTien(IDChungTu, IDDanhMucTuyenVanTai, IDDanhMucXe, LoaiTacNghiep, SoLuongNhienLieu, SoTienVeCauDuong, SoTienLuatAnCa, SoTienKetHopVeCauDuongLuatAnCa, SoTienLuuCaKhac, SoTienLuatDuongCam, SoTienTongLuuCaKhacLuatDuongCam, SoTienLuongChuyen);
+            dao.GetSoTien(IDChungTu, IDDanhMucTuyenVanTai, IDDanhMucXe, LoaiTacNghiep, out SoLuongNhienLieu, out SoTienVeCauDuong, out SoTienLuatAnCa, out SoTienKetHopVeCauDuongLuatAnCa, out SoTienLuuCaKhac, out SoTienLuatDuongCam, out SoTienTongLuuCaKhacLuatDuongCam, out SoTienLuongChuyen);
         }
     }
     public class DanhMucDinhMucChiPhiXeBUS

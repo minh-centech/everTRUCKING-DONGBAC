@@ -177,7 +177,7 @@ namespace cenCommonUIapps.cenLogistics.Forms
         private void cmdLayDinhMucChiPhi_Click(object sender, EventArgs e)
         {
             object SoLuongNhienLieu = null, SoTienVeCauDuong = null, SoTienLuatAnCa = null, SoTienKetHopVeCauDuongLuatAnCa = null, SoTienLuuCaKhac = null, SoTienLuatDuongCam = null, SoTienTongLuuCaKhacLuatDuongCam = null, SoTienLuongChuyen = null;
-            DanhMucDinhMucChiPhiBUS.GetSoTien(dataRow["ID"], dataRow["IDDanhMucTuyenVanTai"], dataRow["IDDanhMucXe"], dataRow["TrangThaiDonHang"],SoLuongNhienLieu, SoTienVeCauDuong, SoTienLuatAnCa, SoTienKetHopVeCauDuongLuatAnCa, SoTienLuuCaKhac, SoTienLuatDuongCam, SoTienTongLuuCaKhacLuatDuongCam, SoTienLuongChuyen);
+            DanhMucDinhMucChiPhiBUS.GetSoTien(dataRow["ID"], dataRow["IDDanhMucTuyenVanTai"], dataRow["IDDanhMucXe"], dataRow["TrangThaiDonHang"], out SoLuongNhienLieu, out SoTienVeCauDuong, out SoTienLuatAnCa, out SoTienKetHopVeCauDuongLuatAnCa, out SoTienLuuCaKhac, out SoTienLuatDuongCam, out  SoTienTongLuuCaKhacLuatDuongCam, out SoTienLuongChuyen);
             txtSoLuongNhienLieu.Value = SoLuongNhienLieu;
             txtSoTienVeCauDuong.Value = SoTienVeCauDuong;
             txtSoTienLuatAnCa.Value = SoTienLuatAnCa;

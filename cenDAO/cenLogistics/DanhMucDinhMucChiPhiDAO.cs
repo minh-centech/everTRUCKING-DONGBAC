@@ -185,8 +185,16 @@ namespace cenDAO.cenLogistics
             }
         }
 
-        public void GetSoTien(object IDChungTu, object IDDanhMucTuyenVanTai, object IDDanhMucXe, object LoaiTacNghiep, object SoLuongNhienLieu, object SoTienVeCauDuong, object SoTienLuatAnCa, object SoTienKetHopVeCauDuongLuatAnCa, object SoTienLuuCaKhac, object SoTienLuatDuongCam, object SoTienTongLuuCaKhacLuatDuongCam, object SoTienLuongChuyen)
+        public void GetSoTien(object IDChungTu, object IDDanhMucTuyenVanTai, object IDDanhMucXe, object LoaiTacNghiep, out object SoLuongNhienLieu, out object SoTienVeCauDuong, out object SoTienLuatAnCa, out object SoTienKetHopVeCauDuongLuatAnCa, out object SoTienLuuCaKhac, out object SoTienLuatDuongCam, out object SoTienTongLuuCaKhacLuatDuongCam, out object SoTienLuongChuyen)
         {
+            SoLuongNhienLieu = null;
+            SoTienVeCauDuong = null;
+            SoTienLuatAnCa = null;
+            SoTienKetHopVeCauDuongLuatAnCa = null;
+            SoTienLuuCaKhac = null;
+            SoTienLuatDuongCam = null;
+            SoTienTongLuuCaKhacLuatDuongCam = null;
+            SoTienLuongChuyen = null;
             try
             {
                 using (SqlConnection sqlConnection = new SqlConnection(cenCommon.GlobalVariables.ConnectionString))
