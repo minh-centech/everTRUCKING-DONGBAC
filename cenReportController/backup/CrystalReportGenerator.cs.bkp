@@ -1,0 +1,1256 @@
+﻿using System;
+using System.IO;
+using System.Collections.Generic;
+using System.ComponentModel;
+using System.Data;
+using System.Data.SqlClient;
+using System.Drawing;
+using System.Linq;
+using System.Text;
+using System.Windows.Forms;
+using CrystalDecisions.Windows.Forms;
+using CrystalDecisions.CrystalReports;
+using CrystalDecisions.CrystalReports.Engine;
+using CrystalDecisions.ReportAppServer.ReportDefModel;
+using CrystalDecisions.ReportAppServer.DataDefModel;
+using CrystalDecisions.ReportAppServer.ClientDoc;
+using CrystalDecisions.ReportAppServer.DataSetConversion;
+using CrystalDecisions.ReportSource;
+using CrystalDecisions.Shared;
+using Infragistics.Win.Misc;
+using cenCommon;
+
+namespace cenReportController
+{
+    public class CrystalReportGenerator
+    {
+        //Cấu trúc báo cáo
+        public DataTable dtBaoCaoCot = null;
+        public DataTable rptCauTruc = new DataTable(); //Bảng mô tả cấu trúc
+        //XMLSchema, Tên bảng chứa dữ liệu và DataSet
+        public String xsd_path = "";
+        public String DataTableName = "";
+        //Chuỗi hiển thị tham số của Report trên PageHeader
+        public String ThamSoReport = "";
+        //DataSet chứa dữ liệu
+        System.Data.DataSet dsData = new System.Data.DataSet();
+        //Danh sách tên file báo cáo được sinh ra theo dạng Guid.rpt
+        public String ReportFileName = "";
+        //Section
+        CrystalDecisions.ReportAppServer.ReportDefModel.Section InfoSection = new CrystalDecisions.ReportAppServer.ReportDefModel.Section();
+        CrystalDecisions.ReportAppServer.ReportDefModel.Section ReportHeaderSection = new CrystalDecisions.ReportAppServer.ReportDefModel.Section();
+        CrystalDecisions.ReportAppServer.ReportDefModel.Section PageHeaderSection = new CrystalDecisions.ReportAppServer.ReportDefModel.Section();
+        CrystalDecisions.ReportAppServer.ReportDefModel.Section DetailSection = new CrystalDecisions.ReportAppServer.ReportDefModel.Section();
+        readonly CrystalDecisions.ReportAppServer.ReportDefModel.Section PageFooterSection = new CrystalDecisions.ReportAppServer.ReportDefModel.Section();
+        readonly CrystalDecisions.ReportAppServer.ReportDefModel.Section ReportFooterSection = new CrystalDecisions.ReportAppServer.ReportDefModel.Section();
+        //Report Info
+        public String IDBaoCao = "";
+        public String FixedColumnList = "";
+        public String TenBaoCao = "BẢNG CÂN ĐỐI KẾ TOÁN";
+        public String TieuDe = "BẢNG CÂN ĐỐI KẾ TOÁN";
+        public Int16 CanLeTieuDe = 1; //Căn lề tiêu đề 0-trái 1-giữa 2-phải
+        public String FontTieuDe = "Times New Roman";
+        public Int16 SizeTieuDe = 14;
+        public Boolean BoldTieuDe = true;
+
+        public String MauBaoCao = "";
+        public String QuyetDinh = "";
+        public String FontMauBaoCao = "Times New Roman";
+        public Int16 SizeMauBaoCao = 10;
+        //Company Info
+        public Boolean CompanyInfoSection = false; //Khu vực đặt thông tin đơn vị: false-Report Header, true:Page Header nếu muốn in lặp lại theo từng trang
+        String LogoFilePath = ""; //Đường dẫn file logo
+        public Byte[] LogoImage = null; //Logo
+        public Double LogoWidth = 1.5; //Chiều cao logo theo cm
+        public Double LogoHeight = 1.5;//Chiểu cao logo theo cm
+        public Int16 CanLeLogo = 1; //Căn lề logo: 0-trái, 1: giữa, 2: phải
+        public String TenDonViCapTren = "Sở Kế hoạch và đầu tư TP Hà Nội";
+        public String TenDonVi = "Công ty TNHH Giải pháp phần mềm ABC";
+        public String DiaChi = "Trung Yên, Trung Hòa, Cầu Giấy, Hà Nội";
+        public String MaSoThue = "0200123456";
+        public String FontThongTin = "Times New Roman";
+        public Int16 SizeThongTin = 10;
+        public Boolean BoldThongTin = true;
+        public Int16 CanLeThongTin = 4; //Căn lề thông tin đơn vị: 0-trái, 1: giữa, 2: phải, 3: căn theo logo
+        //Column Header Info
+        public String FontHeader = "Times New Roman";
+        public Int16 SizeHeader = 12;
+        public Boolean BoldHeader = true;
+
+        //Detail Infor
+        public String FontDetail = "Times New Roman";
+        public Int16 SizeDetail = 12;
+        //Page Footer Info
+        public Boolean InNgayHienTai = true;
+        public DateTime NgayIn = DateTime.Now;
+        public String FontFooter = "Times New Roman";
+        public Int16 SizeFooter = 10;
+        public Boolean BoldFooter = true;
+        public Int16 CanLeSoTrang = 2; //Căn lề số trang 0:Trái, 1: Giữa, 2: Phải
+        //Report Footer Info
+        public Boolean ViTriChuKy = true; //Vị trí chữ ký true: Part đầu tiên, false: part cuối cùng
+        public String NgayThangKy = "";
+        public String ChucVuNguoiKy = "Người lập;Kế toán;Thủ trưởng đơn vị"; //Chức vụ người ký cách nhau bởi dấu ; (VD: Người lập; Thủ kho; Thủ quỹ; Kế Toán; Thủ trưởng đơn vị)
+        public String FontChucVuNguoiKy = "Times New Roman";
+        public Int16 SizeChucVuNguoiKy = 10;
+        public Boolean BoldChucVuNguoiKy = true;
+        public String NoiDungKy = "(Ký, ghi rõ họ tên);(Ký, ghi rõ họ tên);(Ký tên, đóng dấu)"; //Nội dung chữ ký, cách nhau bởi dấu ; (VD: Ký, ghi rõ họ tên; Ký tên, đóng dấu), theo thứ tự chức vụ người ký
+        public String FontNoiDungKy = "Times New Roman";
+        public Int16 SizeNoiDungKy = 10;
+        public Boolean BoldNoiDungKy = true;
+        public String TenNguoiKy = ""; //Tên người ký, cách nhau bởi dấu ;, theo thứ tự chức vụ người ký
+        public String FontTenNguoiKy = "Times New Roman";
+        public Int16 SizeTenNguoiKy = 10;
+        public Boolean BoldTenNguoiKy = true;
+        public Int16 ChieuCaoChuKy = 3; //Chiều cao ô chữ ký tính theo cm;
+        //Page Setup Info
+        public String PaperSize = "A4";//Kích thước giấy : A3, A4, A5
+        public Boolean PaperOrientation = true; //Chiểu in: false-dọc, true-ngang
+        public Double TopMargin = 1;//Lề trên, tính theo cm
+        public Double LeftMargin = 1.5; //Lề trái, tính theo cm
+        public Double RightMargin = 1; //Lề phải, tính theo cm
+        public Double BottomMargin = 1; //Lề dưới, tính theo cm
+        public Int32 NumOfCol = 0; //Số cột cần hiển thị
+        public Int32 BaseLineHeight = 256;
+        //Màu nền column header và detail bold
+        public Color MauColumnHeader = Color.White;
+        public Color MauDetailBold = Color.White;
+        //Int32 ReportTitleTop = 1000; //Tọa độ Top của tiêu để
+        //Lấy dữ liệu báo cáo từ XMLSchema
+        private Boolean GetReportDataSet()
+        {
+            Boolean CoDuLieu = false;
+            dsData = new System.Data.DataSet();
+            if (xsd_path != "")
+            {
+                dsData.ReadXml(xsd_path);
+                if (dsData.Tables.Count > 0)
+                {
+                    DataTableName = dsData.Tables[0].TableName;
+                    CoDuLieu = true;
+                }
+            }
+            return CoDuLieu;
+        }
+        //Lấy cấu trúc báo cáo
+        private Boolean GetReportColumn()
+        {
+            Boolean HasColumns = false;
+
+            rptCauTruc = new DataTable();
+            DataColumn dcTenCot = rptCauTruc.Columns.Add("TenCot", typeof(String));
+            DataColumn dcTieuDeCot = rptCauTruc.Columns.Add("TieuDeCot", typeof(String));
+            DataColumn dcTenNhomCot = rptCauTruc.Columns.Add("TenNhomCot", typeof(String));
+            DataColumn dcLoaiCot = rptCauTruc.Columns.Add("LoaiCot", typeof(Boolean));
+            DataColumn dccWidth = rptCauTruc.Columns.Add("cWidth", typeof(float));
+            DataColumn dccHeight = rptCauTruc.Columns.Add("cHeight", typeof(float));
+            rptCauTruc.AcceptChanges();
+            Int16 indexCot = 0;
+            foreach (DataRow drBaoCaoCot in dtBaoCaoCot.Rows)
+            {
+                //Xử lý tên các cột loại khác
+                if (dsData.Tables.Count > 0 && dsData.Tables[0].Columns.Contains(drBaoCaoCot["Ten"].ToString().Trim()))
+                {
+                    String iCotBaoCao = drBaoCaoCot["Ten"].ToString().Trim();
+                    if (!iCotBaoCao.StartsWith("ID") && iCotBaoCao != "rBold" && iCotBaoCao != "RowID")
+                    {
+                        DataRow drCot = rptCauTruc.NewRow();
+                        drCot["TenCot"] = iCotBaoCao.Trim();
+                        drCot["cWidth"] = (drBaoCaoCot["DoRong"] == DBNull.Value) ? 1 : drBaoCaoCot["DoRong"];//Mặc định bằng 1
+                        drCot["TieuDeCot"] = drBaoCaoCot["TieuDe"].ToString();
+                        drCot["TenNhomCot"] = drBaoCaoCot["Nhom"].ToString();
+                        drCot["cHeight"] = (drBaoCaoCot["ChieuCaoTieuDe"] == DBNull.Value) ? 1 : drBaoCaoCot["ChieuCaoTieuDe"];
+                        drCot["LoaiCot"] = false;
+                        rptCauTruc.Rows.Add(drCot);
+                    }
+                }
+                indexCot += 1;
+            }
+            rptCauTruc.AcceptChanges();
+            HasColumns = true;
+
+            foreach (DataRow drCauTruc in rptCauTruc.Rows)
+            {
+                //Tên cột i không liên quan tới ngoại tệ
+                //MessageBox.Show(drCauTruc["TenCot"].ToString());
+                if (drCauTruc["TenCot"].ToString().ToUpper().EndsWith("[I]") & !drCauTruc["TenCot"].ToString().ToUpper().EndsWith("NT[I]"))
+                {
+                    foreach (DataColumn dc in dsData.Tables[0].Columns)
+                    {
+                        if (dc.ColumnName.ToUpper().StartsWith(drCauTruc["TenCot"].ToString().ToUpper().Substring(0, drCauTruc["TenCot"].ToString().Length - 3)) && dc.ColumnName.ToUpper().Substring(0, drCauTruc["TenCot"].ToString().Length - 3) == drCauTruc["TenCot"].ToString().ToUpper().Substring(0, drCauTruc["TenCot"].ToString().Length - 3) && !dc.ColumnName.ToUpper().Contains("NT"))
+                        {
+                            DataRow drCotI = rptCauTruc.NewRow();
+                            drCotI["TenCot"] = dc.ColumnName;
+                            drCotI["TieuDeCot"] = drCauTruc["TieuDeCot"] + " " + dc.ColumnName.Substring(drCauTruc["TenCot"].ToString().Length - 3);
+                            drCotI["TenNhomCot"] = drCauTruc["TenNhomCot"];
+                            drCotI["LoaiCot"] = false;
+                            drCotI["SttCot"] = drCauTruc["SttCot"];
+                            drCotI["TongCong"] = false;
+                            drCotI["cWidth"] = drCauTruc["cWidth"];
+                            rptCauTruc.Rows.Add(drCotI);
+                        }
+                    }
+                }
+            }
+            rptCauTruc.AcceptChanges();
+            //Xóa hết tên cột [I]
+            foreach (DataRow drCauTruc in rptCauTruc.Rows)
+            {
+                if (drCauTruc["TenCot"].ToString().ToUpper().EndsWith("[I]"))
+                {
+                    drCauTruc.Delete();
+                }
+            }
+            rptCauTruc.AcceptChanges();
+            //Thêm 1 số cột để tính toán
+            if (HasColumns)
+            {
+                DataColumn ColWidth;
+                if (!rptCauTruc.Columns.Contains("Width"))
+                    ColWidth = rptCauTruc.Columns.Add("Width", typeof(Int32));
+                DataColumn cLine;
+                if (!rptCauTruc.Columns.Contains("cLine"))
+                    cLine = rptCauTruc.Columns.Add("cLine", typeof(Int16));
+                DataColumn cLineTenNhomCot;
+                if (!rptCauTruc.Columns.Contains("cLineTenNhomCot"))
+                    cLineTenNhomCot = rptCauTruc.Columns.Add("cLineTenNhomCot", typeof(Int16));
+                rptCauTruc.AcceptChanges();
+            }
+            return HasColumns;
+        }
+        //Trả về cấp tiêu đề: bằng cấp chính nó + cấp của các cột nhóm trên
+        private Int16 CapTieuDe(DataTable rptCauTruc, String TenCot)
+        {
+            Int16 ICap = 1;
+            foreach (DataRow drCauTruc in rptCauTruc.Rows)
+            {
+                if (drCauTruc["TenCot"].ToString() == TenCot && drCauTruc["TenNhomCot"].ToString() != "")
+                {
+                    ICap += CapTieuDe(rptCauTruc, drCauTruc["TenNhomCot"].ToString());
+                }
+            }
+            return ICap;
+        }
+        //Trả về tọa độ top theo cHeight để bắt đầu vẽ theo cấp: bằng tổng số line của các cột nhóm trên
+        private Decimal YStart(DataTable rptCauTruc, String TenCot)
+        {
+            Decimal ILine = 0;
+
+            foreach (DataRow drCauTruc in rptCauTruc.Rows)
+            {
+                if (drCauTruc["TenCot"].ToString() == TenCot)
+                {
+                    ILine += (drCauTruc["cHeight"] != DBNull.Value) ? Convert.ToDecimal(drCauTruc["cHeight"]) : 1;
+                }
+                if (drCauTruc["TenCot"].ToString() == TenCot && drCauTruc["TenNhomCot"].ToString() != "")
+                {
+                    ILine += CapTieuDe(rptCauTruc, drCauTruc["TenNhomCot"].ToString());
+                }
+            }
+            return ILine;
+        }
+        //Trả về chiều rộng của nhóm (bằng tổng độ rộng của số cột thuộc nhóm)
+        private Int32 DoRongNhom(DataTable rptCauTruc, String TenNhom)
+        {
+            Int32 IDoRong = 0;
+            foreach (DataRow drCauTruc in rptCauTruc.Rows)
+            {
+                if (drCauTruc["TenNhomCot"].ToString() == TenNhom)
+                {
+                    if (Convert.ToBoolean(drCauTruc["LoaiCot"]) == false)
+                        IDoRong += Convert.ToInt32(drCauTruc["Width"]);
+                    else
+                        IDoRong += DoRongNhom(rptCauTruc, drCauTruc["TenCot"].ToString());
+                }
+            }
+            return IDoRong;
+        }
+        //Cắt các khoảng trống trong tên nhóm cột để tạo tên nhóm cột
+        private static string TenNhomCot(String ChuoiTen)
+        {
+            String TenMoi = "";
+            foreach (Char ch in ChuoiTen)
+            {
+                if (ch != ' ' && ch != '@' && ch != '.' && ch != '$')
+                    TenMoi += ch.ToString();
+            }
+            return TenMoi;
+        }
+        //Thêm Logo vào báo cáo
+        //private void AddPictureObject(CrystalDecisions.CrystalReports.Engine.ReportDocument rpt, CrystalDecisions.ReportAppServer.ReportDefModel.Section Section, String FilePath, Int32 tLeft, Int32 tTop, Int32 tWidth, Int32 tHeight)
+        //{
+        //    CrystalDecisions.ReportAppServer.ClientDoc.ISCDReportClientDocument rptClientDoc = rpt.ReportClientDocument;
+        //    CrystalDecisions.ReportAppServer.ReportDefModel.PictureObject picObject = new CrystalDecisions.ReportAppServer.ReportDefModel.PictureObject();
+        //    CrystalDecisions.ReportAppServer.ReportDefModel.ReportObject rptNewObject = new CrystalDecisions.ReportAppServer.ReportDefModel.ReportObject();
+        //    picObject.Name = "picLogo";
+        //    picObject = rptClientDoc.ReportDefController.ReportObjectController.ImportPicture(FilePath, Section, tLeft, tTop);
+        //    //Resize ảnh
+        //    foreach (CrystalDecisions.ReportAppServer.ReportDefModel.ReportObject  ro in rptClientDoc.ReportDefController.ReportObjectController.GetReportObjectsByKind(CrystalDecisions.ReportAppServer.ReportDefModel.CrReportObjectKindEnum.crReportObjectKindPicture))
+        //    {
+        //        if (ro.Name == picObject.Name)
+        //        {
+        //            rptNewObject = ro;
+        //            rptNewObject.Width = tWidth;
+        //            rptNewObject.Height = tHeight;
+        //            rptClientDoc.ReportDefController.ReportObjectController.Modify(ro, rptNewObject);
+        //            break;
+        //        }
+        //    }
+        //}
+        //Thêm TextObject vào báo cáo
+        public static void AddTextObject(CrystalDecisions.CrystalReports.Engine.ReportDocument rpt, CrystalDecisions.ReportAppServer.ReportDefModel.Section Section, String TenObject, String Text, String FontName, Int16 FontSize, Boolean FontBold, Boolean FontItalic, Int32 tLeft, Int32 tTop, Int32 tWidth, Int32 tHeight, Int16 tAlignment, Boolean Border, Boolean CanGrow)
+        {
+            CrystalDecisions.ReportAppServer.ClientDoc.ISCDReportClientDocument rptClientDoc = rpt.ReportClientDocument;
+            CrystalDecisions.ReportAppServer.ReportDefModel.TextObject textObject = new CrystalDecisions.ReportAppServer.ReportDefModel.TextObject();
+
+            Paragraph myPara = new Paragraph();
+            ParagraphTextElement myParaElement = new ParagraphTextElement();
+
+            textObject.Name = TenNhomCot(TenObject);
+            textObject.Left = tLeft;
+            textObject.Top = tTop;
+            textObject.Width = tWidth;
+
+            textObject.Height = tHeight;
+
+            textObject.FontColor.Font.Name = FontName;
+            textObject.FontColor.Font.Size = FontSize;
+            textObject.FontColor.Font.Bold = FontBold;
+            textObject.FontColor.Font.Italic = FontItalic;
+
+            textObject.MaxNumberOfLines = 0;
+            textObject.Format.EnableCanGrow = CanGrow;
+
+            myParaElement.Text = Text;
+            myParaElement.FontColor.Font.Name = FontName;
+            myParaElement.FontColor.Font.Size = FontSize;
+            myParaElement.FontColor.Font.Bold = FontBold;
+            myParaElement.FontColor.Font.Italic = FontItalic;
+            myParaElement.Kind = CrParagraphElementKindEnum.crParagraphElementKindText;
+            myPara.ParagraphElements.Add(myParaElement);
+            myPara.Alignment = (tAlignment == 0) ? CrAlignmentEnum.crAlignmentLeft : ((tAlignment == 1) ? CrAlignmentEnum.crAlignmentHorizontalCenter : CrAlignmentEnum.crAlignmentRight);
+
+            textObject.Paragraphs.Add(myPara);
+
+            CrystalDecisions.ReportAppServer.ReportDefModel.Border Brdr = textObject.Border;
+            if (Border)
+            {
+                Brdr.LeftLineStyle = CrLineStyleEnum.crLineStyleSingle;
+                Brdr.RightLineStyle = CrLineStyleEnum.crLineStyleSingle;
+                Brdr.TopLineStyle = CrLineStyleEnum.crLineStyleSingle;
+                Brdr.BottomLineStyle = CrLineStyleEnum.crLineStyleSingle;
+            }
+            rptClientDoc.ReportDefController.ReportObjectController.Add(textObject, Section);
+        }
+        //Thêm FormulaObject vào báo cáo
+        public static void AddFormulaObject(CrystalDecisions.CrystalReports.Engine.ReportDocument rpt, String TenObject, String Formula)
+        {
+            CrystalDecisions.ReportAppServer.ClientDoc.ISCDReportClientDocument rptClientDoc = rpt.ReportClientDocument;
+            CrystalDecisions.ReportAppServer.DataDefModel.FormulaField textObject = new CrystalDecisions.ReportAppServer.DataDefModel.FormulaField();
+            int ReturnIndex = rptClientDoc.DataDefController.FormulaFieldController.AddByName(TenObject, Formula, CrystalDecisions.ReportAppServer.DataDefModel.CrFormulaSyntaxEnum.crFormulaSyntaxCrystal);
+        }
+        //Hiển thị các loại FieldObject
+        private void DisplayFieldObject(CrystalDecisions.CrystalReports.Engine.ReportDocument rpt, CrystalDecisions.ReportAppServer.ReportDefModel.Section Section, String TenObject, Int16 LoaiObject, String fFontName, Int16 fFontSize, Boolean fFontBold, Int32 tLeft, Int32 tTop, Int32 tWidth, Int32 tHeight, Int16 tAlignment, Boolean CanGrow, String BoldConditionalFormula)
+        {
+            CrystalDecisions.ReportAppServer.ClientDoc.ISCDReportClientDocument rptClientDoc = rpt.ReportClientDocument;
+            switch (LoaiObject)
+            {
+                case 1: //Formula
+                    foreach (CrystalDecisions.ReportAppServer.DataDefModel.FormulaField rptField in rptClientDoc.DataDefController.DataDefinition.FormulaFields)
+                    {
+                        if (rptField.Name == TenObject)
+                        {
+
+                            CrystalDecisions.ReportAppServer.ReportDefModel.FieldObject rptNewObject = new CrystalDecisions.ReportAppServer.ReportDefModel.FieldObject();
+                            rptNewObject.Format.HorizontalAlignment = (tAlignment == 0) ? CrAlignmentEnum.crAlignmentLeft : ((tAlignment == 1) ? CrAlignmentEnum.crAlignmentHorizontalCenter : CrAlignmentEnum.crAlignmentRight);
+                            rptNewObject.FieldValueType = rptField.Type;
+                            rptNewObject.DataSourceName = rptField.FormulaForm;
+                            rptNewObject.Left = tLeft;
+                            rptNewObject.Top = tTop;
+                            rptNewObject.Width = tWidth;
+                            rptNewObject.Height = tHeight;
+                            rptNewObject.FontColor = new FontColor();
+                            rptNewObject.FontColor.Font.Name = fFontName;
+                            rptNewObject.FontColor.Font.Size = fFontSize;
+                            if (BoldConditionalFormula == "")
+                                rptNewObject.FontColor.Font.Bold = fFontBold;
+                            else
+                                rptNewObject.FontColor.ConditionFormulas[CrFontColorConditionFormulaTypeEnum.crFontColorConditionFormulaTypeStyle].Text = BoldConditionalFormula;
+                            rptNewObject.Format.EnableCanGrow = CanGrow;
+                            rptClientDoc.ReportDefController.ReportObjectController.Add(rptNewObject, Section);
+                            break;
+                        }
+                    }
+                    break;
+            }
+        }
+        //Thêm BoxObject vào báo cáo
+        private void AddBoxObject(CrystalDecisions.CrystalReports.Engine.ReportDocument rpt, CrystalDecisions.ReportAppServer.ReportDefModel.Section Section, CrystalDecisions.ReportAppServer.ReportDefModel.Section EndSection, String TenObject, CrLineStyleEnum LineStyle, Int32 bLeft, Int32 bTop, Int32 bWidth, Int32 bHeight, Int32 LineThickness)
+        {
+            CrystalDecisions.ReportAppServer.ClientDoc.ISCDReportClientDocument rptClientDoc = rpt.ReportClientDocument;
+            CrystalDecisions.ReportAppServer.ReportDefModel.BoxObject boxObject = new CrystalDecisions.ReportAppServer.ReportDefModel.BoxObject
+            {
+                LineStyle = LineStyle,
+                LineThickness = LineThickness,
+                //if (MauColumnHeader != Color.White)
+                //boxObject.FillColor = ColorToUInt(Color.White);
+                Left = bLeft,
+                Top = bTop,
+                Right = bLeft + bWidth,
+                Bottom = bTop + bHeight,
+                Name = TenObject,
+                EnableExtendToBottomOfSection = true,
+                EndSectionName = EndSection.Name//rpt.ReportClientDocument.ReportDefController.ReportDefinition.ReportFooterArea.Sections[0].Name;
+            };
+            rptClientDoc.ReportDefController.ReportObjectController.Add(boxObject, Section);
+        }
+        //Thêm VertLineObject vào báo cáo
+        private void AddVLineObject(CrystalDecisions.CrystalReports.Engine.ReportDocument rpt, CrystalDecisions.ReportAppServer.ReportDefModel.Section Section, Int32 bLeft, Int32 bTop, Int32 bHeight, Int32 LineThickness)
+        {
+            CrystalDecisions.ReportAppServer.ClientDoc.ISCDReportClientDocument rptClientDoc = rpt.ReportClientDocument;
+            CrystalDecisions.ReportAppServer.ReportDefModel.LineObject lineObject = new CrystalDecisions.ReportAppServer.ReportDefModel.LineObject
+            {
+                LineStyle = CrLineStyleEnum.crLineStyleSingle,
+                LineThickness = LineThickness,
+                Left = bLeft,
+                Top = bTop,
+                Right = bLeft,
+                Bottom = bTop + bHeight,
+                EnableExtendToBottomOfSection = true,
+                EndSectionName = Section.Name
+            };
+            rptClientDoc.ReportDefController.ReportObjectController.Add(lineObject, Section);
+        }
+        //Thêm HorzLineObject vào báo cáo
+        private void AddHLineObject(CrystalDecisions.CrystalReports.Engine.ReportDocument rpt, CrystalDecisions.ReportAppServer.ReportDefModel.Section Section, Int32 bLeft, Int32 bTop, Int32 bWidth, Int32 LineThickness, CrLineStyleEnum LineStyle, Boolean Extend)
+        {
+            CrystalDecisions.ReportAppServer.ClientDoc.ISCDReportClientDocument rptClientDoc = rpt.ReportClientDocument;
+            CrystalDecisions.ReportAppServer.ReportDefModel.LineObject lineObject = new CrystalDecisions.ReportAppServer.ReportDefModel.LineObject
+            {
+                LineStyle = CrLineStyleEnum.crLineStyleSingle,
+                LineThickness = LineThickness,
+                Left = bLeft,
+                Top = bTop,
+                Right = bLeft + bWidth,
+                Bottom = bTop,
+                EndSectionName = Section.Name,
+                EnableExtendToBottomOfSection = Extend
+            };
+            lineObject.LineStyle = LineStyle;
+            rptClientDoc.ReportDefController.ReportObjectController.Add(lineObject, Section);
+        }
+        //Thêm 1 hình vào Report
+        //Thêm Logo vào báo cáo
+        public static void AddPictureObject(CrystalDecisions.CrystalReports.Engine.ReportDocument rpt, CrystalDecisions.ReportAppServer.ReportDefModel.Section Section, String FilePath, Int32 tLeft, Int32 tTop, Int32 tWidth, Int32 tHeight)
+        {
+            CrystalDecisions.ReportAppServer.ClientDoc.ISCDReportClientDocument rptClientDoc = rpt.ReportClientDocument;
+            CrystalDecisions.ReportAppServer.ReportDefModel.PictureObject picObject = new CrystalDecisions.ReportAppServer.ReportDefModel.PictureObject();
+            CrystalDecisions.ReportAppServer.ReportDefModel.ReportObject rptNewObject;
+            picObject.Name = "picLogo";
+
+            picObject = rptClientDoc.ReportDefController.ReportObjectController.ImportPicture(FilePath, Section, tLeft, tTop);
+            Int32 oWidth = picObject.OriginalWidth;
+            Int32 oHeight = picObject.OriginalHeight;
+            //Resize ảnh
+            foreach (CrystalDecisions.ReportAppServer.ReportDefModel.ReportObject ro in rptClientDoc.ReportDefController.ReportObjectController.GetReportObjectsByKind(CrystalDecisions.ReportAppServer.ReportDefModel.CrReportObjectKindEnum.crReportObjectKindPicture))
+            {
+                if (ro.Name == picObject.Name)
+                {
+                    rptNewObject = ro;
+                    rptNewObject.Width = tWidth;
+                    rptNewObject.Height = tHeight;
+                    rptClientDoc.ReportDefController.ReportObjectController.Modify(ro, rptNewObject);
+                    break;
+                }
+            }
+        }
+        //Kiểm tra xem 1 ReportObject đã tồn tại trong report hay chưa?
+        public static Boolean FormulaObjectExisting(CrystalDecisions.CrystalReports.Engine.ReportDocument rpt, String ObjectName)
+        {
+            Boolean e = false;
+            foreach (CrystalDecisions.ReportAppServer.DataDefModel.FormulaField rptField in rpt.ReportClientDocument.DataDefController.DataDefinition.FormulaFields)
+                if (rptField.Name == ObjectName)
+                {
+                    e = true;
+                    break;
+                }
+            return e;
+        }
+        //Xóa 1 công thức trong ReportDocument
+        public static Boolean FormulaObjectDelete(CrystalDecisions.CrystalReports.Engine.ReportDocument rpt, String ObjectName)
+        {
+            Boolean e = false;
+            CrystalDecisions.ReportAppServer.Controllers.DataDefController dataDefController = rpt.ReportClientDocument.DataDefController;
+            CrystalDecisions.ReportAppServer.Controllers.FormulaFieldController formulaFieldController = dataDefController.FormulaFieldController;
+            foreach (CrystalDecisions.ReportAppServer.DataDefModel.FormulaField rptField in rpt.ReportClientDocument.DataDefController.DataDefinition.FormulaFields)
+                if (rptField.Name == ObjectName)
+                {
+                    formulaFieldController.Remove(rptField);
+                    e = true;
+                    break;
+                }
+            return e;
+        }
+        //Đổi tên 1 công thức trong ReportDocument
+        public static Boolean FormulaObjectRename(CrystalDecisions.CrystalReports.Engine.ReportDocument rpt, String OldName, String NewName)
+        {
+            Boolean e = false;
+            CrystalDecisions.ReportAppServer.ClientDoc.ISCDReportClientDocument rptClientDoc = rpt.ReportClientDocument;
+            foreach (CrystalDecisions.ReportAppServer.DataDefModel.FormulaField rptField in rptClientDoc.DataDefController.DataDefinition.FormulaFields)
+            {
+                if (rptField.Name == OldName)
+                {
+                    rptField.Name = NewName;
+                    e = true;
+                    break;
+                }
+            }
+            return e;
+        }
+        /// <summary>
+        /// Kiểm tra xem 1 textbox đã tồn tại hay chưa, nếu đã tồn tại thì trả về tọa độ left của textbox đó
+        /// </summary>
+        /// <param name="rpt">Report</param>
+        /// <param name="ObjectName">Tên textbox</param>
+        /// <param name="Left">Tọa độ Left trả về</param>
+        /// <returns>True/False</returns>
+        private Boolean TextObjectExisting(CrystalDecisions.CrystalReports.Engine.ReportDocument rpt, String ObjectName, out Int32 Left)
+        {
+            Boolean e = false;
+            Left = 0;
+            foreach (CrystalDecisions.CrystalReports.Engine.ReportObject ro in rpt.ReportDefinition.ReportObjects)
+            {
+                if (ro is CrystalDecisions.CrystalReports.Engine.TextObject && ro.Name == TenNhomCot(ObjectName))
+                {
+                    e = true;
+                    Left = ro.Left;
+                    break;
+                }
+            }
+            return e;
+        }
+        /// <summary>
+        /// Thiết lập thông số trang in cho file report
+        /// </summary>
+        /// <param name="rpt"></param>
+        private void ReportPageSetup(CrystalDecisions.CrystalReports.Engine.ReportDocument rpt)
+        {
+            CrystalDecisions.Shared.PageMargins rptMargin = new CrystalDecisions.Shared.PageMargins();
+            rpt.PrintOptions.DissociatePageSizeAndPrinterPaperSize = false;
+            //Đặt đơn vị đo milimeter
+            Int32 PointToMilimeter = Convert.ToInt32(1440 / 2.54);
+            //Đặt hướng in dọc / ngang
+            rpt.PrintOptions.PaperOrientation = (!PaperOrientation) ? CrystalDecisions.Shared.PaperOrientation.Portrait : CrystalDecisions.Shared.PaperOrientation.Landscape;
+            //Đặt kích thước giấy
+            rpt.PrintOptions.PaperSize = (PaperSize == "A3") ? CrystalDecisions.Shared.PaperSize.PaperA3 : ((PaperSize == "A4") ? CrystalDecisions.Shared.PaperSize.PaperA4 : CrystalDecisions.Shared.PaperSize.PaperA5);
+            //Đặt lề
+            rptMargin.leftMargin = Convert.ToInt32(LeftMargin * PointToMilimeter);
+            rptMargin.topMargin = Convert.ToInt32(TopMargin * PointToMilimeter);
+            rptMargin.rightMargin = Convert.ToInt32(RightMargin * PointToMilimeter);
+            rptMargin.bottomMargin = Convert.ToInt32(BottomMargin * PointToMilimeter);
+
+            rpt.PrintOptions.ApplyPageMargins(rptMargin);
+        }
+        /// <summary>
+        /// Hiển thị thông tin đơn vị trên report
+        /// </summary>
+        /// <param name="rpt">ReportDocument</param>
+        /// <param name="PartNo">Số thứ tự part</param>
+        /// <param name="NumOfPart">Số lượng part</param>
+        /// <param name="TongTrang">Có hiển thị tổng trang hay không</param>
+        /// <param name="TongCong">Có hiển thị tổng cộng hay không</param>
+        private void ReportInfoSetup(CrystalDecisions.CrystalReports.Engine.ReportDocument rpt)
+        {
+            //Tọa độ
+            Int32 xLeft = 0;
+            Int32 yTop = 0;
+            //Độ rộng của ô chứa mẫu báo cáo
+            Int32 ReportTemplateWidth = Convert.ToInt32(rpt.PrintOptions.PageContentWidth / 3.5);
+            //Độ rộng của ô chứa thông tin đơn vị
+            Int32 InfoWidth = Convert.ToInt32(rpt.PrintOptions.PageContentWidth) - Convert.ToInt32(LogoWidth * 1440 / 2.54);//Convert.ToInt32(rpt.PrintOptions.PageContentWidth) - ReportTemplateWidth-Convert.ToInt32(LogoWidth*1440/2.54);
+            CanLeLogo = 0;
+            CanLeThongTin = 4;
+            rpt.ReportClientDocument.ReportDefController.ReportDefinition.ReportHeaderArea.Sections[0].Height = 0;
+            rpt.ReportClientDocument.ReportDefController.ReportDefinition.PageHeaderArea.Sections[0].Height = 0;
+            //Khai báo section
+            //Section hiển thị là ReportHeader hay PageHeader
+            InfoSection = (CompanyInfoSection) ? rpt.ReportClientDocument.ReportDefController.ReportDefinition.PageHeaderArea.Sections[0] : rpt.ReportClientDocument.ReportDefController.ReportDefinition.ReportHeaderArea.Sections[0];
+            //Hiển thị logo
+            xLeft = (CanLeLogo == 0) ? 0 : ((CanLeLogo == 1) ? (rpt.PrintOptions.PageContentWidth / 2 - Convert.ToInt32((1440 / 2.54) * LogoWidth) / 2) : rpt.PrintOptions.PageContentWidth - Convert.ToInt32((1440 / 2.54) * LogoWidth));
+            Boolean LogoDisplay = false;
+            if (ImageFromByte(LogoImage, out LogoFilePath) != null)
+            {
+                AddPictureObject(rpt, InfoSection, LogoFilePath, xLeft, 0, Convert.ToInt32((1440 / 2.54) * LogoWidth), Convert.ToInt32((1440 / 2.54) * LogoHeight));
+                LogoDisplay = true;
+            }
+            //Hiển thị thông tin đơn vị
+            if (CanLeThongTin == 4)
+            {
+                switch (CanLeLogo)
+                {
+                    case 0:
+                        xLeft = xLeft + Convert.ToInt32((1440 / 2.54) * LogoWidth);
+                        //InfoWidth = rpt.PrintOptions.PageContentWidth - xLeft - 100;
+                        break;
+                    case 1:
+                        xLeft = 0;
+                        //InfoWidth = rpt.PrintOptions.PageContentWidth;
+                        yTop = Convert.ToInt32((1440 / 2.54) * LogoHeight) + 100;
+                        break;
+                    case 2:
+                        xLeft = 0;
+                        //InfoWidth = rpt.PrintOptions.PageContentWidth - Convert.ToInt32((1440 / 2.54) * LogoWidth) - 100;
+                        break;
+                }
+            }
+            else
+            {
+                //InfoWidth = rpt.PrintOptions.PageContentWidth;
+                xLeft = 0;
+                yTop = 0;
+            }
+            //Hiển thị thông tin đơn vị ở ReportHeader hoặc PageHeader
+            if (TenDonViCapTren != "")
+            {
+                if (LogoDisplay)
+                {
+                    AddTextObject(rpt, InfoSection, "TenDonViCapTren", TenDonViCapTren.ToUpper(), FontThongTin, SizeThongTin, true, false, xLeft, yTop, InfoWidth, BaseLineHeight, (CanLeThongTin == 4) ? CanLeLogo : CanLeThongTin, false, false);
+                    AddTextObject(rpt, InfoSection, "TenDonVi", TenDonVi.ToUpper(), FontThongTin, SizeThongTin, false, false, xLeft, yTop + BaseLineHeight, InfoWidth, BaseLineHeight, (CanLeThongTin == 4) ? CanLeLogo : CanLeThongTin, false, false);
+                }
+                else
+                {
+                    AddTextObject(rpt, InfoSection, "TenDonViCapTren", TenDonViCapTren.ToUpper(), FontThongTin, SizeThongTin, true, false, 0, yTop, InfoWidth, BaseLineHeight, (CanLeThongTin == 4) ? CanLeLogo : CanLeThongTin, false, false);
+                    AddTextObject(rpt, InfoSection, "TenDonVi", TenDonVi.ToUpper(), FontThongTin, SizeThongTin, false, false, 0, yTop + BaseLineHeight, InfoWidth, BaseLineHeight, (CanLeThongTin == 4) ? CanLeLogo : CanLeThongTin, false, false);
+                }
+            }
+            else
+            {
+                if (LogoDisplay)
+                    AddTextObject(rpt, InfoSection, "TenDonVi", TenDonVi.ToUpper(), FontThongTin, SizeThongTin, true, false, xLeft, yTop, InfoWidth, BaseLineHeight, (CanLeThongTin == 4) ? CanLeLogo : CanLeThongTin, false, false);
+                else
+                    AddTextObject(rpt, InfoSection, "TenDonVi", TenDonVi.ToUpper(), FontThongTin, SizeThongTin, true, false, 0, yTop, InfoWidth, BaseLineHeight, (CanLeThongTin == 4) ? CanLeLogo : CanLeThongTin, false, false);
+            }
+            if (TenDonViCapTren != "") yTop = yTop + BaseLineHeight;
+            if (DiaChi != "")
+            {
+                if (LogoDisplay)
+                    AddTextObject(rpt, InfoSection, "DiaChi", "Địa chỉ: " + DiaChi, FontThongTin, Convert.ToInt16(SizeThongTin), false, false, xLeft, yTop + BaseLineHeight, InfoWidth, BaseLineHeight, (CanLeThongTin == 4) ? CanLeLogo : CanLeThongTin, false, false);
+                else
+                    AddTextObject(rpt, InfoSection, "DiaChi", "Địa chỉ: " + DiaChi, FontThongTin, Convert.ToInt16(SizeThongTin), false, false, 0, yTop + BaseLineHeight, InfoWidth, BaseLineHeight, (CanLeThongTin == 4) ? CanLeLogo : CanLeThongTin, false, false);
+            }
+            if (DiaChi != "") yTop = yTop + BaseLineHeight;
+            if (MaSoThue != "")
+            {
+                if (LogoDisplay)
+                    AddTextObject(rpt, InfoSection, "MaSoThue", "ĐT: " + MaSoThue, FontThongTin, Convert.ToInt16(SizeThongTin), false, false, xLeft, yTop + BaseLineHeight, InfoWidth, BaseLineHeight, (CanLeThongTin == 4) ? CanLeLogo : CanLeThongTin, false, false);
+                else
+                    AddTextObject(rpt, InfoSection, "MaSoThue", "ĐT:" + MaSoThue, FontThongTin, Convert.ToInt16(SizeThongTin), false, false, 0, yTop + BaseLineHeight, InfoWidth, BaseLineHeight, (CanLeThongTin == 4) ? CanLeLogo : CanLeThongTin, false, false); ;
+
+            }
+            yTop += BaseLineHeight * 3;
+            //Hiển thị thông tin mẫu báo cáo
+            AddTextObject(rpt, InfoSection, "MauBaoCao", MauBaoCao, FontThongTin, Convert.ToInt16(SizeThongTin - 2), true, false, (CanLeThongTin == 4) ? ((CanLeLogo == 0) ? (rpt.PrintOptions.PageContentWidth - ReportTemplateWidth) : 0) : rpt.PrintOptions.PageContentWidth - ReportTemplateWidth, 0, ReportTemplateWidth, BaseLineHeight, 1, false, false);
+            AddTextObject(rpt, InfoSection, "QuyetDinh", QuyetDinh, FontThongTin, Convert.ToInt16(SizeThongTin - 2), false, true, (CanLeThongTin == 4) ? ((CanLeLogo == 0) ? (rpt.PrintOptions.PageContentWidth - ReportTemplateWidth) : 0) : rpt.PrintOptions.PageContentWidth - ReportTemplateWidth, BaseLineHeight, ReportTemplateWidth, BaseLineHeight, 1, false, true);
+            //Hiển thị tiêu đề chính
+            String strTieuDeChinh = "\"" + TieuDe + "\"";
+            AddFormulaObject(rpt, "TieuDeChinh", strTieuDeChinh);
+            DisplayFieldObject(rpt, InfoSection, "TieuDeChinh", 1, FontTieuDe, SizeTieuDe, BoldTieuDe, 0, yTop, rpt.PrintOptions.PageContentWidth, 100, 1, true, "");
+            //DisplayFieldObject(rpt, InfoSection, "TieuDeChinh", 1, FontTieuDe, SizeTieuDe, BoldTieuDe, 0, yTop + Convert.ToInt32((1440 / 2.54) * LogoHeight), rpt.PrintOptions.PageContentWidth, 100, 1, true, "");
+            //AddTextObject(rpt, InfoSection, "TieuDeChinh", TenBaoCao, FontTieuDe, SizeTieuDe, BoldTieuDe, 0, yTop + Convert.ToInt32((1440 / 2.54) * LogoHeight), rpt.PrintOptions.PageContentWidth, 100, 1, false, true);
+            //Hiển thị thông tin điều kiện báo cáo
+            if (ThamSoReport != "")
+            {
+                AddFormulaObject(rpt, "ThamSoBaoCao", ThamSoReport);
+                DisplayFieldObject(rpt, InfoSection, "ThamSoBaoCao", 1, FontTieuDe, Convert.ToInt16(SizeTieuDe - 2), !BoldTieuDe, 0, yTop + 350, rpt.PrintOptions.PageContentWidth, 100, 1, true, "");
+            }
+            //Hiển thị dòng đơn vị tính
+            CrystalDecisions.ReportAppServer.ReportDefModel.Section pH1 = new CrystalDecisions.ReportAppServer.ReportDefModel.Section
+            {
+                Kind = CrAreaSectionKindEnum.crAreaSectionKindReportHeader
+            };
+            rpt.ReportClientDocument.ReportDefController.ReportSectionController.Add(pH1, rpt.ReportClientDocument.ReportDefController.ReportDefinition.ReportHeaderArea, 1);
+            //Autofit section
+            rpt.ReportClientDocument.ReportDefController.ReportSectionController.AutoFitSections(InfoSection);
+            //Kẻ đường liền ở ReportFooter
+            AddHLineObject(rpt, rpt.ReportClientDocument.ReportDefController.ReportDefinition.ReportFooterArea.Sections[0], 10, 0, rpt.PrintOptions.PageContentWidth, 10, CrLineStyleEnum.crLineStyleSingle, false);
+            //Hiển thị thông tin người ký ở ReportFooter
+            string[] strNgayThangKy = NgayThangKy.Split(';');
+            string[] strChucVuNguoiKy = ChucVuNguoiKy.Split(';');
+            string[] strNoiDungKy = NoiDungKy.Split(';');
+            string[] strTenNguoiKy = TenNguoiKy.Split(';');
+            if (strChucVuNguoiKy.Length > 1)
+            {
+                Int32 ChieuRongChuKy = rpt.PrintOptions.PageContentWidth / strChucVuNguoiKy.Length;
+                xLeft = 0;
+                yTop = BaseLineHeight;
+                if (strNgayThangKy.Length > 0) yTop += BaseLineHeight;
+                for (Int16 iNguoiKy = 0; iNguoiKy <= strChucVuNguoiKy.Length - 1; iNguoiKy++)
+                {
+                    AddTextObject(rpt, rpt.ReportClientDocument.ReportDefController.ReportDefinition.ReportFooterArea.Sections[0], "ChucVuNguoiKy" + iNguoiKy.ToString(), strChucVuNguoiKy[iNguoiKy], FontChucVuNguoiKy, SizeChucVuNguoiKy, BoldChucVuNguoiKy, false, xLeft, yTop, ChieuRongChuKy, BaseLineHeight, 1, false, false);
+                    if (strNgayThangKy.Length > 1 && iNguoiKy <= strNgayThangKy.Length)
+                        AddTextObject(rpt, rpt.ReportClientDocument.ReportDefController.ReportDefinition.ReportFooterArea.Sections[0], "NgayThangKy" + iNguoiKy.ToString(), strNgayThangKy[iNguoiKy], FontChucVuNguoiKy, SizeChucVuNguoiKy, false, true, xLeft, yTop - BaseLineHeight, ChieuRongChuKy, BaseLineHeight, 1, false, false);
+                    if (strNoiDungKy.Length > 1 && iNguoiKy <= strNoiDungKy.Length)
+                        AddTextObject(rpt, rpt.ReportClientDocument.ReportDefController.ReportDefinition.ReportFooterArea.Sections[0], "NoiDungKy" + iNguoiKy.ToString(), strNoiDungKy[iNguoiKy], FontChucVuNguoiKy, SizeChucVuNguoiKy, false, true, xLeft, yTop + BaseLineHeight, ChieuRongChuKy, BaseLineHeight, 1, false, false);
+                    if (strTenNguoiKy.Length > 1 && iNguoiKy <= strTenNguoiKy.Length)
+                        AddTextObject(rpt, rpt.ReportClientDocument.ReportDefController.ReportDefinition.ReportFooterArea.Sections[0], "TenNguoiKy" + iNguoiKy.ToString(), strTenNguoiKy[iNguoiKy], FontChucVuNguoiKy, SizeChucVuNguoiKy, BoldChucVuNguoiKy, false, xLeft, yTop + (Convert.ToInt32((1440 / 2.54) * ChieuCaoChuKy)), ChieuRongChuKy, BaseLineHeight, 1, false, false);
+                    xLeft += ChieuRongChuKy;
+                }
+            }
+            rpt.ReportClientDocument.ReportDefController.ReportSectionController.AutoFitSections(rpt.ReportClientDocument.ReportDefController.ReportDefinition.ReportFooterArea.Sections[0]);
+            //Hiển thị PageFooter
+            //Hiển thị đường kẻ PageFooter
+            AddHLineObject(rpt, rpt.ReportClientDocument.ReportDefController.ReportDefinition.PageFooterArea.Sections[0], 10, 0, rpt.PrintOptions.PageContentWidth, 10, CrLineStyleEnum.crLineStyleSingle, false);
+            //Hiển thị số trang, số phần
+            AddFormulaObject(rpt, "SoTrang", "\"Trang \"  + ToText(PageNumber,0) + \" / \" + ToText(TotalPageCount,0)");
+            DisplayFieldObject(rpt, rpt.ReportClientDocument.ReportDefController.ReportDefinition.PageFooterArea.Sections[0], "SoTrang", 1, FontTieuDe, Convert.ToInt16(SizeTieuDe - 6), false, 0, 50, rpt.PrintOptions.PageContentWidth, 400, CanLeSoTrang, true, "");
+            //In ngày hiện tại
+            if (InNgayHienTai)
+            {
+                AddFormulaObject(rpt, "InNgayHienTai", "\"Ngày in: \"+ ToText(" + NgayIn.Day.ToString() + ",0) +\"/\"  + ToText(" + NgayIn.Month.ToString() + ",0) + \"/\" + ToText(" + NgayIn.Year.ToString() + ",0, \"\", \"\")");
+                DisplayFieldObject(rpt, rpt.ReportClientDocument.ReportDefController.ReportDefinition.PageFooterArea.Sections[0], "InNgayHienTai", 1, FontTieuDe, Convert.ToInt16(SizeTieuDe - 6), false, 0, 271, rpt.PrintOptions.PageContentWidth, 400, CanLeSoTrang, true, "");
+            }
+            rpt.ReportClientDocument.ReportDefController.ReportSectionController.AutoFitSections(rpt.ReportClientDocument.ReportDefController.ReportDefinition.PageFooterArea.Sections[0]);
+        }
+        /// <summary>
+        /// Tạo file rpt với tên file ngẫu nhiên
+        /// </summary>
+        /// <param name="NumOfFile">Số lượng file cần tạo</param>
+        private void CreateBlankReport()
+        {
+            Guid iReportFileName = new Guid();
+
+            iReportFileName = Guid.NewGuid();
+            //Create temporary report file
+            CrystalDecisions.CrystalReports.Engine.ReportDocument rpt = new CrystalDecisions.CrystalReports.Engine.ReportDocument();
+            rpt.ReportClientDocument.New();
+            string reportDirectory = cenCommon.GlobalVariables.TempDir;
+            object reportDir = (object)reportDirectory;
+            rpt.ReportClientDocument.SaveAs(iReportFileName + ".rpt", ref reportDir, (int)CdReportClientDocumentSaveAsOptionsEnum.cdReportClientDocumentSaveAsOverwriteExisting);
+            rpt.ReportClientDocument.Close();
+            //Save to Report File Name List
+            ReportFileName = cenCommon.GlobalVariables.TempDir + iReportFileName.ToString() + ".rpt";
+        }
+        public static Image ImageFromByte(Byte[] Logo, out String LogoFilePath)
+        {
+            try
+            {
+                LogoFilePath = "";
+                if (Logo != null)
+                {
+                    LogoFilePath = cenCommon.GlobalVariables.TempDir + Guid.NewGuid() + ".rpt";
+                    MemoryStream mem = new MemoryStream(Logo);
+                    Image img = Image.FromStream(mem);
+                    if (img != null)
+                        img.Save(LogoFilePath);
+                    return img;
+                }
+                else
+                    return null;
+            }
+            catch (Exception ex)
+            {
+                LogoFilePath = "";
+                cenCommon.cenCommon.ErrorMessageOkOnly(ex.Message);
+                return null;
+            }
+        }
+        //Tìm cột chi tiết của 1 tên nhóm cột bằng đệ quy
+        private String CotChiTiet(String TenNhomCot)
+        {
+            String cChiTiet = ""; ;
+            foreach (DataRow drCauTruc in rptCauTruc.Rows)
+            {
+                if (drCauTruc["TenNhomCot"].ToString() == TenNhomCot && drCauTruc["TenNhomCot"].ToString() != "")
+                {
+                    cChiTiet = drCauTruc["TenCot"].ToString();
+                    if (Convert.ToBoolean(drCauTruc["LoaiCot"]) == true)
+                        cChiTiet = CotChiTiet(drCauTruc["TenCot"].ToString());
+                }
+            }
+            return cChiTiet;
+        }
+        public Boolean ReportRender()
+        {
+            Boolean OK = false;
+            //Lấy dữ liệu báo cáo
+            Boolean CoDuLieu = GetReportDataSet();
+            if (CoDuLieu)
+            {
+                //Lấy cấu trúc báo cáo
+                Boolean HasColumns = GetReportColumn();
+                //Cấp hiển thị tiêu đề
+                Int16 MaxCap = 0;
+                Int16 Cap = 0;
+                if (HasColumns) NumOfCol = rptCauTruc.Rows.Count;
+                //Nếu có cột hiển thị, cần thêm điều kiện
+                if (NumOfCol > 0)
+                {
+                    //Lấy số dòng của column header
+                    foreach (DataRow drCauTrucNhom in rptCauTruc.Rows)
+                    {
+                        //Tính cấp hiển thị của cột này
+                        Cap = CapTieuDe(rptCauTruc, drCauTrucNhom["TenCot"].ToString());
+                        if (Cap > MaxCap) MaxCap = Cap;
+                        //
+                        //if (!TongCong)
+                        //    TongCong = Convert.ToBoolean(drCauTrucNhom["TongCong"].ToString());
+                    }
+                    //Tạo file
+                    CreateBlankReport();
+                    //Vẽ report
+                    //Tọa độ, độ cao dòng, độ rộng
+                    Int32 LeftHeaderStart = 0;
+                    Int32 TopHeaderStart = 35; //Tối thiểu bằng 35 để vị trí đường kẻ không bị âm
+                    Int32 xLeft = LeftHeaderStart;
+                    Int32 xTop = TopHeaderStart;
+                    Int32 WidthUnit = 1000;
+                    Int32 Width = 1200;
+                    Int32 NumOfLine = 1;
+                    Int32 Height = NumOfLine * BaseLineHeight;
+                    Int32 Left = 0;
+                    Decimal TotalWidth = 0;
+                    //Load blank report
+                    CrystalDecisions.CrystalReports.Engine.ReportDocument rptTemp = new CrystalDecisions.CrystalReports.Engine.ReportDocument();
+                    rptTemp.Load(ReportFileName, OpenReportMethod.OpenReportByTempCopy);
+                    CrystalDecisions.ReportAppServer.ClientDoc.ISCDReportClientDocument rptClientDoc = rptTemp.ReportClientDocument;
+                    //Khai báo section
+                    ReportHeaderSection = rptClientDoc.ReportDefController.ReportDefinition.ReportHeaderArea.Sections[0];
+                    PageHeaderSection = rptClientDoc.ReportDefController.ReportDefinition.PageHeaderArea.Sections[0];
+                    DetailSection = rptClientDoc.ReportDefController.ReportDefinition.DetailArea.Sections[0];
+                    ReportHeaderSection = rptClientDoc.ReportDefController.ReportDefinition.ReportHeaderArea.Sections[0];
+                    PageHeaderSection = rptClientDoc.ReportDefController.ReportDefinition.PageHeaderArea.Sections[0];
+                    //Set data source if any
+                    if (xsd_path != "")
+                        AddDataSourceUsingSchemaFile(rptClientDoc, xsd_path, DataTableName, dsData, false);
+                    //Thiết lập khổ giấy, căn lề
+                    ReportPageSetup(rptTemp);
+                    //Vẽ ReportHeader, Footer
+                    ReportInfoSetup(rptTemp);
+                    //Vẽ Detail
+                    //Quét cấu trúc
+                    xLeft = 0;
+                    //Tính toán độ rộng cột
+                    foreach (DataRow drCauTrucNhom in rptCauTruc.Rows)
+                    {
+                        TotalWidth += Convert.ToDecimal(drCauTrucNhom["cWidth"]);
+                    }
+                    foreach (DataRow drCauTrucNhom in rptCauTruc.Rows)
+                    {
+                        if (Convert.ToDecimal(drCauTrucNhom["cWidth"]) > 0)
+                            //Nếu quy định độ rộng cột
+                            drCauTrucNhom["Width"] = rptTemp.PrintOptions.PageContentWidth / TotalWidth * Convert.ToDecimal(drCauTrucNhom["cWidth"]);
+                        else
+                            //Nếu không quy định độ rộng cột thì kích thước cột bằng kích thước cột nhỏ nhất
+                            drCauTrucNhom["Width"] = rptTemp.PrintOptions.PageContentWidth / TotalWidth;
+                    }
+                    rptCauTruc.AcceptChanges();
+                    ////Tạo dtHeader ở đây
+                    //HeaderRender(rptCauTrucTmp);
+                    //New page
+                    if (dsData.Tables[0].Columns.Contains("NewPage"))
+                    {
+                        rptClientDoc.ReportDefController.ReportDefinition.DetailArea.Sections[0].Format.EnableNewPageAfter = true;
+                        rptClientDoc.ReportDefController.ReportDefinition.DetailArea.Sections[0].Format.ConditionFormulas[CrSectionAreaFormatConditionFormulaTypeEnum.crSectionAreaConditionFormulaTypeEnableNewPageAfter].Text = "IIF (CBool({" + DataTableName + ".NewPage})=true, crBold, crRegular)";
+                    }
+                    foreach (DataRow drCauTrucNhom in rptCauTruc.Rows)
+                    {
+                        //Lấy số dòng chiều cao (chiều cao thực tế sẽ bằng Height*BaseLineHeight)
+                        NumOfLine = (drCauTrucNhom["cHeight"] != DBNull.Value) ? Convert.ToInt32(drCauTrucNhom["cHeight"]) : 1;
+                        Height = NumOfLine * BaseLineHeight;
+                        Int32 MaxHeight = 0;
+                        //Tính cấp hiển thị của cột này
+                        String TenCot = drCauTrucNhom["TenCot"].ToString();
+                        Cap = CapTieuDe(rptCauTruc, TenCot);
+                        //if (Cap != 1 & Convert.ToBoolean(drCauTrucNhom["LoaiCot"]) == true) Cap = Convert.ToInt16(MaxCap - Cap + 1);
+                        Boolean ColumnDrawed = TextObjectExisting(rptTemp, "ch_" + drCauTrucNhom["TenCot"].ToString(), out Left);
+                        if (!ColumnDrawed)
+                        {
+                            if (Convert.ToBoolean(drCauTrucNhom["LoaiCot"]) == true)
+                                //Nếu là nhóm thì độ rộng nhóm bằng tổng độ rộng các cột cấp dưới
+                                Width = DoRongNhom(rptCauTruc, drCauTrucNhom["TenCot"].ToString());
+                            else
+                                Width = Convert.ToInt32(drCauTrucNhom["Width"]);
+                            if (Width > 0)
+                            {
+                                if (Convert.ToBoolean(drCauTrucNhom["LoaiCot"]) == true)
+                                {
+                                    //Nếu cột này là nhóm thì tính độ cao theo cấp
+                                    MaxHeight = Convert.ToInt32(BaseLineHeight * 1.5);
+                                    xTop = TopHeaderStart + Convert.ToInt32((BaseLineHeight * 1.5 * (MaxCap - Cap + 1))) + 70 - Convert.ToInt32(BaseLineHeight * 1.5);
+                                    if (!drCauTrucNhom["TenCot"].ToString().EndsWith("[I]"))
+                                        AddTextObject(rptTemp, rptClientDoc.ReportDefController.ReportDefinition.PageHeaderArea.Sections[0],
+                                            "ch_" + drCauTrucNhom["TenCot"].ToString(), drCauTrucNhom["TieuDeCot"].ToString(), FontHeader, SizeHeader, BoldHeader, false, xLeft, xTop, Width, MaxHeight, 1, false, false);
+
+                                }
+                                else
+                                {   //Nếu là cột chi tiết
+                                    if (Cap == 1) //Nếu cấp bằng 1 thì lấy độ cao bằng độ cao của header
+                                    {
+                                        MaxHeight = Convert.ToInt32(BaseLineHeight * 1.5 * MaxCap + 70);
+                                        xTop = TopHeaderStart + Convert.ToInt32((BaseLineHeight * 1.5 * Cap)) - Convert.ToInt32(BaseLineHeight * 1.5);
+                                        AddTextObject(rptTemp, rptClientDoc.ReportDefController.ReportDefinition.PageHeaderArea.Sections[0],
+                                            "ch_" + drCauTrucNhom["TenCot"].ToString(), drCauTrucNhom["TieuDeCot"].ToString(), FontHeader, SizeHeader, BoldHeader, false, xLeft, xTop, Width, MaxHeight, 1, false, false);
+                                    }
+                                    else
+                                    {
+                                        //Nếu cấp khác 1 thì lấy độ cao theo cấp
+                                        MaxHeight = Convert.ToInt32(BaseLineHeight * 1.5 * (MaxCap - Cap + 1) + 70);
+                                        xTop = TopHeaderStart + Convert.ToInt32((BaseLineHeight * 1.5 * Cap)) + 70 - Convert.ToInt32(BaseLineHeight * 1.5);
+                                        AddTextObject(rptTemp, rptClientDoc.ReportDefController.ReportDefinition.PageHeaderArea.Sections[0],
+                                            "ch_" + drCauTrucNhom["TenCot"].ToString(), drCauTrucNhom["TieuDeCot"].ToString(), FontHeader, SizeHeader, BoldHeader, false, xLeft, xTop, Width, MaxHeight, 1, false, false);
+
+                                    }
+                                }
+                            }
+                            WidthUnit = Width;
+                        }
+                        //Nếu cấp lớn hơn 1
+                        if (Cap > 1)
+                        {
+                            //Hiển thị nhóm                                
+                            String sTenNhomCot = TenNhomCot(drCauTrucNhom["TenNhomCot"].ToString());
+                            if (!TextObjectExisting(rptTemp, "ch_" + sTenNhomCot, out Left))
+                            {
+                                //Độ rộng nhóm bằng tổng độ rộng các cột cấp dưới
+                                Width = DoRongNhom(rptCauTruc, drCauTrucNhom["TenNhomCot"].ToString());
+                                Boolean A = TextObjectExisting(rptTemp, "ch_" + drCauTrucNhom["TenCot"], out Left);
+                                if (A)
+                                {
+                                    //Cap = (Int16)(Cap + 1);
+                                    //Left = xLeft;
+                                    if (Cap > 1) Cap = (Int16)(Cap - 1);
+                                    if (Width > 0)
+                                    {
+                                        MaxHeight = Convert.ToInt32(BaseLineHeight * 1.5);
+                                        xTop = TopHeaderStart + Convert.ToInt32((BaseLineHeight * 1.5 * Cap)) - Convert.ToInt32(BaseLineHeight * 1.5);
+                                        AddTextObject(rptTemp, rptClientDoc.ReportDefController.ReportDefinition.PageHeaderArea.Sections[0],
+                                            "ch_" + sTenNhomCot, drCauTrucNhom["TenNhomCot"].ToString(), FontHeader, SizeHeader, BoldHeader, false, Left, xTop, Width, MaxHeight, 1, false, false);
+                                    }
+                                }
+                            }
+                        }
+
+                        //Nếu là cột dữ liệu thì thêm vào detail
+                        if (rptClientDoc.DatabaseController.Database.Tables.Count > 0)
+                        {
+                            if (Convert.ToBoolean(drCauTrucNhom["LoaiCot"]) == false)
+                            {
+                                Boolean FieldMapped = false;
+                                Int32 FieldIndex = -1;
+                                for (Int32 iField = 0; iField <= rptClientDoc.DatabaseController.Database.Tables[0].DataFields.Count - 1; iField++)
+                                {
+                                    if (rptClientDoc.DatabaseController.Database.Tables[0].DataFields[iField].Name == drCauTrucNhom["TenCot"].ToString())
+                                    {
+                                        FieldMapped = true;
+                                        FieldIndex = iField;
+                                        break;
+                                    }
+                                }
+                                if (FieldMapped)
+                                {
+                                    CrystalDecisions.ReportAppServer.ReportDefModel.FieldObject DataField = new CrystalDecisions.ReportAppServer.ReportDefModel.FieldObject
+                                    {
+                                        Name = TenNhomCot(rptClientDoc.DatabaseController.Database.Tables[0].DataFields[FieldIndex].Name),
+                                        DataSourceName = rptClientDoc.DatabaseController.Database.Tables[0].DataFields[FieldIndex].FormulaForm,
+                                        FieldValueType = rptClientDoc.DatabaseController.Database.Tables[0].DataFields[FieldIndex].Type
+                                    };
+                                    //DataType Format
+                                    switch (DataField.FieldValueType)
+                                    {
+                                        case CrFieldValueTypeEnum.crFieldValueTypeDateTimeField:
+                                        case CrFieldValueTypeEnum.crFieldValueTypeDateField:
+                                            AddFormulaObject(rptTemp, "f" + DataField.Name, "ToText(" + DataField.DataSourceName + ", \"" + cenCommon.GlobalVariables.FormatNgayThangNam + "\")");
+                                            if (dsData.Tables[0].Columns.Contains("rBold"))
+                                            {
+                                                if (dsData.Tables[0].Columns["rBold"].DataType.ToString().ToUpper() == "SYSTEM.BOOLEAN")
+                                                    DisplayFieldObject(rptTemp, rptClientDoc.ReportDefController.ReportDefinition.DetailArea.Sections[0], "f" + DataField.Name, 1, FontDetail, SizeDetail, false, xLeft + 50, 50, WidthUnit - 100, 20, (Int16)0, true, "IIF ({" + DataTableName + ".rBold}=true, crBold, crRegular)");
+                                                else
+                                                    DisplayFieldObject(rptTemp, rptClientDoc.ReportDefController.ReportDefinition.DetailArea.Sections[0], "f" + DataField.Name, 1, FontDetail, SizeDetail, false, xLeft + 50, 50, WidthUnit - 100, 20, (Int16)0, true, "IIF (CBool({" + DataTableName + ".rBold})=true, crBold, crRegular)");
+                                            }
+                                            else
+                                                DisplayFieldObject(rptTemp, rptClientDoc.ReportDefController.ReportDefinition.DetailArea.Sections[0], "f" + DataField.Name, 1, FontDetail, SizeDetail, false, xLeft + 50, 50, WidthUnit - 100, 20, (Int16)0, true, "");
+                                            DataField.Format.EnableSuppress = true;
+                                            break;
+                                        case CrFieldValueTypeEnum.crFieldValueTypeInt16sField:
+                                        case CrFieldValueTypeEnum.crFieldValueTypeInt16uField:
+                                        case CrFieldValueTypeEnum.crFieldValueTypeInt32sField:
+                                        case CrFieldValueTypeEnum.crFieldValueTypeInt32uField:
+                                        case CrFieldValueTypeEnum.crFieldValueTypeInt64sField:
+                                        case CrFieldValueTypeEnum.crFieldValueTypeInt64uField:
+                                        case CrFieldValueTypeEnum.crFieldValueTypeInt8sField:
+                                        case CrFieldValueTypeEnum.crFieldValueTypeInt8uField:
+                                        case CrFieldValueTypeEnum.crFieldValueTypeNumberField:
+                                            String LamTron = "0";
+
+                                            if (cenCommon.GlobalVariables.TenCotGia.ToUpper().IndexOf("(" + DataField.Name.ToUpper() + ")") >= 0)
+                                            {
+                                                LamTron = cenCommon.GlobalVariables.LamTronDonGia.ToString();
+                                            }
+                                            //if (cenCommon.GlobalVariables.TenCotSoLuong.ToUpper().IndexOf("(" + DataField.Name.ToUpper() + ")") >= 0)
+                                            //{
+                                            //    LamTron = cenCommon.GlobalVariables.LamTronSoLuong.ToString();
+                                            //}
+                                            if (cenCommon.GlobalVariables.TenCotTrongLuong.ToUpper().IndexOf("(" + DataField.Name.ToUpper() + ")") >= 0)
+                                            {
+                                                LamTron = cenCommon.GlobalVariables.LamTronTrongLuong.ToString();
+                                            }
+                                            if (cenCommon.GlobalVariables.TenCotKhoiLuong.ToUpper().IndexOf("(" + DataField.Name.ToUpper() + ")") >= 0)
+                                            {
+                                                LamTron = cenCommon.GlobalVariables.LamTronKhoiLuong.ToString();
+                                            }
+                                            if (cenCommon.GlobalVariables.TenCotTien.ToUpper().IndexOf("(" + DataField.Name.ToUpper() + ")") >= 0 || DataField.Name.ToUpper().StartsWith("ID_"))
+                                            {
+                                                LamTron = cenCommon.GlobalVariables.LamTronSoTien.ToString();
+                                            }
+                                            AddFormulaObject(rptTemp, "f" + DataField.Name, "IIF(" + DataField.DataSourceName + "=0,\"-\",ToText(" + DataField.DataSourceName + ", " + LamTron + ", \"" + cenCommon.GlobalVariables.DigitSymbol + "\", \"" + cenCommon.GlobalVariables.DecimalSymbol + "\"))");
+                                            if (dsData.Tables[0].Columns.Contains("rBold"))
+                                            {
+                                                if (dsData.Tables[0].Columns["rBold"].DataType.ToString().ToUpper() == "SYSTEM.BOOLEAN")
+                                                    DisplayFieldObject(rptTemp, rptClientDoc.ReportDefController.ReportDefinition.DetailArea.Sections[0], "f" + DataField.Name, 1, FontDetail, SizeDetail, false, xLeft + 50, 50, WidthUnit - 100, 20, (Int16)2, true, "IIF ({" + DataTableName + ".rBold}=true, crBold, crRegular)");
+                                                else
+                                                    DisplayFieldObject(rptTemp, rptClientDoc.ReportDefController.ReportDefinition.DetailArea.Sections[0], "f" + DataField.Name, 1, FontDetail, SizeDetail, false, xLeft + 50, 50, WidthUnit - 100, 20, (Int16)2, true, "IIF (CBool({" + DataTableName + ".rBold})=true, crBold, crRegular)");
+                                            }
+                                            else
+                                                DisplayFieldObject(rptTemp, rptClientDoc.ReportDefController.ReportDefinition.DetailArea.Sections[0], "f" + DataField.Name, 1, FontDetail, SizeDetail, false, xLeft + 50, 50, WidthUnit - 100, 20, (Int16)2, true, "");
+                                            DataField.Format.EnableSuppress = true;
+                                            break;
+                                    }
+                                    //Common format
+                                    DataField.FontColor = new FontColor();
+                                    DataField.FontColor.Font.Name = FontDetail;
+                                    DataField.FontColor.Font.Size = SizeDetail;
+                                    //Set FontBold if Bold
+                                    if (dsData.Tables[0].Columns.Contains("rBold"))
+                                    {
+                                        if (dsData.Tables[0].Columns["rBold"].DataType.ToString().ToUpper() == "SYSTEM.BOOLEAN")
+                                            DataField.FontColor.ConditionFormulas[CrFontColorConditionFormulaTypeEnum.crFontColorConditionFormulaTypeStyle].Text = "IIF ({" + DataTableName + ".rBold}=true, crBold, crRegular)";
+                                        else
+                                            DataField.FontColor.ConditionFormulas[CrFontColorConditionFormulaTypeEnum.crFontColorConditionFormulaTypeStyle].Text = "IIF (CBool({" + DataTableName + ".rBold})=true, crBold, crRegular)";
+                                    }
+                                    else
+                                        DataField.FontColor.ConditionFormulas[CrFontColorConditionFormulaTypeEnum.crFontColorConditionFormulaTypeStyle].Text = "";
+
+                                    DataField.Top = 50;
+                                    DataField.Left = xLeft + 50;
+                                    DataField.Width = WidthUnit - 100;
+                                    DataField.Format.EnableCanGrow = true;
+                                    //DataField.Format.HorizontalAlignment = ((drCauTrucNhom["CanLe"] != DBNull.Value) ? (Convert.ToInt16(drCauTrucNhom["CanLe"]) == 1 ? CrAlignmentEnum.crAlignmentHorizontalCenter : (Convert.ToInt16(drCauTrucNhom["CanLe"]) == 0 ? CrAlignmentEnum.crAlignmentLeft : CrAlignmentEnum.crAlignmentRight)) : CrAlignmentEnum.crAlignmentLeft);
+                                    rptClientDoc.ReportDefController.ReportObjectController.Add(DataField, rptClientDoc.ReportDefController.ReportDefinition.DetailArea.Sections[0]);
+                                }
+                            }
+                        }
+                        //Nếu là cột dữ liệu thì mới di chuyển tọa độ Left
+                        if (Convert.ToBoolean(drCauTrucNhom["LoaiCot"]) == false)
+                            xLeft = xLeft + WidthUnit;
+                    }
+                    //Nếu có tổng cộng thì thêm dòng tổng trang
+                    //if (TongTrang)
+                    //{
+                    //    AddTextObject(rptTemp, rptClientDoc.ReportDefController.ReportDefinition.PageHeaderArea.Sections[0], "txtTongTrangTruoc", "Tổng trang trước mang sang:", FontThongTin, SizeThongTin, BoldThongTin, 50, LineHeight * (MaxCap) + 100 + 50, rptTemp.PrintOptions.PageContentWidth, LineHeight, 0, false, true);
+                    //}
+
+                    if (dsData.Tables[0].Columns.Contains("rBold"))
+                    {
+                        //Đặt màu nền cho dòng Bold trong detail
+                        CrystalDecisions.ReportAppServer.ReportDefModel.SectionFormat sf = rptClientDoc.ReportDefController.ReportDefinition.DetailArea.Sections[0].Format.Clone(true);
+                        if (dsData.Tables[0].Columns["rBold"].DataType.ToString().ToUpper() == "SYSTEM.INT16")
+                            sf.ConditionFormulas[CrSectionAreaFormatConditionFormulaTypeEnum.crSectionAreaConditionFormulaTypeBackgroundColor].Text = "IF {" + DataTableName + ".rBold}=1 then Color(" + Color.SteelBlue.R.ToString() + ", " + Color.SteelBlue.G.ToString() + ", " + Color.SteelBlue.B.ToString() + ") else (IF {" + DataTableName + ".rBold}=2 then Color(" + Color.LightBlue.R.ToString() + ", " + Color.LightBlue.G.ToString() + ", " + Color.LightBlue.B.ToString() + ") else crNoColor)";
+                        //else
+                        //    sf.ConditionFormulas[CrSectionAreaFormatConditionFormulaTypeEnum.crSectionAreaConditionFormulaTypeBackgroundColor].Text = "IF {" + DataTableName + ".rBold}=1 then Color(" + MauDetailBold.R.ToString() + ", " + MauDetailBold.G.ToString() + ", " + MauDetailBold.B.ToString() + ") else crNoColor";
+                        rptClientDoc.ReportDefController.ReportSectionController.SetProperty(rptClientDoc.ReportDefController.ReportDefinition.DetailArea.Sections[0], CrystalDecisions.ReportAppServer.Controllers.CrReportSectionPropertyEnum.crReportSectionPropertyFormat, sf);
+                    }
+                    if (MauColumnHeader != Color.White)
+                    {
+                        //Đặt màu nền cho columnheader nếu có
+                        CrystalDecisions.ReportAppServer.ReportDefModel.SectionFormat sf = rptClientDoc.ReportDefController.ReportDefinition.PageHeaderArea.Sections[0].Format.Clone(true);
+                        sf.ConditionFormulas[CrSectionAreaFormatConditionFormulaTypeEnum.crSectionAreaConditionFormulaTypeBackgroundColor].Text = "Color(" + MauColumnHeader.R.ToString() + ", " + MauColumnHeader.G.ToString() + ", " + MauColumnHeader.B.ToString() + ")";
+                        rptClientDoc.ReportDefController.ReportSectionController.SetProperty(rptClientDoc.ReportDefController.ReportDefinition.PageHeaderArea.Sections[0], CrystalDecisions.ReportAppServer.Controllers.CrReportSectionPropertyEnum.crReportSectionPropertyFormat, sf);
+                    }
+
+                    //Vẽ các đường ngang cho textbox Header
+                    CrystalDecisions.ReportAppServer.ReportDefModel.Section sc = rptClientDoc.ReportDefController.ReportDefinition.PageHeaderArea.Sections[0];
+                    foreach (CrystalDecisions.CrystalReports.Engine.ReportObject ro in rptTemp.ReportDefinition.ReportObjects)
+                    {
+                        if (ro is CrystalDecisions.CrystalReports.Engine.TextObject && ro.Name.StartsWith("ch_"))
+                        {
+                            AddHLineObject(rptTemp, sc, ro.Left, ro.Top - 35, ro.Width, 10, CrLineStyleEnum.crLineStyleSingle, false);
+                        }
+                    }
+                    //Vẽ đường ngang cho HeaderArea trước tiêu đề phụ
+                    AddHLineObject(rptTemp, sc, 0, TopHeaderStart + Convert.ToInt32(BaseLineHeight * 1.5 * (MaxCap + 1) + 140) - Convert.ToInt32(BaseLineHeight * 1.5), rptTemp.PrintOptions.PageContentWidth, 10, CrLineStyleEnum.crLineStyleSingle, false);
+                    ////Vẽ đường ngang cho HeaderArea sau tiêu đề phụ
+                    //AddHLineObject(rptTemp, sc, 0, TopHeaderStart + Convert.ToInt32(BaseLineHeight * 1.5 * (MaxCap + 1) + 140) + BaseLineHeight - Convert.ToInt32(BaseLineHeight * 1.5), rptTemp.PrintOptions.PageContentWidth, 10, CrLineStyleEnum.crLineStyleSingle, false);
+                    //Kẻ dọc cho textbox Header
+                    sc = rptClientDoc.ReportDefController.ReportDefinition.PageHeaderArea.Sections[0];
+                    foreach (CrystalDecisions.CrystalReports.Engine.ReportObject ro in rptTemp.ReportDefinition.ReportObjects)
+                    {
+                        if (ro is CrystalDecisions.CrystalReports.Engine.TextObject && ro.Name.StartsWith("ch_"))
+                        {
+                            AddVLineObject(rptTemp, sc, ro.Left, ro.Top - 35, ro.Height + 70, 10);
+                        }
+                    }
+                    //Vẽ đường kẻ dọc ngoài cùng cho Header
+                    AddVLineObject(rptTemp, sc, rptTemp.PrintOptions.PageContentWidth - 5, 0, Convert.ToInt32(BaseLineHeight * 1.5 * (MaxCap) + 90) - Convert.ToInt32(BaseLineHeight * 1.5), 10);
+                    //Vẽ màu nền cho column header
+                    //AddBoxObject(rptTemp, sc, sc, "boxHeader", CrLineStyleEnum.crLineStyleNoLine, 0, TopHeaderStart + Convert.ToInt32(BaseLineHeight * 1.5) - 35, rptTemp.PrintOptions.PageContentWidth, Convert.ToInt32(BaseLineHeight * 1.5 * (MaxCap + 1) + 90), 10);
+                    rptClientDoc.ReportDefController.ReportSectionController.AutoFitSections(rptClientDoc.ReportDefController.ReportDefinition.PageHeaderArea.Sections[0]);
+                    //Kẻ ngang cho detail
+                    rptClientDoc.ReportDefController.ReportSectionController.AutoFitSections(rptClientDoc.ReportDefController.ReportDefinition.DetailArea.Sections[0]);
+                    AddHLineObject(rptTemp, rptClientDoc.ReportDefController.ReportDefinition.DetailArea.Sections[0], 0, rptClientDoc.ReportDefController.ReportDefinition.DetailArea.Sections[0].Height, rptTemp.PrintOptions.PageContentWidth, 10, CrLineStyleEnum.crLineStyleDotted, true);
+                    //Vẽ đường kẻ dọc cho detail
+                    sc = rptClientDoc.ReportDefController.ReportDefinition.DetailArea.Sections[0];
+                    foreach (CrystalDecisions.CrystalReports.Engine.ReportObject ro in rptTemp.ReportDefinition.ReportObjects)
+                    {
+                        if (ro is CrystalDecisions.CrystalReports.Engine.TextObject && ro.Name.StartsWith("ch_"))
+                        {
+                            AddVLineObject(rptTemp, sc, ro.Left, 0, 226, 10);
+                        }
+                    }
+                    AddVLineObject(rptTemp, sc, rptTemp.PrintOptions.PageContentWidth - 5, 0, 226, 10);
+                    //Căn lại lề ngang dọc cho TextBoxHeader
+                    sc = rptClientDoc.ReportDefController.ReportDefinition.PageHeaderArea.Sections[0];
+                    foreach (CrystalDecisions.CrystalReports.Engine.ReportObject ro in rptTemp.ReportDefinition.ReportObjects)
+                    {
+                        if (ro is CrystalDecisions.CrystalReports.Engine.TextObject && ro.Name.StartsWith("ch_"))
+                        {
+                            Int32 MaxHeight = ro.Height;
+                            Decimal txtHeight = 0;
+                            DataTable rptCauTrucHeader = rptCauTruc.Copy();
+                            CrystalDecisions.CrystalReports.Engine.TextObject txtObj = (CrystalDecisions.CrystalReports.Engine.TextObject)ro;
+                            foreach (DataRow drCauTruc in rptCauTrucHeader.Rows)
+                            {
+                                if (drCauTruc["TieuDeCot"].ToString() == txtObj.Text | drCauTruc["TenNhomCot"].ToString() == txtObj.Text)
+                                {
+                                    ro.Height = 0;
+                                    txtHeight = (drCauTruc["cHeight"] != DBNull.Value) ? Convert.ToDecimal(drCauTruc["cHeight"]) : 1;
+                                    txtHeight = txtHeight * BaseLineHeight;
+                                    ro.Top = ro.Top + Convert.ToInt32(((MaxHeight - txtHeight) / 2));
+                                    ro.Left = ro.Left + 30;
+                                    ro.Width = ro.Width - 50;
+                                    ro.Height = Convert.ToInt32(txtHeight);
+                                    break;
+                                }
+                            }
+                        }
+                    }
+                    //Lưu lại thay đổi cấu trúc
+                    rptCauTruc.AcceptChanges();
+                    //Lưu lại file báo cáo
+                    rptClientDoc.Save();
+                    rptTemp.Close();
+                    rptTemp.Dispose();
+                    OK = true;
+                }
+            }
+            else
+                MessageBox.Show("Không có nội dung hiển thị cho báo cáo này!");
+            return OK;
+        }
+        public static void AddDataSourceUsingSchemaFile(
+            CrystalDecisions.ReportAppServer.ClientDoc.ISCDReportClientDocument rcDoc,		// report client document 
+            string schema_file_name,		// xml schema file location 
+            string table_name,				// table to be added 
+            System.Data.DataSet data, Boolean Added)		// dataset 
+        {
+            PropertyBag crLogonInfo;			// logon info 
+            PropertyBag crAttributes;			// logon attributes 
+            CrystalDecisions.ReportAppServer.DataDefModel.ConnectionInfo crConnectionInfo;	// connection info 
+            CrystalDecisions.ReportAppServer.DataDefModel.Table crTable;
+            // database table 
+            // create logon property 
+            crLogonInfo = new PropertyBag();
+            crLogonInfo["XML File Path"] = schema_file_name;
+            // create logon attributes 
+            crAttributes = new PropertyBag();
+            crAttributes["Database DLL"] = "crdb_adoplus.dll";
+            crAttributes["QE_DatabaseType"] = "ADO.NET (XML)";
+            crAttributes["QE_ServerDescription"] = "NewDataSet";
+            crAttributes["QE_SQLDB"] = true;
+            crAttributes["QE_LogonProperties"] = crLogonInfo;
+            // create connection info 
+            crConnectionInfo = new CrystalDecisions.ReportAppServer.DataDefModel.ConnectionInfo
+            {
+                Kind = CrConnectionInfoKindEnum.crConnectionInfoKindCRQE,
+                Attributes = crAttributes
+            };
+            // create a table 
+            crTable = new CrystalDecisions.ReportAppServer.DataDefModel.Table
+            {
+                ConnectionInfo = crConnectionInfo,
+                Name = table_name,
+                Alias = table_name
+            };
+            // add a table 
+            if (!Added)
+                rcDoc.DatabaseController.AddTable(crTable, null);
+            // pass dataset 
+            rcDoc.DatabaseController.SetDataSource(DataSetConverter.Convert(data), table_name, table_name);
+        }
+
+        #region Dispose
+        // Pointer to an external unmanaged resource.
+        private IntPtr handle;
+        // Other managed resource this class uses.
+        private Component component = new Component();
+        // Track whether Dispose has been called.
+        private bool disposed = false;
+        public void Dispose()
+        {
+            Dispose(true);
+            // This object will be cleaned up by the Dispose method.
+            // Therefore, you should call GC.SupressFinalize to
+            // take this object off the finalization queue 
+            // and prevent finalization code for this object
+            // from executing a second time.
+            GC.SuppressFinalize(this);
+        }
+        // Dispose(bool disposing) executes in two distinct scenarios.
+        // If disposing equals true, the method has been called directly
+        // or indirectly by a user's code. Managed and unmanaged resources
+        // can be disposed.
+        // If disposing equals false, the method has been called by the 
+        // runtime from inside the finalizer and you should not reference 
+        // other objects. Only unmanaged resources can be disposed.
+        private void Dispose(bool disposing)
+        {
+            // Check to see if Dispose has already been called.
+            if (!this.disposed)
+            {
+                // If disposing equals true, dispose all managed 
+                // and unmanaged resources.
+                if (disposing)
+                {
+                    // Dispose managed resources.
+                    component.Dispose();
+                }
+
+                // Call the appropriate methods to clean up 
+                // unmanaged resources here.
+                // If disposing is false, 
+                // only the following code is executed.
+                CloseHandle(handle);
+                handle = IntPtr.Zero;
+            }
+            disposed = true;
+        }
+
+        // Use interop to call the method necessary  
+        // to clean up the unmanaged resource.
+        [System.Runtime.InteropServices.DllImport("Kernel32")]
+        private extern static Boolean CloseHandle(IntPtr handle);
+
+        // Use C# destructor syntax for finalization code.
+        // This destructor will run only if the Dispose method 
+        // does not get called.
+        // It gives your base class the opportunity to finalize.
+        // Do not provide destructors in types derived from this class.
+        ~CrystalReportGenerator()
+        {
+            // Do not re-create Dispose clean-up code here.
+            // Calling Dispose(false) is optimal in terms of
+            // readability and maintainability.
+            Dispose(false);
+        }
+        #endregion Dispose
+    }
+}

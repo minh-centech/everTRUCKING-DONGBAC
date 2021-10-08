@@ -1,0 +1,335 @@
+E:\tmsCFS 2018\Projects\tmsReportController\bin\Debug\tmsReportController.dll
+E:\tmsCFS 2018\Projects\tmsReportController\bin\Debug\tmsReportController.pdb
+E:\tmsCFS 2018\Projects\tmsReportController\bin\Debug\tmsBase.dll
+E:\tmsCFS 2018\Projects\tmsReportController\bin\Debug\tmsBUS.dll
+E:\tmsCFS 2018\Projects\tmsReportController\bin\Debug\tmsCommon.dll
+E:\tmsCFS 2018\Projects\tmsReportController\bin\Debug\tmsCommonUIcfs.dll
+E:\tmsCFS 2018\Projects\tmsReportController\bin\Debug\tmsControls.dll
+E:\tmsCFS 2018\Projects\tmsReportController\bin\Debug\tmsDAO.dll
+E:\tmsCFS 2018\Projects\tmsReportController\bin\Debug\tmsCustomsSoapClient.dll
+E:\tmsCFS 2018\Projects\tmsReportController\bin\Debug\tmsCustomsSoapConnect.dll
+E:\tmsCFS 2018\Projects\tmsReportController\bin\Debug\tmsDTO.dll
+E:\tmsCFS 2018\Projects\tmsReportController\bin\Debug\tmsBase.pdb
+E:\tmsCFS 2018\Projects\tmsReportController\bin\Debug\tmsBUS.pdb
+E:\tmsCFS 2018\Projects\tmsReportController\bin\Debug\tmsCommon.pdb
+E:\tmsCFS 2018\Projects\tmsReportController\bin\Debug\tmsControls.pdb
+E:\tmsCFS 2018\Projects\tmsReportController\bin\Debug\tmsDAO.pdb
+E:\tmsCFS 2018\Projects\tmsReportController\bin\Debug\tmsCommonUIcfs.pdb
+E:\tmsCFS 2018\Projects\tmsReportController\bin\Debug\tmsCustomsSoapClient.pdb
+E:\tmsCFS 2018\Projects\tmsReportController\bin\Debug\tmsCustomsSoapConnect.pdb
+E:\tmsCFS 2018\Projects\tmsReportController\bin\Debug\tmsDTO.pdb
+E:\tmsCFS 2018\Projects\tmsReportController\obj\Debug\tmsReportController.csprojResolveAssemblyReference.cache
+E:\tmsCFS 2018\Projects\tmsReportController\obj\Debug\tmsReportController.frmReportParameters.resources
+E:\tmsCFS 2018\Projects\tmsReportController\obj\Debug\tmsReportController.frmReportViewer.resources
+E:\tmsCFS 2018\Projects\tmsReportController\obj\Debug\tmsReportController.csproj.GenerateResource.Cache
+E:\tmsCFS 2018\Projects\tmsReportController\obj\Debug\tmsReportController.dll
+E:\tmsCFS 2018\Projects\tmsReportController\obj\Debug\tmsReportController.pdb
+F:\tmsCFS 2018\Projects\tmsReportController\bin\Debug\tmsReportController.dll
+F:\tmsCFS 2018\Projects\tmsReportController\bin\Debug\tmsReportController.pdb
+F:\tmsCFS 2018\Projects\tmsReportController\bin\Debug\tmsBase.dll
+F:\tmsCFS 2018\Projects\tmsReportController\bin\Debug\tmsBUS.dll
+F:\tmsCFS 2018\Projects\tmsReportController\bin\Debug\tmsCommon.dll
+F:\tmsCFS 2018\Projects\tmsReportController\bin\Debug\tmsCommonUIcfs.dll
+F:\tmsCFS 2018\Projects\tmsReportController\bin\Debug\tmsControls.dll
+F:\tmsCFS 2018\Projects\tmsReportController\bin\Debug\tmsDAO.dll
+F:\tmsCFS 2018\Projects\tmsReportController\bin\Debug\tmsCustomsSoapClient.dll
+F:\tmsCFS 2018\Projects\tmsReportController\bin\Debug\tmsCustomsSoapConnect.dll
+F:\tmsCFS 2018\Projects\tmsReportController\bin\Debug\tmsDTO.dll
+F:\tmsCFS 2018\Projects\tmsReportController\bin\Debug\tmsBase.pdb
+F:\tmsCFS 2018\Projects\tmsReportController\bin\Debug\tmsBUS.pdb
+F:\tmsCFS 2018\Projects\tmsReportController\bin\Debug\tmsCommon.pdb
+F:\tmsCFS 2018\Projects\tmsReportController\bin\Debug\tmsControls.pdb
+F:\tmsCFS 2018\Projects\tmsReportController\bin\Debug\tmsDAO.pdb
+F:\tmsCFS 2018\Projects\tmsReportController\bin\Debug\tmsCommonUIcfs.pdb
+F:\tmsCFS 2018\Projects\tmsReportController\bin\Debug\tmsCustomsSoapClient.pdb
+F:\tmsCFS 2018\Projects\tmsReportController\bin\Debug\tmsCustomsSoapConnect.pdb
+F:\tmsCFS 2018\Projects\tmsReportController\bin\Debug\tmsDTO.pdb
+F:\tmsCFS 2018\Projects\tmsReportController\obj\Debug\tmsReportController.frmReportParameters.resources
+F:\tmsCFS 2018\Projects\tmsReportController\obj\Debug\tmsReportController.frmReportViewer.resources
+F:\tmsCFS 2018\Projects\tmsReportController\obj\Debug\tmsReportController.dll
+F:\tmsCFS 2018\Projects\tmsReportController\obj\Debug\tmsReportController.pdb
+G:\tmsCFS 2018\Projects\tmsReportController\bin\Debug\tmsReportController.dll
+G:\tmsCFS 2018\Projects\tmsReportController\bin\Debug\tmsReportController.pdb
+G:\tmsCFS 2018\Projects\tmsReportController\bin\Debug\tmsBase.dll
+G:\tmsCFS 2018\Projects\tmsReportController\bin\Debug\tmsBUS.dll
+G:\tmsCFS 2018\Projects\tmsReportController\bin\Debug\tmsCommon.dll
+G:\tmsCFS 2018\Projects\tmsReportController\bin\Debug\tmsCommonUIcfs.dll
+G:\tmsCFS 2018\Projects\tmsReportController\bin\Debug\tmsControls.dll
+G:\tmsCFS 2018\Projects\tmsReportController\bin\Debug\tmsDAO.dll
+G:\tmsCFS 2018\Projects\tmsReportController\bin\Debug\tmsCustomsSoapClient.dll
+G:\tmsCFS 2018\Projects\tmsReportController\bin\Debug\tmsCustomsSoapConnect.dll
+G:\tmsCFS 2018\Projects\tmsReportController\bin\Debug\tmsDTO.dll
+G:\tmsCFS 2018\Projects\tmsReportController\bin\Debug\tmsBase.pdb
+G:\tmsCFS 2018\Projects\tmsReportController\bin\Debug\tmsBUS.pdb
+G:\tmsCFS 2018\Projects\tmsReportController\bin\Debug\tmsCommon.pdb
+G:\tmsCFS 2018\Projects\tmsReportController\bin\Debug\tmsControls.pdb
+G:\tmsCFS 2018\Projects\tmsReportController\bin\Debug\tmsDAO.pdb
+G:\tmsCFS 2018\Projects\tmsReportController\bin\Debug\tmsCommonUIcfs.pdb
+G:\tmsCFS 2018\Projects\tmsReportController\bin\Debug\tmsCustomsSoapClient.pdb
+G:\tmsCFS 2018\Projects\tmsReportController\bin\Debug\tmsCustomsSoapConnect.pdb
+G:\tmsCFS 2018\Projects\tmsReportController\bin\Debug\tmsDTO.pdb
+G:\tmsCFS 2018\Projects\tmsReportController\obj\Debug\tmsReportController.frmReportParameters.resources
+G:\tmsCFS 2018\Projects\tmsReportController\obj\Debug\tmsReportController.frmReportViewer.resources
+G:\tmsCFS 2018\Projects\tmsReportController\obj\Debug\tmsReportController.dll
+G:\tmsCFS 2018\Projects\tmsReportController\obj\Debug\tmsReportController.pdb
+G:\tmsCFS 2018\Projects\tmsReportController\obj\Debug\ResolveAssemblyReference.cache
+G:\tmsCFS 2018\Projects\tmsReportController\obj\Debug\GenerateResource.read.1.tlog
+G:\tmsCFS 2018\Projects\tmsReportController\obj\Debug\GenerateResource.write.1.tlog
+H:\tmsCFS 2018\Projects\tmsReportController\obj\Debug\tmsReportController.csprojResolveAssemblyReference.cache
+H:\tmsCFS 2018\Projects\tmsReportController\obj\Debug\tmsReportController.frmReportParameters.resources
+H:\tmsCFS 2018\Projects\tmsReportController\obj\Debug\tmsReportController.frmReportViewer.resources
+H:\tmsCFS 2018\Projects\tmsReportController\obj\Debug\tmsReportController.csproj.GenerateResource.Cache
+H:\tmsCFS 2018\Projects\tmsReportController\obj\Debug\tmsReportController.dll
+H:\tmsCFS 2018\Projects\tmsReportController\obj\Debug\tmsReportController.pdb
+H:\tmsCFS 2018\Projects\tmsReportController\bin\Debug\tmsReportController.dll
+H:\tmsCFS 2018\Projects\tmsReportController\bin\Debug\tmsReportController.pdb
+H:\tmsCFS 2018\Projects\tmsReportController\bin\Debug\tmsBase.dll
+H:\tmsCFS 2018\Projects\tmsReportController\bin\Debug\tmsBUS.dll
+H:\tmsCFS 2018\Projects\tmsReportController\bin\Debug\tmsCommon.dll
+H:\tmsCFS 2018\Projects\tmsReportController\bin\Debug\tmsCommonUIcfs.dll
+H:\tmsCFS 2018\Projects\tmsReportController\bin\Debug\tmsControls.dll
+H:\tmsCFS 2018\Projects\tmsReportController\bin\Debug\tmsDAO.dll
+H:\tmsCFS 2018\Projects\tmsReportController\bin\Debug\tmsCustomsSoapClient.dll
+H:\tmsCFS 2018\Projects\tmsReportController\bin\Debug\tmsCustomsSoapConnect.dll
+H:\tmsCFS 2018\Projects\tmsReportController\bin\Debug\tmsDTO.dll
+H:\tmsCFS 2018\Projects\tmsReportController\bin\Debug\tmsBase.pdb
+H:\tmsCFS 2018\Projects\tmsReportController\bin\Debug\tmsBUS.pdb
+H:\tmsCFS 2018\Projects\tmsReportController\bin\Debug\tmsCommon.pdb
+H:\tmsCFS 2018\Projects\tmsReportController\bin\Debug\tmsControls.pdb
+H:\tmsCFS 2018\Projects\tmsReportController\bin\Debug\tmsDAO.pdb
+H:\tmsCFS 2018\Projects\tmsReportController\bin\Debug\tmsCommonUIcfs.pdb
+H:\tmsCFS 2018\Projects\tmsReportController\bin\Debug\tmsCustomsSoapClient.pdb
+H:\tmsCFS 2018\Projects\tmsReportController\bin\Debug\tmsCustomsSoapConnect.pdb
+H:\tmsCFS 2018\Projects\tmsReportController\bin\Debug\tmsDTO.pdb
+F:\tmsCFS 2018\Projects\tmsReportController\obj\Debug\ResolveAssemblyReference.cache
+F:\tmsCFS 2018\Projects\tmsReportController\obj\Debug\GenerateResource.read.1.tlog
+F:\tmsCFS 2018\Projects\tmsReportController\obj\Debug\GenerateResource.write.1.tlog
+E:\Minh\tmsCFS 2018\Projects\tmsReportController\bin\Debug\tmsReportController.dll
+E:\Minh\tmsCFS 2018\Projects\tmsReportController\bin\Debug\tmsReportController.pdb
+E:\Minh\tmsCFS 2018\Projects\tmsReportController\bin\Debug\tmsBase.dll
+E:\Minh\tmsCFS 2018\Projects\tmsReportController\bin\Debug\tmsBUS.dll
+E:\Minh\tmsCFS 2018\Projects\tmsReportController\bin\Debug\tmsCommon.dll
+E:\Minh\tmsCFS 2018\Projects\tmsReportController\bin\Debug\tmsCommonUIcfs.dll
+E:\Minh\tmsCFS 2018\Projects\tmsReportController\bin\Debug\tmsControls.dll
+E:\Minh\tmsCFS 2018\Projects\tmsReportController\bin\Debug\tmsDAO.dll
+E:\Minh\tmsCFS 2018\Projects\tmsReportController\bin\Debug\tmsCustomsSoapClient.dll
+E:\Minh\tmsCFS 2018\Projects\tmsReportController\bin\Debug\tmsCustomsSoapConnect.dll
+E:\Minh\tmsCFS 2018\Projects\tmsReportController\bin\Debug\tmsDTO.dll
+E:\Minh\tmsCFS 2018\Projects\tmsReportController\bin\Debug\tmsBase.pdb
+E:\Minh\tmsCFS 2018\Projects\tmsReportController\bin\Debug\tmsBUS.pdb
+E:\Minh\tmsCFS 2018\Projects\tmsReportController\bin\Debug\tmsCommon.pdb
+E:\Minh\tmsCFS 2018\Projects\tmsReportController\bin\Debug\tmsControls.pdb
+E:\Minh\tmsCFS 2018\Projects\tmsReportController\bin\Debug\tmsDAO.pdb
+E:\Minh\tmsCFS 2018\Projects\tmsReportController\bin\Debug\tmsCommonUIcfs.pdb
+E:\Minh\tmsCFS 2018\Projects\tmsReportController\bin\Debug\tmsCustomsSoapClient.pdb
+E:\Minh\tmsCFS 2018\Projects\tmsReportController\bin\Debug\tmsCustomsSoapConnect.pdb
+E:\Minh\tmsCFS 2018\Projects\tmsReportController\bin\Debug\tmsDTO.pdb
+E:\Minh\tmsCFS 2018\Projects\tmsReportController\obj\Debug\tmsReportController.csprojResolveAssemblyReference.cache
+E:\Minh\tmsCFS 2018\Projects\tmsReportController\obj\Debug\tmsReportController.frmReportParameters.resources
+E:\Minh\tmsCFS 2018\Projects\tmsReportController\obj\Debug\tmsReportController.frmReportViewer.resources
+E:\Minh\tmsCFS 2018\Projects\tmsReportController\obj\Debug\tmsReportController.csproj.GenerateResource.Cache
+E:\Minh\tmsCFS 2018\Projects\tmsReportController\obj\Debug\tmsReportController.dll
+E:\Minh\tmsCFS 2018\Projects\tmsReportController\obj\Debug\tmsReportController.pdb
+D:\tmsCFS 2018\Projects\tmsReportController\bin\Debug\tmsReportController.dll
+D:\tmsCFS 2018\Projects\tmsReportController\bin\Debug\tmsReportController.pdb
+D:\tmsCFS 2018\Projects\tmsReportController\bin\Debug\tmsBase.dll
+D:\tmsCFS 2018\Projects\tmsReportController\bin\Debug\tmsBUS.dll
+D:\tmsCFS 2018\Projects\tmsReportController\bin\Debug\tmsCommon.dll
+D:\tmsCFS 2018\Projects\tmsReportController\bin\Debug\tmsCommonUIcfs.dll
+D:\tmsCFS 2018\Projects\tmsReportController\bin\Debug\tmsControls.dll
+D:\tmsCFS 2018\Projects\tmsReportController\bin\Debug\tmsDAO.dll
+D:\tmsCFS 2018\Projects\tmsReportController\bin\Debug\tmsCustomsSoapClient.dll
+D:\tmsCFS 2018\Projects\tmsReportController\bin\Debug\tmsCustomsSoapConnect.dll
+D:\tmsCFS 2018\Projects\tmsReportController\bin\Debug\tmsDTO.dll
+D:\tmsCFS 2018\Projects\tmsReportController\bin\Debug\tmsBase.pdb
+D:\tmsCFS 2018\Projects\tmsReportController\bin\Debug\tmsBUS.pdb
+D:\tmsCFS 2018\Projects\tmsReportController\bin\Debug\tmsCommon.pdb
+D:\tmsCFS 2018\Projects\tmsReportController\bin\Debug\tmsControls.pdb
+D:\tmsCFS 2018\Projects\tmsReportController\bin\Debug\tmsDAO.pdb
+D:\tmsCFS 2018\Projects\tmsReportController\bin\Debug\tmsCommonUIcfs.pdb
+D:\tmsCFS 2018\Projects\tmsReportController\bin\Debug\tmsCustomsSoapClient.pdb
+D:\tmsCFS 2018\Projects\tmsReportController\bin\Debug\tmsCustomsSoapConnect.pdb
+D:\tmsCFS 2018\Projects\tmsReportController\bin\Debug\tmsDTO.pdb
+D:\tmsCFS 2018\Projects\tmsReportController\obj\Debug\tmsReportController.csprojResolveAssemblyReference.cache
+D:\tmsCFS 2018\Projects\tmsReportController\obj\Debug\tmsReportController.frmReportParameters.resources
+D:\tmsCFS 2018\Projects\tmsReportController\obj\Debug\tmsReportController.frmReportViewer.resources
+D:\tmsCFS 2018\Projects\tmsReportController\obj\Debug\tmsReportController.csproj.GenerateResource.Cache
+D:\tmsCFS 2018\Projects\tmsReportController\obj\Debug\tmsReportController.dll
+D:\tmsCFS 2018\Projects\tmsReportController\obj\Debug\tmsReportController.pdb
+F:\tmsCFS 2018 - HAAL\Projects\tmsReportController\bin\Debug\tmsReportController.dll
+F:\tmsCFS 2018 - HAAL\Projects\tmsReportController\bin\Debug\tmsReportController.pdb
+F:\tmsCFS 2018 - HAAL\Projects\tmsReportController\bin\Debug\tmsBase.dll
+F:\tmsCFS 2018 - HAAL\Projects\tmsReportController\bin\Debug\tmsBUS.dll
+F:\tmsCFS 2018 - HAAL\Projects\tmsReportController\bin\Debug\tmsCommon.dll
+F:\tmsCFS 2018 - HAAL\Projects\tmsReportController\bin\Debug\tmsCommonUIcfs.dll
+F:\tmsCFS 2018 - HAAL\Projects\tmsReportController\bin\Debug\tmsControls.dll
+F:\tmsCFS 2018 - HAAL\Projects\tmsReportController\bin\Debug\tmsDAO.dll
+F:\tmsCFS 2018 - HAAL\Projects\tmsReportController\bin\Debug\tmsCustomsSoapClient.dll
+F:\tmsCFS 2018 - HAAL\Projects\tmsReportController\bin\Debug\tmsCustomsSoapConnect.dll
+F:\tmsCFS 2018 - HAAL\Projects\tmsReportController\bin\Debug\tmsDTO.dll
+F:\tmsCFS 2018 - HAAL\Projects\tmsReportController\bin\Debug\tmsBase.pdb
+F:\tmsCFS 2018 - HAAL\Projects\tmsReportController\bin\Debug\tmsBUS.pdb
+F:\tmsCFS 2018 - HAAL\Projects\tmsReportController\bin\Debug\tmsCommon.pdb
+F:\tmsCFS 2018 - HAAL\Projects\tmsReportController\bin\Debug\tmsControls.pdb
+F:\tmsCFS 2018 - HAAL\Projects\tmsReportController\bin\Debug\tmsDAO.pdb
+F:\tmsCFS 2018 - HAAL\Projects\tmsReportController\bin\Debug\tmsCommonUIcfs.pdb
+F:\tmsCFS 2018 - HAAL\Projects\tmsReportController\bin\Debug\tmsCustomsSoapClient.pdb
+F:\tmsCFS 2018 - HAAL\Projects\tmsReportController\bin\Debug\tmsCustomsSoapConnect.pdb
+F:\tmsCFS 2018 - HAAL\Projects\tmsReportController\bin\Debug\tmsDTO.pdb
+F:\tmsCFS 2018 - HAAL\Projects\tmsReportController\obj\Debug\ResolveAssemblyReference.cache
+F:\tmsCFS 2018 - HAAL\Projects\tmsReportController\obj\Debug\tmsReportController.frmReportParameters.resources
+F:\tmsCFS 2018 - HAAL\Projects\tmsReportController\obj\Debug\tmsReportController.frmReportViewer.resources
+F:\tmsCFS 2018 - HAAL\Projects\tmsReportController\obj\Debug\GenerateResource.read.1.tlog
+F:\tmsCFS 2018 - HAAL\Projects\tmsReportController\obj\Debug\GenerateResource.write.1.tlog
+F:\tmsCFS 2018 - HAAL\Projects\tmsReportController\obj\Debug\tmsReportController.dll
+F:\tmsCFS 2018 - HAAL\Projects\tmsReportController\obj\Debug\tmsReportController.pdb
+D:\tmsCFS 2018 - HAAL\Projects\tmsReportController\bin\Debug\tmsReportController.dll.config
+D:\tmsCFS 2018 - HAAL\Projects\tmsReportController\bin\Debug\tmsReportController.dll
+D:\tmsCFS 2018 - HAAL\Projects\tmsReportController\bin\Debug\tmsReportController.pdb
+D:\tmsCFS 2018 - HAAL\Projects\tmsReportController\bin\Debug\CrystalDecisions.CrystalReports.Design.dll
+D:\tmsCFS 2018 - HAAL\Projects\tmsReportController\bin\Debug\CrystalDecisions.CrystalReports.Engine.dll
+D:\tmsCFS 2018 - HAAL\Projects\tmsReportController\bin\Debug\CrystalDecisions.ReportAppServer.ClientDoc.dll
+D:\tmsCFS 2018 - HAAL\Projects\tmsReportController\bin\Debug\CrystalDecisions.ReportAppServer.Controllers.dll
+D:\tmsCFS 2018 - HAAL\Projects\tmsReportController\bin\Debug\CrystalDecisions.ReportAppServer.DataDefModel.dll
+D:\tmsCFS 2018 - HAAL\Projects\tmsReportController\bin\Debug\CrystalDecisions.ReportAppServer.DataSetConversion.dll
+D:\tmsCFS 2018 - HAAL\Projects\tmsReportController\bin\Debug\CrystalDecisions.ReportAppServer.ReportDefModel.dll
+D:\tmsCFS 2018 - HAAL\Projects\tmsReportController\bin\Debug\CrystalDecisions.ReportSource.dll
+D:\tmsCFS 2018 - HAAL\Projects\tmsReportController\bin\Debug\CrystalDecisions.Shared.dll
+D:\tmsCFS 2018 - HAAL\Projects\tmsReportController\bin\Debug\CrystalDecisions.Windows.Forms.dll
+D:\tmsCFS 2018 - HAAL\Projects\tmsReportController\bin\Debug\Infragistics4.Shared.v18.1.dll
+D:\tmsCFS 2018 - HAAL\Projects\tmsReportController\bin\Debug\Infragistics4.Win.Misc.v18.1.dll
+D:\tmsCFS 2018 - HAAL\Projects\tmsReportController\bin\Debug\Infragistics4.Win.UltraWinCalcManager.v18.1.dll
+D:\tmsCFS 2018 - HAAL\Projects\tmsReportController\bin\Debug\Infragistics4.Win.UltraWinEditors.v18.1.dll
+D:\tmsCFS 2018 - HAAL\Projects\tmsReportController\bin\Debug\Infragistics4.Win.UltraWinGrid.v18.1.dll
+D:\tmsCFS 2018 - HAAL\Projects\tmsReportController\bin\Debug\Infragistics4.Win.UltraWinTabControl.v18.1.dll
+D:\tmsCFS 2018 - HAAL\Projects\tmsReportController\bin\Debug\Infragistics4.Win.UltraWinToolbars.v18.1.dll
+D:\tmsCFS 2018 - HAAL\Projects\tmsReportController\bin\Debug\Infragistics4.Win.v18.1.dll
+D:\tmsCFS 2018 - HAAL\Projects\tmsReportController\bin\Debug\tmsBase.dll
+D:\tmsCFS 2018 - HAAL\Projects\tmsReportController\bin\Debug\tmsBUS.dll
+D:\tmsCFS 2018 - HAAL\Projects\tmsReportController\bin\Debug\tmsCommon.dll
+D:\tmsCFS 2018 - HAAL\Projects\tmsReportController\bin\Debug\tmsCommonUIcfs.dll
+D:\tmsCFS 2018 - HAAL\Projects\tmsReportController\bin\Debug\tmsControls.dll
+D:\tmsCFS 2018 - HAAL\Projects\tmsReportController\bin\Debug\tmsDAO.dll
+D:\tmsCFS 2018 - HAAL\Projects\tmsReportController\bin\Debug\tmsCustomsSoapClient.dll
+D:\tmsCFS 2018 - HAAL\Projects\tmsReportController\bin\Debug\tmsCustomsSoapConnect.dll
+D:\tmsCFS 2018 - HAAL\Projects\tmsReportController\bin\Debug\tmsDTO.dll
+D:\tmsCFS 2018 - HAAL\Projects\tmsReportController\bin\Debug\Infragistics4.Win.UltraWinGrid.ExcelExport.v18.1.dll
+D:\tmsCFS 2018 - HAAL\Projects\tmsReportController\bin\Debug\Infragistics4.Documents.Excel.v18.1.dll
+D:\tmsCFS 2018 - HAAL\Projects\tmsReportController\bin\Debug\CrystalDecisions.Web.dll
+D:\tmsCFS 2018 - HAAL\Projects\tmsReportController\bin\Debug\CrystalDecisions.ReportAppServer.CommLayer.dll
+D:\tmsCFS 2018 - HAAL\Projects\tmsReportController\bin\Debug\CrystalDecisions.ReportAppServer.Prompting.dll
+D:\tmsCFS 2018 - HAAL\Projects\tmsReportController\bin\Debug\CrystalDecisions.ReportAppServer.XmlSerialize.dll
+D:\tmsCFS 2018 - HAAL\Projects\tmsReportController\bin\Debug\CrystalDecisions.ReportAppServer.CubeDefModel.dll
+D:\tmsCFS 2018 - HAAL\Projects\tmsReportController\bin\Debug\CrystalDecisions.ReportAppServer.CommonObjectModel.dll
+D:\tmsCFS 2018 - HAAL\Projects\tmsReportController\bin\Debug\CrystalDecisions.ReportAppServer.ObjectFactory.dll
+D:\tmsCFS 2018 - HAAL\Projects\tmsReportController\bin\Debug\CrystalDecisions.ReportAppServer.CommonControls.dll
+D:\tmsCFS 2018 - HAAL\Projects\tmsReportController\bin\Debug\stdole.dll
+D:\tmsCFS 2018 - HAAL\Projects\tmsReportController\bin\Debug\FlashControlV71.dll
+D:\tmsCFS 2018 - HAAL\Projects\tmsReportController\bin\Debug\Infragistics4.Win.UltraWinStatusBar.v18.1.dll
+D:\tmsCFS 2018 - HAAL\Projects\tmsReportController\bin\Debug\Infragistics4.Documents.Core.v18.1.dll
+D:\tmsCFS 2018 - HAAL\Projects\tmsReportController\bin\Debug\ShockwaveFlashObjects.dll
+D:\tmsCFS 2018 - HAAL\Projects\tmsReportController\bin\Debug\tmsBase.pdb
+D:\tmsCFS 2018 - HAAL\Projects\tmsReportController\bin\Debug\tmsBUS.pdb
+D:\tmsCFS 2018 - HAAL\Projects\tmsReportController\bin\Debug\tmsCommon.pdb
+D:\tmsCFS 2018 - HAAL\Projects\tmsReportController\bin\Debug\tmsControls.pdb
+D:\tmsCFS 2018 - HAAL\Projects\tmsReportController\bin\Debug\tmsDAO.pdb
+D:\tmsCFS 2018 - HAAL\Projects\tmsReportController\bin\Debug\tmsCommonUIcfs.pdb
+D:\tmsCFS 2018 - HAAL\Projects\tmsReportController\bin\Debug\Infragistics4.Shared.v18.1.xml
+D:\tmsCFS 2018 - HAAL\Projects\tmsReportController\bin\Debug\Infragistics4.Win.Misc.v18.1.xml
+D:\tmsCFS 2018 - HAAL\Projects\tmsReportController\bin\Debug\Infragistics4.Win.UltraWinCalcManager.v18.1.xml
+D:\tmsCFS 2018 - HAAL\Projects\tmsReportController\bin\Debug\Infragistics4.Win.UltraWinEditors.v18.1.xml
+D:\tmsCFS 2018 - HAAL\Projects\tmsReportController\bin\Debug\Infragistics4.Win.UltraWinGrid.v18.1.xml
+D:\tmsCFS 2018 - HAAL\Projects\tmsReportController\bin\Debug\Infragistics4.Win.UltraWinTabControl.v18.1.xml
+D:\tmsCFS 2018 - HAAL\Projects\tmsReportController\bin\Debug\Infragistics4.Win.UltraWinToolbars.v18.1.xml
+D:\tmsCFS 2018 - HAAL\Projects\tmsReportController\bin\Debug\Infragistics4.Win.v18.1.xml
+D:\tmsCFS 2018 - HAAL\Projects\tmsReportController\bin\Debug\tmsCustomsSoapClient.pdb
+D:\tmsCFS 2018 - HAAL\Projects\tmsReportController\bin\Debug\tmsCustomsSoapConnect.pdb
+D:\tmsCFS 2018 - HAAL\Projects\tmsReportController\bin\Debug\tmsCustomsSoapConnect.dll.config
+D:\tmsCFS 2018 - HAAL\Projects\tmsReportController\bin\Debug\tmsDTO.pdb
+D:\tmsCFS 2018 - HAAL\Projects\tmsReportController\bin\Debug\Infragistics4.Win.UltraWinGrid.ExcelExport.v18.1.xml
+D:\tmsCFS 2018 - HAAL\Projects\tmsReportController\bin\Debug\Infragistics4.Documents.Excel.v18.1.xml
+D:\tmsCFS 2018 - HAAL\Projects\tmsReportController\bin\Debug\Infragistics4.Win.UltraWinStatusBar.v18.1.xml
+D:\tmsCFS 2018 - HAAL\Projects\tmsReportController\bin\Debug\Infragistics4.Documents.Core.v18.1.xml
+D:\tmsCFS 2018 - HAAL\Projects\tmsReportController\obj\Debug\tmsReportController.csprojAssemblyReference.cache
+D:\tmsCFS 2018 - HAAL\Projects\tmsReportController\obj\Debug\tmsReportController.frmReportParameters.resources
+D:\tmsCFS 2018 - HAAL\Projects\tmsReportController\obj\Debug\tmsReportController.frmReportViewer.resources
+D:\tmsCFS 2018 - HAAL\Projects\tmsReportController\obj\Debug\tmsReportController.csproj.GenerateResource.cache
+D:\tmsCFS 2018 - HAAL\Projects\tmsReportController\obj\Debug\tmsReportController.csproj.CoreCompileInputs.cache
+D:\tmsCFS 2018 - HAAL\Projects\tmsReportController\obj\Debug\tmsReportController.csproj.CopyComplete
+D:\tmsCFS 2018 - HAAL\Projects\tmsReportController\obj\Debug\tmsReportController.dll
+D:\tmsCFS 2018 - HAAL\Projects\tmsReportController\obj\Debug\tmsReportController.pdb
+D:\Minh\tmsCFS 2018 - HAAL\Projects\tmsReportController\bin\Debug\tmsReportController.dll.config
+D:\Minh\tmsCFS 2018 - HAAL\Projects\tmsReportController\bin\Debug\tmsReportController.dll
+D:\Minh\tmsCFS 2018 - HAAL\Projects\tmsReportController\bin\Debug\tmsReportController.pdb
+D:\Minh\tmsCFS 2018 - HAAL\Projects\tmsReportController\bin\Debug\CrystalDecisions.CrystalReports.Design.dll
+D:\Minh\tmsCFS 2018 - HAAL\Projects\tmsReportController\bin\Debug\CrystalDecisions.CrystalReports.Engine.dll
+D:\Minh\tmsCFS 2018 - HAAL\Projects\tmsReportController\bin\Debug\CrystalDecisions.ReportAppServer.ClientDoc.dll
+D:\Minh\tmsCFS 2018 - HAAL\Projects\tmsReportController\bin\Debug\CrystalDecisions.ReportAppServer.Controllers.dll
+D:\Minh\tmsCFS 2018 - HAAL\Projects\tmsReportController\bin\Debug\CrystalDecisions.ReportAppServer.DataDefModel.dll
+D:\Minh\tmsCFS 2018 - HAAL\Projects\tmsReportController\bin\Debug\CrystalDecisions.ReportAppServer.DataSetConversion.dll
+D:\Minh\tmsCFS 2018 - HAAL\Projects\tmsReportController\bin\Debug\CrystalDecisions.ReportAppServer.ReportDefModel.dll
+D:\Minh\tmsCFS 2018 - HAAL\Projects\tmsReportController\bin\Debug\CrystalDecisions.ReportSource.dll
+D:\Minh\tmsCFS 2018 - HAAL\Projects\tmsReportController\bin\Debug\CrystalDecisions.Shared.dll
+D:\Minh\tmsCFS 2018 - HAAL\Projects\tmsReportController\bin\Debug\CrystalDecisions.Windows.Forms.dll
+D:\Minh\tmsCFS 2018 - HAAL\Projects\tmsReportController\bin\Debug\Infragistics4.Shared.v18.1.dll
+D:\Minh\tmsCFS 2018 - HAAL\Projects\tmsReportController\bin\Debug\Infragistics4.Win.Misc.v18.1.dll
+D:\Minh\tmsCFS 2018 - HAAL\Projects\tmsReportController\bin\Debug\Infragistics4.Win.UltraWinCalcManager.v18.1.dll
+D:\Minh\tmsCFS 2018 - HAAL\Projects\tmsReportController\bin\Debug\Infragistics4.Win.UltraWinEditors.v18.1.dll
+D:\Minh\tmsCFS 2018 - HAAL\Projects\tmsReportController\bin\Debug\Infragistics4.Win.UltraWinGrid.v18.1.dll
+D:\Minh\tmsCFS 2018 - HAAL\Projects\tmsReportController\bin\Debug\Infragistics4.Win.UltraWinTabControl.v18.1.dll
+D:\Minh\tmsCFS 2018 - HAAL\Projects\tmsReportController\bin\Debug\Infragistics4.Win.UltraWinToolbars.v18.1.dll
+D:\Minh\tmsCFS 2018 - HAAL\Projects\tmsReportController\bin\Debug\Infragistics4.Win.v18.1.dll
+D:\Minh\tmsCFS 2018 - HAAL\Projects\tmsReportController\bin\Debug\tmsBase.dll
+D:\Minh\tmsCFS 2018 - HAAL\Projects\tmsReportController\bin\Debug\tmsBUS.dll
+D:\Minh\tmsCFS 2018 - HAAL\Projects\tmsReportController\bin\Debug\tmsCommon.dll
+D:\Minh\tmsCFS 2018 - HAAL\Projects\tmsReportController\bin\Debug\tmsCommonUIcfs.dll
+D:\Minh\tmsCFS 2018 - HAAL\Projects\tmsReportController\bin\Debug\tmsControls.dll
+D:\Minh\tmsCFS 2018 - HAAL\Projects\tmsReportController\bin\Debug\tmsDAO.dll
+D:\Minh\tmsCFS 2018 - HAAL\Projects\tmsReportController\bin\Debug\tmsCustomsSoapClient.dll
+D:\Minh\tmsCFS 2018 - HAAL\Projects\tmsReportController\bin\Debug\tmsCustomsSoapConnect.dll
+D:\Minh\tmsCFS 2018 - HAAL\Projects\tmsReportController\bin\Debug\tmsDTO.dll
+D:\Minh\tmsCFS 2018 - HAAL\Projects\tmsReportController\bin\Debug\Infragistics4.Win.UltraWinGrid.ExcelExport.v18.1.dll
+D:\Minh\tmsCFS 2018 - HAAL\Projects\tmsReportController\bin\Debug\Infragistics4.Documents.Excel.v18.1.dll
+D:\Minh\tmsCFS 2018 - HAAL\Projects\tmsReportController\bin\Debug\CrystalDecisions.Web.dll
+D:\Minh\tmsCFS 2018 - HAAL\Projects\tmsReportController\bin\Debug\CrystalDecisions.ReportAppServer.CommLayer.dll
+D:\Minh\tmsCFS 2018 - HAAL\Projects\tmsReportController\bin\Debug\CrystalDecisions.ReportAppServer.Prompting.dll
+D:\Minh\tmsCFS 2018 - HAAL\Projects\tmsReportController\bin\Debug\CrystalDecisions.ReportAppServer.XmlSerialize.dll
+D:\Minh\tmsCFS 2018 - HAAL\Projects\tmsReportController\bin\Debug\CrystalDecisions.ReportAppServer.CubeDefModel.dll
+D:\Minh\tmsCFS 2018 - HAAL\Projects\tmsReportController\bin\Debug\CrystalDecisions.ReportAppServer.CommonObjectModel.dll
+D:\Minh\tmsCFS 2018 - HAAL\Projects\tmsReportController\bin\Debug\CrystalDecisions.ReportAppServer.ObjectFactory.dll
+D:\Minh\tmsCFS 2018 - HAAL\Projects\tmsReportController\bin\Debug\CrystalDecisions.ReportAppServer.CommonControls.dll
+D:\Minh\tmsCFS 2018 - HAAL\Projects\tmsReportController\bin\Debug\stdole.dll
+D:\Minh\tmsCFS 2018 - HAAL\Projects\tmsReportController\bin\Debug\FlashControlV71.dll
+D:\Minh\tmsCFS 2018 - HAAL\Projects\tmsReportController\bin\Debug\Infragistics4.Win.UltraWinStatusBar.v18.1.dll
+D:\Minh\tmsCFS 2018 - HAAL\Projects\tmsReportController\bin\Debug\Infragistics4.Documents.Core.v18.1.dll
+D:\Minh\tmsCFS 2018 - HAAL\Projects\tmsReportController\bin\Debug\ShockwaveFlashObjects.dll
+D:\Minh\tmsCFS 2018 - HAAL\Projects\tmsReportController\bin\Debug\tmsBase.pdb
+D:\Minh\tmsCFS 2018 - HAAL\Projects\tmsReportController\bin\Debug\tmsBUS.pdb
+D:\Minh\tmsCFS 2018 - HAAL\Projects\tmsReportController\bin\Debug\tmsCommon.pdb
+D:\Minh\tmsCFS 2018 - HAAL\Projects\tmsReportController\bin\Debug\tmsControls.pdb
+D:\Minh\tmsCFS 2018 - HAAL\Projects\tmsReportController\bin\Debug\tmsDAO.pdb
+D:\Minh\tmsCFS 2018 - HAAL\Projects\tmsReportController\bin\Debug\tmsCommonUIcfs.pdb
+D:\Minh\tmsCFS 2018 - HAAL\Projects\tmsReportController\bin\Debug\Infragistics4.Shared.v18.1.xml
+D:\Minh\tmsCFS 2018 - HAAL\Projects\tmsReportController\bin\Debug\Infragistics4.Win.Misc.v18.1.xml
+D:\Minh\tmsCFS 2018 - HAAL\Projects\tmsReportController\bin\Debug\Infragistics4.Win.UltraWinCalcManager.v18.1.xml
+D:\Minh\tmsCFS 2018 - HAAL\Projects\tmsReportController\bin\Debug\Infragistics4.Win.UltraWinEditors.v18.1.xml
+D:\Minh\tmsCFS 2018 - HAAL\Projects\tmsReportController\bin\Debug\Infragistics4.Win.UltraWinGrid.v18.1.xml
+D:\Minh\tmsCFS 2018 - HAAL\Projects\tmsReportController\bin\Debug\Infragistics4.Win.UltraWinTabControl.v18.1.xml
+D:\Minh\tmsCFS 2018 - HAAL\Projects\tmsReportController\bin\Debug\Infragistics4.Win.UltraWinToolbars.v18.1.xml
+D:\Minh\tmsCFS 2018 - HAAL\Projects\tmsReportController\bin\Debug\Infragistics4.Win.v18.1.xml
+D:\Minh\tmsCFS 2018 - HAAL\Projects\tmsReportController\bin\Debug\tmsCustomsSoapClient.pdb
+D:\Minh\tmsCFS 2018 - HAAL\Projects\tmsReportController\bin\Debug\tmsCustomsSoapConnect.pdb
+D:\Minh\tmsCFS 2018 - HAAL\Projects\tmsReportController\bin\Debug\tmsCustomsSoapConnect.dll.config
+D:\Minh\tmsCFS 2018 - HAAL\Projects\tmsReportController\bin\Debug\tmsDTO.pdb
+D:\Minh\tmsCFS 2018 - HAAL\Projects\tmsReportController\bin\Debug\Infragistics4.Win.UltraWinGrid.ExcelExport.v18.1.xml
+D:\Minh\tmsCFS 2018 - HAAL\Projects\tmsReportController\bin\Debug\Infragistics4.Documents.Excel.v18.1.xml
+D:\Minh\tmsCFS 2018 - HAAL\Projects\tmsReportController\bin\Debug\Infragistics4.Win.UltraWinStatusBar.v18.1.xml
+D:\Minh\tmsCFS 2018 - HAAL\Projects\tmsReportController\bin\Debug\Infragistics4.Documents.Core.v18.1.xml
+D:\Minh\tmsCFS 2018 - HAAL\Projects\tmsReportController\obj\Debug\tmsReportController.csprojAssemblyReference.cache
+D:\Minh\tmsCFS 2018 - HAAL\Projects\tmsReportController\obj\Debug\tmsReportController.frmReportParameters.resources
+D:\Minh\tmsCFS 2018 - HAAL\Projects\tmsReportController\obj\Debug\tmsReportController.frmReportViewer.resources
+D:\Minh\tmsCFS 2018 - HAAL\Projects\tmsReportController\obj\Debug\tmsReportController.csproj.GenerateResource.cache
+D:\Minh\tmsCFS 2018 - HAAL\Projects\tmsReportController\obj\Debug\tmsReportController.csproj.CoreCompileInputs.cache
+D:\Minh\tmsCFS 2018 - HAAL\Projects\tmsReportController\obj\Debug\tmsReportController.csproj.CopyComplete
+D:\Minh\tmsCFS 2018 - HAAL\Projects\tmsReportController\obj\Debug\tmsReportController.dll
+D:\Minh\tmsCFS 2018 - HAAL\Projects\tmsReportController\obj\Debug\tmsReportController.pdb

@@ -1,0 +1,445 @@
+﻿using System;
+using System.Windows.Forms;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using Infragistics.Win;
+using Infragistics.Win.Misc;
+using Infragistics.Win.UltraWinGrid;
+using Infragistics.Win.UltraWinGrid.ExcelExport;
+using tmsControls;
+using tmsCommon;
+using tmsCommonUIbase.Forms;
+using tmsCustomsSoapConnect;
+using tmsDAO;
+using System.Data;
+using System.Data.SqlClient;
+using tmsBUS;
+using tmsBase.Forms;
+using tmsBase.Classes;
+using tmsCommonUIcfs;
+using tmsReportController;
+namespace tmsCommonUIbase
+{
+    public static class tmsCommonUIbase
+    {
+        public static void SetDisplayLanguage(Control ctl)
+        {
+
+            foreach (Control iCtl in ctl.Controls)
+            {
+                if (iCtl is saLabel | iCtl is saCheckBox | iCtl is Infragistics.Win.Misc.UltraLabel)
+                    iCtl.Text = tmsCommon.tmsCommon.TraTuDien(iCtl.Text);
+                if (iCtl is saDateTimeBox)
+                    ((saDateTimeBox)iCtl).FormatProvider = tmsCommon.tmsCommon.ci;
+                if (iCtl is saNumericBox)
+                {
+                    ((saNumericBox)iCtl).FormatProvider = tmsCommon.tmsCommon.ci;
+                    saNumericBox numBox = (saNumericBox)iCtl;
+                    //Định dạng các cột số lượng
+                    if (tmsCommon.tmsCommon.TenCotSoLuong.ToUpper().IndexOf("(" + numBox.Name.ToUpper().Substring(3) + ")") >= 0)
+                    {
+                        numBox.MaskInput = tmsCommon.tmsCommon.DinhDangNhapSoLuong;
+                    }
+                    //Định dạng các cột trọng lượng
+                    if (tmsCommon.tmsCommon.TenCotTrongLuong.ToUpper().IndexOf("(" + numBox.Name.ToUpper().Substring(3) + ")") >= 0)
+                    {
+                        numBox.MaskInput = tmsCommon.tmsCommon.DinhDangNhapTrongLuong;
+                    }
+                    //Định dạng các cột khối lượng
+                    if (tmsCommon.tmsCommon.TenCotKhoiLuong.ToUpper().IndexOf("(" + numBox.Name.ToUpper().Substring(3) + ")") >= 0)
+                    {
+                        numBox.MaskInput = tmsCommon.tmsCommon.DinhDangNhapKhoiLuong;
+                    }
+                    //Định dạng các cột đơn giá
+                    if (tmsCommon.tmsCommon.TenCotGia.ToUpper().IndexOf("(" + numBox.Name.ToUpper().Substring(3) + ")") >= 0)
+                    {
+                        numBox.MaskInput = tmsCommon.tmsCommon.DinhDangNhapGia;
+                    }
+                    //Định dạng các cột số tiền
+                    if (tmsCommon.tmsCommon.TenCotTien.ToUpper().IndexOf("(" + numBox.Name.ToUpper().Substring(3) + ")") >= 0)
+                    {
+                        numBox.MaskInput = tmsCommon.tmsCommon.DinhDangNhapTien;
+                    }
+                }
+                if (iCtl is Infragistics.Win.UltraWinTabControl.UltraTabControl)
+                    foreach (Infragistics.Win.UltraWinTabControl.UltraTab ut in ((Infragistics.Win.UltraWinTabControl.UltraTabControl)iCtl).Tabs)
+                    {
+                        ut.Text = tmsCommon.tmsCommon.TraTuDien(ut.Text);
+                    }
+                if (iCtl.Controls.Count > 0)
+                    SetDisplayLanguage(iCtl);
+            }
+        }
+        public static Form CheckFormOpened(String frmName)
+        {
+            Form frmOpened = null;
+            foreach (Form frm in Application.OpenForms)
+            {
+                if (frm.Name.ToUpper() == frmName.ToUpper())
+                {
+                    frmOpened = frm;
+                    break;
+                }
+            }
+            return frmOpened;
+        }
+        public static void runChungTu(String LoaiManHinh, String FormCaption, String IDDanhMucChungTu, String MaDanhMucChungTu, Form MDIParent)
+        {
+            if (IDDanhMucChungTu == "") return;
+            DanhMucBUS _DanhMucBUS = new DanhMucBUS();
+            if (!CommonBUS.CheckRight("Xem", "ChungTu", IDDanhMucChungTu)) return;
+            if (LoaiManHinh == null) return;
+            //Lấy thông tin về mẫu in chứng từ và chứng từ liên quan
+            ConnectionDAO _DAO = new ConnectionDAO();
+            SqlParameter[] _sqlParameter = new SqlParameter[1];
+            _sqlParameter[0] = new SqlParameter("@IDDanhMucChungTu", IDDanhMucChungTu);
+            System.Data.DataSet dsThongTinChungTu = _DAO.dsList(_sqlParameter, "GetThongTinLoaiChungTu");
+            switch (LoaiManHinh.ToString())
+            {
+                case tmsCommon.tmsCommon.ManHinh_d41BatchContainerGetOut:
+                    tmsCommonUIcfs.Forms.d41.frm_d41BatchContainerGetOut frm_d41BatchContainerGetOut = new tmsCommonUIcfs.Forms.d41.frm_d41BatchContainerGetOut();
+                    frm_d41BatchContainerGetOut.ShowDialog();
+                    break;
+                case tmsCommon.tmsCommon.ManHinh_d41ContainerGetOut:
+                    tmsCommonUIcfs.Forms.d41.frm_d41ContainerGetOut frm_d41ContainerGetOut = new tmsCommonUIcfs.Forms.d41.frm_d41ContainerGetOut();
+                    frm_d41ContainerGetOut.IDDanhMucChungTu = IDDanhMucChungTu;
+                    frm_d41ContainerGetOut.Text = FormCaption;
+                    frm_d41ContainerGetOut.LoaiManHinh = LoaiManHinh;
+                    frm_d41ContainerGetOut.dsChungTuLienQuan = dsThongTinChungTu;
+                    frm_d41ContainerGetOut.MdiParent = MDIParent;
+                    frm_d41ContainerGetOut.Show();
+                    break;
+                case tmsCommon.tmsCommon.ManHinh_exGhepSoDinhDanhHangHoa2SoToKhai:
+                    tmsCommonUIcfs.Forms.HangXuatKhau.frm_exGhepSoDinhDanhHangHoa2SoToKhai frm_exGhepSoDinhDanhHangHoa2SoToKhai = new tmsCommonUIcfs.Forms.HangXuatKhau.frm_exGhepSoDinhDanhHangHoa2SoToKhai();
+                    frm_exGhepSoDinhDanhHangHoa2SoToKhai.IDDanhMucChungTu = IDDanhMucChungTu;
+                    frm_exGhepSoDinhDanhHangHoa2SoToKhai.Text = FormCaption;
+                    frm_exGhepSoDinhDanhHangHoa2SoToKhai.LoaiManHinh = LoaiManHinh;
+                    frm_exGhepSoDinhDanhHangHoa2SoToKhai.dsChungTuLienQuan = dsThongTinChungTu;
+                    frm_exGhepSoDinhDanhHangHoa2SoToKhai.MdiParent = MDIParent;
+                    frm_exGhepSoDinhDanhHangHoa2SoToKhai.Show();
+                    break;
+                case tmsCommon.tmsCommon.ManHinh_indInventory:
+                    tmsCommonUIcfs.Forms.HangNhapNoiDia.frm_indInventory frm_indInventory = new tmsCommonUIcfs.Forms.HangNhapNoiDia.frm_indInventory();
+                    frm_indInventory.Text = FormCaption;
+                    frm_indInventory.MdiParent = MDIParent;
+                    frm_indInventory.Show();
+                    break;
+                case tmsCommon.tmsCommon.ManHinh_indHangKienGetOut:
+                    tmsCommonUIcfs.Forms.HangNhapNoiDia.frm_indHangKienGetOut frm_indHangKienGetOut = new tmsCommonUIcfs.Forms.HangNhapNoiDia.frm_indHangKienGetOut();
+                    frm_indHangKienGetOut.IDDanhMucChungTu = IDDanhMucChungTu;
+                    frm_indHangKienGetOut.Text = FormCaption;
+                    frm_indHangKienGetOut.LoaiManHinh = LoaiManHinh;
+                    frm_indHangKienGetOut.dsChungTuLienQuan = dsThongTinChungTu;
+                    frm_indHangKienGetOut.MdiParent = MDIParent;
+                    frm_indHangKienGetOut.Show();
+                    break;
+                case tmsCommon.tmsCommon.ManHinh_indHangKienGetIn:
+                    tmsCommonUIcfs.Forms.HangNhapNoiDia.frm_indHangKienGetIn frm_indHangKienGetIn = new tmsCommonUIcfs.Forms.HangNhapNoiDia.frm_indHangKienGetIn();
+                    frm_indHangKienGetIn.IDDanhMucChungTu = IDDanhMucChungTu;
+                    frm_indHangKienGetIn.Text = FormCaption;
+                    frm_indHangKienGetIn.LoaiManHinh = LoaiManHinh;
+                    frm_indHangKienGetIn.dsChungTuLienQuan = dsThongTinChungTu;
+                    frm_indHangKienGetIn.MdiParent = MDIParent;
+                    frm_indHangKienGetIn.Show();
+                    break;
+                case tmsCommon.tmsCommon.ManHinh_AutoVanDonDuDieuKienQuaKVGS:
+                    tmsCommonUIcfs.Class.AutoCFS.AutoVanDonDuDieuKienQuaKVGS();
+                    break;
+                case tmsCommon.tmsCommon.ManHinh_SoDoXepDo:
+                    tmsCommonUIcfs.Forms.Khac.frm_SoDoXepDo frm_SoDoXepDo = new tmsCommonUIcfs.Forms.Khac.frm_SoDoXepDo();
+                    frm_SoDoXepDo.IDDanhMucChungTu = IDDanhMucChungTu;
+                    frm_SoDoXepDo.MaDanhMucChungTu = MaDanhMucChungTu;
+                    frm_SoDoXepDo.Text = FormCaption;
+                    frm_SoDoXepDo.LoaiManHinh = LoaiManHinh;
+                    frm_SoDoXepDo.dsChungTuLienQuan = dsThongTinChungTu;
+                    frm_SoDoXepDo.MdiParent = MDIParent;
+                    frm_SoDoXepDo.Show();
+                    break;
+                case tmsCommon.tmsCommon.ManHinh_tvPhieuXuatKhoVanDon:
+                    tmsCommonUIcfs.Forms.ThuongVu.frm_tvPhieuXuatKhoVanDon frm_tvPhieuXuatKhoVanDon = new tmsCommonUIcfs.Forms.ThuongVu.frm_tvPhieuXuatKhoVanDon();
+                    frm_tvPhieuXuatKhoVanDon.IDDanhMucChungTu = IDDanhMucChungTu;
+                    frm_tvPhieuXuatKhoVanDon.MaDanhMucChungTu = MaDanhMucChungTu;
+                    frm_tvPhieuXuatKhoVanDon.Text = FormCaption;
+                    frm_tvPhieuXuatKhoVanDon.LoaiManHinh = LoaiManHinh;
+                    frm_tvPhieuXuatKhoVanDon.dsChungTuLienQuan = dsThongTinChungTu;
+                    frm_tvPhieuXuatKhoVanDon.MdiParent = MDIParent;
+                    frm_tvPhieuXuatKhoVanDon.Show();
+                    break;
+                case tmsCommon.tmsCommon.ManHinh_tvHoaDonVanDon:
+                    tmsCommonUIcfs.Forms.ThuongVu.frm_tvHoaDonVanDon frm_tvHoaDonVanDon = new tmsCommonUIcfs.Forms.ThuongVu.frm_tvHoaDonVanDon();
+                    frm_tvHoaDonVanDon.IDDanhMucChungTu = IDDanhMucChungTu;
+                    frm_tvHoaDonVanDon.MaDanhMucChungTu = MaDanhMucChungTu;
+                    frm_tvHoaDonVanDon.Text = FormCaption;
+                    frm_tvHoaDonVanDon.LoaiManHinh = LoaiManHinh;
+                    frm_tvHoaDonVanDon.dsChungTuLienQuan = dsThongTinChungTu;
+                    frm_tvHoaDonVanDon.MdiParent = MDIParent;
+                    frm_tvHoaDonVanDon.Show();
+                    break;
+                case tmsCommon.tmsCommon.ManHinh_tvHoaDon:
+                    tmsCommonUIcfs.Forms.ThuongVu.frm_tvHoaDon frm_tvHoaDon = new tmsCommonUIcfs.Forms.ThuongVu.frm_tvHoaDon();
+                    frm_tvHoaDon.IDDanhMucChungTu = IDDanhMucChungTu;
+                    frm_tvHoaDon.MaDanhMucChungTu = MaDanhMucChungTu;
+                    frm_tvHoaDon.Text = FormCaption;
+                    frm_tvHoaDon.LoaiManHinh = LoaiManHinh;
+                    frm_tvHoaDon.dsChungTuLienQuan = dsThongTinChungTu;
+                    frm_tvHoaDon.MdiParent = MDIParent;
+                    frm_tvHoaDon.Show();
+                    break;
+                case tmsCommon.tmsCommon.ManHinh_cyContainerGetIn:
+                    tmsCommonUIcfs.Forms.CY.frm_cyContainerGetIn frm_cyContainerGetIn = new tmsCommonUIcfs.Forms.CY.frm_cyContainerGetIn();
+                    frm_cyContainerGetIn.IDDanhMucChungTu = IDDanhMucChungTu;
+                    frm_cyContainerGetIn.Text = FormCaption;
+                    frm_cyContainerGetIn.LoaiManHinh = LoaiManHinh;
+                    frm_cyContainerGetIn.dsChungTuLienQuan = dsThongTinChungTu;
+                    frm_cyContainerGetIn.MdiParent = MDIParent;
+                    frm_cyContainerGetIn.Show();
+                    break;
+                case tmsCommon.tmsCommon.ManHinh_imToKhaiDuDieuKienQuaKVGS:
+                    tmsCommonUIcfs.Forms.HangNhap.frm_imToKhaiDuDieuKienQuaKVGS frm_imToKhaiDuDieuKienQuaKVGS = new tmsCommonUIcfs.Forms.HangNhap.frm_imToKhaiDuDieuKienQuaKVGS();
+                    frm_imToKhaiDuDieuKienQuaKVGS.IDDanhMucChungTu = IDDanhMucChungTu;
+                    frm_imToKhaiDuDieuKienQuaKVGS.Text = FormCaption;
+                    frm_imToKhaiDuDieuKienQuaKVGS.LoaiManHinh = LoaiManHinh;
+                    frm_imToKhaiDuDieuKienQuaKVGS.dsChungTuLienQuan = dsThongTinChungTu;
+                    frm_imToKhaiDuDieuKienQuaKVGS.MdiParent = MDIParent;
+                    frm_imToKhaiDuDieuKienQuaKVGS.Show();
+                    break;
+                case tmsCommon.tmsCommon.ManHinh_imThongTinHangHoaVaoKhoQuaTKVC:
+                    tmsCommonUIcfs.Forms.HangNhap.frm_imThongTinHangHoaVaoKhoQuaTKVC frm_imThongTinHangHoaVaoKhoQuaTKVC = new tmsCommonUIcfs.Forms.HangNhap.frm_imThongTinHangHoaVaoKhoQuaTKVC();
+                    frm_imThongTinHangHoaVaoKhoQuaTKVC.IDDanhMucChungTu = IDDanhMucChungTu;
+                    frm_imThongTinHangHoaVaoKhoQuaTKVC.Text = FormCaption;
+                    frm_imThongTinHangHoaVaoKhoQuaTKVC.LoaiManHinh = LoaiManHinh;
+                    frm_imThongTinHangHoaVaoKhoQuaTKVC.dsChungTuLienQuan = dsThongTinChungTu;
+                    frm_imThongTinHangHoaVaoKhoQuaTKVC.MdiParent = MDIParent;
+                    frm_imThongTinHangHoaVaoKhoQuaTKVC.Show();
+                    break;
+                case tmsCommon.tmsCommon.ManHinh_kctContainerGetOut:
+                    tmsCommonUIcfs.Forms.KhongChungTu.frm_kctContainerGetOut frm_kctContainerGetOut = new tmsCommonUIcfs.Forms.KhongChungTu.frm_kctContainerGetOut();
+                    frm_kctContainerGetOut.IDDanhMucChungTu = IDDanhMucChungTu;
+                    frm_kctContainerGetOut.Text = FormCaption;
+                    frm_kctContainerGetOut.LoaiManHinh = LoaiManHinh;
+                    frm_kctContainerGetOut.dsChungTuLienQuan = dsThongTinChungTu;
+                    frm_kctContainerGetOut.MdiParent = MDIParent;
+                    frm_kctContainerGetOut.Show();
+                    break;
+                case tmsCommon.tmsCommon.ManHinh_HuyHangKienGetIn:
+                    tmsCommonUIcfs.Forms.SuaHuy.frm_HuyGetInHangKien frm_HuyGetInHangKien = new tmsCommonUIcfs.Forms.SuaHuy.frm_HuyGetInHangKien();
+                    frm_HuyGetInHangKien.IDDanhMucChungTu = IDDanhMucChungTu;
+                    frm_HuyGetInHangKien.Text = FormCaption;
+                    frm_HuyGetInHangKien.LoaiManHinh = LoaiManHinh;
+                    frm_HuyGetInHangKien.dsChungTuLienQuan = dsThongTinChungTu;
+                    frm_HuyGetInHangKien.MdiParent = MDIParent;
+                    frm_HuyGetInHangKien.Show();
+                    break;
+                case tmsCommon.tmsCommon.ManHinh_HuyHangKienGetInS:
+                    tmsCommonUIcfs.Forms.SuaHuy.frm_HuyGetInHangKienS frm_HuyGetInHangKienS = new tmsCommonUIcfs.Forms.SuaHuy.frm_HuyGetInHangKienS();
+                    frm_HuyGetInHangKienS.IDDanhMucChungTu = IDDanhMucChungTu;
+                    frm_HuyGetInHangKienS.Text = FormCaption;
+                    frm_HuyGetInHangKienS.LoaiManHinh = LoaiManHinh;
+                    frm_HuyGetInHangKienS.dsChungTuLienQuan = dsThongTinChungTu;
+                    frm_HuyGetInHangKienS.MdiParent = MDIParent;
+                    frm_HuyGetInHangKienS.Show();
+                    break;
+                case tmsCommon.tmsCommon.ManHinh_HuyContainerGetIn:
+                    tmsCommonUIcfs.Forms.SuaHuy.frm_HuyGetInContainer frm_HuyGetInContainer = new tmsCommonUIcfs.Forms.SuaHuy.frm_HuyGetInContainer();
+                    frm_HuyGetInContainer.IDDanhMucChungTu = IDDanhMucChungTu;
+                    frm_HuyGetInContainer.Text = FormCaption;
+                    frm_HuyGetInContainer.LoaiManHinh = LoaiManHinh;
+                    frm_HuyGetInContainer.dsChungTuLienQuan = dsThongTinChungTu;
+                    frm_HuyGetInContainer.MdiParent = MDIParent;
+                    frm_HuyGetInContainer.Show();
+                    break;
+                case tmsCommon.tmsCommon.ManHinh_SuaGetIn:
+                    tmsCommonUIcfs.Forms.SuaHuy.frm_SuaGetIn frm_SuaGetIn = new tmsCommonUIcfs.Forms.SuaHuy.frm_SuaGetIn();
+                    frm_SuaGetIn.IDDanhMucChungTu = IDDanhMucChungTu;
+                    frm_SuaGetIn.Text = FormCaption;
+                    frm_SuaGetIn.LoaiManHinh = LoaiManHinh;
+                    frm_SuaGetIn.dsChungTuLienQuan = dsThongTinChungTu;
+                    frm_SuaGetIn.MdiParent = MDIParent;
+                    frm_SuaGetIn.Show();
+                    break;
+                case tmsCommon.tmsCommon.ManHinh_imXinSoDinhDanhHangHoa:
+                    tmsCommonUIcfs.Forms.HangNhap.frm_imXinSoDinhDanhHangHoa frm_imXinSoDinhDanhHangHoa = new tmsCommonUIcfs.Forms.HangNhap.frm_imXinSoDinhDanhHangHoa();
+                    frm_imXinSoDinhDanhHangHoa.IDDanhMucChungTu = IDDanhMucChungTu;
+                    frm_imXinSoDinhDanhHangHoa.Text = FormCaption;
+                    frm_imXinSoDinhDanhHangHoa.LoaiManHinh = LoaiManHinh;
+                    frm_imXinSoDinhDanhHangHoa.dsChungTuLienQuan = dsThongTinChungTu;
+                    frm_imXinSoDinhDanhHangHoa.MdiParent = MDIParent;
+                    frm_imXinSoDinhDanhHangHoa.Show();
+                    break;
+                case tmsCommon.tmsCommon.ManHinh_imContainerGetIn:
+                    tmsCommonUIcfs.Forms.HangNhap.frm_imContainerGetIn frmContainerGetIn = new tmsCommonUIcfs.Forms.HangNhap.frm_imContainerGetIn();
+                    frmContainerGetIn.IDDanhMucChungTu = IDDanhMucChungTu;
+                    frmContainerGetIn.Text = FormCaption;
+                    frmContainerGetIn.LoaiManHinh = LoaiManHinh;
+                    frmContainerGetIn.dsChungTuLienQuan = dsThongTinChungTu;
+                    frmContainerGetIn.MdiParent = MDIParent;
+                    frmContainerGetIn.Show();
+                    break;
+                case tmsCommon.tmsCommon.ManHinh_imHangKienGetIn:
+                    tmsCommonUIcfs.Forms.HangNhap.frm_imHangKienGetIn frm_imHangKienGetIn = new tmsCommonUIcfs.Forms.HangNhap.frm_imHangKienGetIn();
+                    frm_imHangKienGetIn.IDDanhMucChungTu = IDDanhMucChungTu;
+                    frm_imHangKienGetIn.Text = FormCaption;
+                    frm_imHangKienGetIn.LoaiManHinh = LoaiManHinh;
+                    frm_imHangKienGetIn.dsChungTuLienQuan = dsThongTinChungTu;
+                    frm_imHangKienGetIn.MdiParent = MDIParent;
+                    frm_imHangKienGetIn.Show();
+                    break;
+                case tmsCommon.tmsCommon.ManHinh_imRutHang:
+                    tmsCommonUIcfs.Forms.HangNhap.frm_imRutHang frm_imRutHang = new tmsCommonUIcfs.Forms.HangNhap.frm_imRutHang();
+                    frm_imRutHang.IDDanhMucChungTu = IDDanhMucChungTu;
+                    frm_imRutHang.Text = FormCaption;
+                    frm_imRutHang.LoaiManHinh = LoaiManHinh;
+                    frm_imRutHang.dsChungTuLienQuan = dsThongTinChungTu;
+                    frm_imRutHang.MdiParent = MDIParent;
+                    frm_imRutHang.Show();
+                    break;
+                case tmsCommon.tmsCommon.ManHinh_CauHinhHeThong:
+                    tmsCommonUIcfs.tmsCommonUIcfs.LayCacThamSoCuaChuKyDienTu();
+                    break;
+                case tmsCommon.tmsCommon.ManHinh_imVanDonDieuKienQuaKVGS:
+                    tmsCommonUIcfs.Forms.HangNhap.frm_imVanDonDuDieuKienQuaKVGS frmVanDonDuDieuKienQuaKVGS = new tmsCommonUIcfs.Forms.HangNhap.frm_imVanDonDuDieuKienQuaKVGS();
+                    frmVanDonDuDieuKienQuaKVGS.IDDanhMucChungTu = IDDanhMucChungTu;
+                    frmVanDonDuDieuKienQuaKVGS.Text = FormCaption;
+                    frmVanDonDuDieuKienQuaKVGS.LoaiManHinh = LoaiManHinh;
+                    frmVanDonDuDieuKienQuaKVGS.dsChungTuLienQuan = dsThongTinChungTu;
+                    frmVanDonDuDieuKienQuaKVGS.MdiParent = MDIParent;
+                    frmVanDonDuDieuKienQuaKVGS.Show();
+                    break;
+                case tmsCommon.tmsCommon.ManHinh_imHangKienGetOut:
+                    tmsCommonUIcfs.Forms.HangNhap.frm_imHangKienGetOut frm_imHangKienGetOut = new tmsCommonUIcfs.Forms.HangNhap.frm_imHangKienGetOut();
+                    frm_imHangKienGetOut.IDDanhMucChungTu = IDDanhMucChungTu;
+                    frm_imHangKienGetOut.Text = FormCaption;
+                    frm_imHangKienGetOut.LoaiManHinh = LoaiManHinh;
+                    frm_imHangKienGetOut.dsChungTuLienQuan = dsThongTinChungTu;
+                    frm_imHangKienGetOut.MdiParent = MDIParent;
+                    frm_imHangKienGetOut.Show();
+                    break;
+                case tmsCommon.tmsCommon.ManHinh_imHangKienGetOutS:
+                    tmsCommonUIcfs.Forms.HangNhap.frm_imHangKienGetOutS frm_imHangKienGetOutS = new tmsCommonUIcfs.Forms.HangNhap.frm_imHangKienGetOutS();
+                    frm_imHangKienGetOutS.IDDanhMucChungTu = IDDanhMucChungTu;
+                    frm_imHangKienGetOutS.Text = FormCaption;
+                    frm_imHangKienGetOutS.LoaiManHinh = LoaiManHinh;
+                    frm_imHangKienGetOutS.dsChungTuLienQuan = dsThongTinChungTu;
+                    frm_imHangKienGetOutS.MdiParent = MDIParent;
+                    frm_imHangKienGetOutS.Show();
+                    break;
+                case tmsCommon.tmsCommon.ManHinh_exHangKienGetOut:
+                    tmsCommonUIcfs.Forms.HangXuat.frm_exHangKienGetOut frm_exHangKienGetOut = new tmsCommonUIcfs.Forms.HangXuat.frm_exHangKienGetOut();
+                    frm_exHangKienGetOut.IDDanhMucChungTu = IDDanhMucChungTu;
+                    frm_exHangKienGetOut.Text = FormCaption;
+                    frm_exHangKienGetOut.LoaiManHinh = LoaiManHinh;
+                    frm_exHangKienGetOut.dsChungTuLienQuan = dsThongTinChungTu;
+                    frm_exHangKienGetOut.MdiParent = MDIParent;
+                    frm_exHangKienGetOut.Show();
+                    break;
+                //case tmsCommon.tmsCommon.ManHinh_imHangKienGetOut:
+                //    tmsCommonUIcfs.Forms.HangNhap.frm_imHangKienGetOutToKhai frmToKhaiDuDieuKienQuaKVGS = new tmsCommonUIcfs.Forms.HangNhap.frm_imHangKienGetOutToKhai();
+                //    frmToKhaiDuDieuKienQuaKVGS.IDDanhMucChungTu = IDDanhMucChungTu;
+                //    frmToKhaiDuDieuKienQuaKVGS.Text = FormCaption;
+                //    frmToKhaiDuDieuKienQuaKVGS.LoaiManHinh = LoaiManHinh;
+                //    frmToKhaiDuDieuKienQuaKVGS.MdiParent = MDIParent;
+                //    frmToKhaiDuDieuKienQuaKVGS.Show();
+                //    break;
+                case tmsCommon.tmsCommon.ManHinh_exHangKienGetIn:
+                    tmsCommonUIcfs.Forms.HangXuat.frm_exHangKienGetIn frm_exHangKienGetIn = new tmsCommonUIcfs.Forms.HangXuat.frm_exHangKienGetIn();
+                    frm_exHangKienGetIn.IDDanhMucChungTu = IDDanhMucChungTu;
+                    frm_exHangKienGetIn.Text = FormCaption;
+                    frm_exHangKienGetIn.LoaiManHinh = LoaiManHinh;
+                    frm_exHangKienGetIn.dsChungTuLienQuan = dsThongTinChungTu;
+                    frm_exHangKienGetIn.MdiParent = MDIParent;
+                    frm_exHangKienGetIn.Show();
+                    break;
+                case tmsCommon.tmsCommon.ManHinh_exHangKienGetInToKhaiChungVanDon:
+                    tmsCommonUIcfs.Forms.HangXuat.frm_exHangKienGetIn_ToKhaiChungVanDon frm_exHangKienGetIn_ToKhaiChungVanDon = new tmsCommonUIcfs.Forms.HangXuat.frm_exHangKienGetIn_ToKhaiChungVanDon();
+                    frm_exHangKienGetIn_ToKhaiChungVanDon.IDDanhMucChungTu = IDDanhMucChungTu;
+                    frm_exHangKienGetIn_ToKhaiChungVanDon.Text = FormCaption;
+                    frm_exHangKienGetIn_ToKhaiChungVanDon.LoaiManHinh = LoaiManHinh;
+                    frm_exHangKienGetIn_ToKhaiChungVanDon.dsChungTuLienQuan = dsThongTinChungTu;
+                    frm_exHangKienGetIn_ToKhaiChungVanDon.MdiParent = MDIParent;
+                    frm_exHangKienGetIn_ToKhaiChungVanDon.Show();
+                    break;
+                case tmsCommon.tmsCommon.ManHinh_exContainerGetIn:
+                    tmsCommonUIcfs.Forms.HangXuat.frm_exContainerGetIn frm_exContainerGetIn = new tmsCommonUIcfs.Forms.HangXuat.frm_exContainerGetIn();
+                    frm_exContainerGetIn.IDDanhMucChungTu = IDDanhMucChungTu;
+                    frm_exContainerGetIn.Text = FormCaption;
+                    frm_exContainerGetIn.LoaiManHinh = LoaiManHinh;
+                    frm_exContainerGetIn.dsChungTuLienQuan = dsThongTinChungTu;
+                    frm_exContainerGetIn.MdiParent = MDIParent;
+                    frm_exContainerGetIn.Show();
+                    break;
+                case tmsCommon.tmsCommon.ManHinh_exGetOutContainer:
+                    tmsCommonUIcfs.Forms.HangXuat.frm_exContainerGetOut frm_exContainerGetOut = new tmsCommonUIcfs.Forms.HangXuat.frm_exContainerGetOut();
+                    frm_exContainerGetOut.IDDanhMucChungTu = IDDanhMucChungTu;
+                    frm_exContainerGetOut.Text = FormCaption;
+                    frm_exContainerGetOut.LoaiManHinh = LoaiManHinh;
+                    frm_exContainerGetOut.dsChungTuLienQuan = dsThongTinChungTu;
+                    frm_exContainerGetOut.MdiParent = MDIParent;
+                    frm_exContainerGetOut.Show();
+                    break;
+                case tmsCommon.tmsCommon.ManHinh_exGhepHang:
+                    tmsCommonUIcfs.Forms.HangXuat.frm_exGhepHang frm_exGhepHang = new tmsCommonUIcfs.Forms.HangXuat.frm_exGhepHang();
+                    frm_exGhepHang.IDDanhMucChungTu = IDDanhMucChungTu;
+                    frm_exGhepHang.Text = FormCaption;
+                    frm_exGhepHang.LoaiManHinh = LoaiManHinh;
+                    frm_exGhepHang.dsChungTuLienQuan = dsThongTinChungTu;
+                    frm_exGhepHang.MdiParent = MDIParent;
+                    frm_exGhepHang.Show();
+                    break;
+                case tmsCommon.tmsCommon.ManHinh_exContainerDuDieuKienQuaKVGS:
+                    tmsCommonUIcfs.Forms.HangXuat.frm_exContainerDuDieuKienQuaKVGS frm_exContainerDuDieuKienQuaKVGS = new tmsCommonUIcfs.Forms.HangXuat.frm_exContainerDuDieuKienQuaKVGS();
+                    frm_exContainerDuDieuKienQuaKVGS.IDDanhMucChungTu = IDDanhMucChungTu;
+                    frm_exContainerDuDieuKienQuaKVGS.Text = FormCaption;
+                    frm_exContainerDuDieuKienQuaKVGS.LoaiManHinh = LoaiManHinh;
+                    frm_exContainerDuDieuKienQuaKVGS.dsChungTuLienQuan = dsThongTinChungTu;
+                    frm_exContainerDuDieuKienQuaKVGS.MdiParent = MDIParent;
+                    frm_exContainerDuDieuKienQuaKVGS.Show();
+                    break;
+                case tmsCommon.tmsCommon.ManHinh_imLoHang:
+                    tmsCommonUIcfs.Forms.frm_imLoHang frm_imLoHang = new tmsCommonUIcfs.Forms.frm_imLoHang();
+                    frm_imLoHang.MdiParent = MDIParent;
+                    frm_imLoHang.Show();
+                    break;
+            }
+        }
+        public static void runDanhMuc(String FormCaption, String IDDanhMucLoaiDoiTuong, Form MDIParent)
+        {
+            frmDanhMuc frmQuanLy;
+            if (IDDanhMucLoaiDoiTuong == "") return;
+            if (!CommonBUS.CheckRight("Xem", "LoaiDoiTuong", IDDanhMucLoaiDoiTuong)) return;
+            if (!tmsBase.Classes.DanhMuc.CheckFormDanhMucOpened(IDDanhMucLoaiDoiTuong))
+            {
+                String TenBangDuLieu = CommonBUS.GetTenBangDuLieu(IDDanhMucLoaiDoiTuong);
+
+                switch (TenBangDuLieu.ToUpper())
+                {
+                    case "DANHMUCPHI":
+                        //Nếu cần gọi form riêng cho từng loại đối tượng thì switch case
+                        tmsCommonUIcfs.Forms.frmDanhMucPhi frmDanhMucPhi = new tmsCommonUIcfs.Forms.frmDanhMucPhi();
+                        frmDanhMucPhi.Text = FormCaption;
+                        frmDanhMucPhi.MdiParent = MDIParent;
+                        frmDanhMucPhi.Show();
+                        break;
+                    default:
+                        //Nếu cần gọi form riêng cho từng loại đối tượng thì switch case
+                        frmQuanLy = new frmDanhMuc();
+                        frmQuanLy.IDDanhMucLoaiDoiTuong = IDDanhMucLoaiDoiTuong;
+                        frmQuanLy.LoaiDanhMuc = TenBangDuLieu;
+                        frmQuanLy.Text = FormCaption;
+                        frmQuanLy.MdiParent = MDIParent;
+                        frmQuanLy.Show();
+                        break;
+                }
+            }
+        }
+        public static void runBaoCao(String IDDanhMucBaoCao, Form MDIParent)
+        {
+            if (!CommonBUS.CheckRight("Xem", "BaoCao", IDDanhMucBaoCao)) return;
+            Report clsReportUI = new Report();
+            clsReportUI.IDDanhMucBaoCao = IDDanhMucBaoCao;
+            clsReportUI.MDIParent = MDIParent;
+            clsReportUI.ProcessReport(null, false);
+        }
+        
+    }
+}

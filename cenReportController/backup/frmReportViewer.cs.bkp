@@ -1,0 +1,308 @@
+﻿using System;
+using System.IO;
+using System.Collections.Generic;
+using System.ComponentModel;
+using System.Data;
+using System.Data.SqlClient;
+using System.Drawing;
+using System.Linq;
+using System.Text;
+using System.Windows.Forms;
+using Infragistics.Win.Misc;
+using Infragistics.Win.UltraWinGrid;
+using CrystalDecisions.Windows.Forms;
+using CrystalDecisions.CrystalReports;
+using CrystalDecisions.CrystalReports.Engine;
+using CrystalDecisions.ReportAppServer.ReportDefModel;
+using CrystalDecisions.ReportAppServer.DataDefModel;
+using CrystalDecisions.ReportAppServer.ClientDoc;
+using CrystalDecisions.ReportAppServer.DataSetConversion;
+using CrystalDecisions.ReportSource;
+using CrystalDecisions.Shared;
+using cenControls;
+using cenCommon;
+namespace cenReportController
+{
+    public partial class frmReportViewer : Form
+    {
+        public Icon rptIco = null;
+        public Int16 LoaiBaoCao = 0;
+        public Int16 LoaiApDung = 0; //Loại áp dụng nếu là báo cáo động
+        //Danh sách file báo cáo
+        public String ReportFileName = "";
+        //XML chứa dữ liệu báo cáo
+        public String DataXMLPath = "";
+        //Chuối chứa danh sách cột hiển thị trên grid
+        public String DanhSachCot;
+        public String DanhSachTieuDeCot;
+        //XML chứa tham số & giá trị tham số
+        public String ThamSoXMLPath = "";
+        //Có tham chiếu tới chứng từ hay không
+        public Boolean ThamChieuChungTu = false;
+        //ID danh mục báo cáo drill-down
+        public String IDDanhMucBaoCaoThamChieu = "";
+        public String TieuDeBaoCao = "";
+        public String IDDanhMucBaoCao = "";
+        public String TenMayIn = "";
+        public String FixedColumnList = "";
+        //DataTable lưu tham số và tham số hiển thị phục vụ cho việc refresh
+        public String TenProcedure = "";
+        public DataTable dtThamSoProc = null;
+        //public DataTable dtThamSoHienThi = null;
+        public System.Data.DataSet dsData = new System.Data.DataSet();
+        //Lấy cấu trúc cột report để test
+        public DataTable dtCauTrucCot = new DataTable();
+        //Lấy cấu trúc header để test
+        public DataTable dtHeader = new DataTable();
+        // Màu
+        public String MauHeaderColumn = "";
+        public String MauDetailBold = "";
+        //Có phải được mở từ phân hệ quản trị hay không
+        public Boolean PhanHeQuanTri = false;
+        //
+        public Form MDIParent = null;
+        public Byte[] LogoImage;
+
+        CrystalDecisions.CrystalReports.Engine.ReportDocument rpt;
+
+        public frmReportViewer()
+        {
+            InitializeComponent();
+            ugBaoCao.HiddenColumnsList = "[LoaiManHinh][MaDanhMucChungTu][TenDanhMucChungTu]";
+        }
+        private void cmdClose_Click(object sender, EventArgs e)
+        {
+            Close();
+        }
+        private void DeleteReportAfterUse()
+        {
+            if (File.Exists(ReportFileName))
+                File.Delete(ReportFileName);
+            if (File.Exists(DataXMLPath))
+                File.Delete(DataXMLPath);
+            
+        }
+        private void LoadReport()
+        {
+            //Fill data to grid
+            if (dsData.Tables.Count > 0)
+            {
+
+                //if (IDDanhMucBaoCao == "001.000000000003") //Chi tiết nhiệt độ
+                ugBaoCao.FixedColumnsList = FixedColumnList;
+                ugBaoCao.AddfilterColumn = true;
+                ugBaoCao.AddSummaryRow = false;
+                ugBaoCao.isReport = true;
+                ugBaoCao.DataSource = dsData;
+                if (IDDanhMucBaoCao == "001.000000000014" || IDDanhMucBaoCao == "001.000000000013")
+                    ugBaoCao.DisplayLayout.Override.CellMultiLine = Infragistics.Win.DefaultableBoolean.True; //WrapText
+                ugBaoCao.DisplayLayout.Override.FixedRowStyle = Infragistics.Win.UltraWinGrid.FixedRowStyle.Bottom;
+
+                foreach (UltraGridColumn uc in ugBaoCao.DisplayLayout.Bands[0].Columns)
+                {
+                    //Lấy kiểu dữ liệu cột để định dạng
+                    Int16 KieuDuLieu = 0;
+                    foreach (DataRow drCauTrucCot in dtCauTrucCot.Rows)
+                    {
+                        if (drCauTrucCot["TenCot"].ToString().ToUpper() == uc.Key.ToUpper())
+                        {
+                            KieuDuLieu = (drCauTrucCot["KieuDuLieu"]==DBNull.Value) ? (Int16)0 : Convert.ToInt16(drCauTrucCot["KieuDuLieu"]);
+                            break;
+                        }
+                    }
+                    //switch (KieuDuLieu)
+                    //{
+                    //    case 1: //Ngày tháng
+                    //        //uc.Format = cenCommon.GlobalVariables.FormatNgayThang;
+                    //        uc.FormatInfo = cenCommon.GlobalVariables.ci;
+                    //        break;
+                    //    case 3: //Số lượng
+                    //        uc.MaskInput = cenCommon.GlobalVariables.DinhDangNhapSoLuong;
+                    //        uc.Format = cenCommon.GlobalVariables.FormatSoLuong;
+                    //        break;
+                    //    case 4: //Đơn giá
+                    //        uc.MaskInput = cenCommon.GlobalVariables.DinhDangNhapGiaTienHachToan;
+                    //        uc.Format = cenCommon.GlobalVariables.FormatGiaTienHachToan;
+                    //        break;
+                    //    case 5: //Đơn giá Nt
+                    //        uc.MaskInput = cenCommon.GlobalVariables.DinhDangNhapGiaTienNgoaiTe;
+                    //        uc.Format = cenCommon.GlobalVariables.FormatGiaTienNgoaiTe;
+                    //        uc.Hidden = (IDNgoaiTe != cenCommon.GlobalVariables.IDTienHachToan);
+                    //        break;
+                    //    case 6: //Tiền
+                    //        uc.MaskInput = cenCommon.GlobalVariables.DinhDangNhapTienHachToan;
+                    //        uc.Format = cenCommon.GlobalVariables.FormatTienHachToan;
+                    //        break;
+                    //    case 7: //Tiền Nt
+                    //        uc.MaskInput = cenCommon.GlobalVariables.DinhDangNhapTienNgoaiTe;
+                    //        uc.Format = "##,###." + cenCommon.GlobalVariables.FormatGiaTienNgoaiTe;
+                    //        uc.Hidden = (IDNgoaiTe != cenCommon.GlobalVariables.IDTienHachToan);
+                    //        break;
+                    //}
+                    if (uc.Key.ToUpper() == "RGROUP" | uc.Key.ToUpper() == "BOLD" | uc.Key.ToUpper() == "FIXDONG" | uc.Key.ToUpper() == "COLOR")
+                    {
+                        uc.Hidden = true;
+                    }
+                    else
+                    {
+                        //Căn lề cột trên grid
+                        foreach (DataRow drCauTrucCot in dtCauTrucCot.Rows)
+                        {
+                            if (drCauTrucCot["TenCot"].ToString().ToUpper() == uc.Key.ToUpper())
+                            {
+                                //MessageBox.Show(drCauTrucCot["TenCot"].ToString().ToUpper() + "----Key: " + uc.Key.ToUpper() + "----Align: " + drCauTrucCot["CanLe"].ToString());
+                                if(drCauTrucCot["CanLe"] != DBNull.Value)
+                                    ugBaoCao.DisplayLayout.Bands[0].Columns[uc.Key].CellAppearance.TextHAlign = Convert.ToInt16(drCauTrucCot["CanLe"]) == 1 ? Infragistics.Win.HAlign.Center : ((Convert.ToInt16(drCauTrucCot["CanLe"]) == 0 ? Infragistics.Win.HAlign.Left : Infragistics.Win.HAlign.Right));
+                                break;
+                            }
+                            ugBaoCao.DisplayLayout.Bands[0].Columns[uc.Key].CellMultiLine = Infragistics.Win.DefaultableBoolean.True;
+                        }
+                    }
+                    //if (MauHeaderColumn != "")
+                    //    uc.Header.Appearance.BackColor = cenCommon.GlobalVariables.UIntToColor(Convert.ToUInt32(MauHeaderColumn));
+                }
+                if (ugBaoCao.Rows.Count > 0)
+                    ugBaoCao.Rows[0].Selected = true;
+                    
+            }
+            Int16 iReportFileName = 1;
+            
+            if (File.Exists(ReportFileName))
+            {
+                //Load report file
+                rpt = new CrystalDecisions.CrystalReports.Engine.ReportDocument();
+                rpt.Load(ReportFileName);
+                if (DataXMLPath != "")
+                    CrystalReportGenerator.AddDataSourceUsingSchemaFile(rpt.ReportClientDocument, DataXMLPath, "Table", dsData, true);
+                crViewer.ToolPanelView = ToolPanelViewType.None;
+                crViewer.ReportSource = rpt;
+                crViewer.ShowLogo = false;
+                crViewer.ShowCloseButton = false;
+                crViewer.ShowCopyButton = false;
+                //crViewer.ShowExportButton = false;
+                //crViewer.ShowPrintButton = false;
+                crViewer.ShowGroupTreeButton = false;
+                crViewer.ShowRefreshButton = false;
+                crViewer.ShowTextSearchButton = false;
+                crViewer.ShowParameterPanelButton = false;
+                crViewer.Zoom(100);
+                iReportFileName += 1;
+            }
+            else
+            {
+                MessageBox.Show("Không tìm thấy file báo cáo: " + ReportFileName + "!", "Chú ý!", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
+
+            //Load cấu trúc cột để test
+            //ugCauTruc.SetEnvironment(cenCommon.GlobalVariables.connectionStr, cenCommon.GlobalVariables.IDDonVi, cenCommon.GlobalVariables.IDNgonNgu, cenCommon.GlobalVariables.IDDanhMucNguoiSuDung, cenCommon.GlobalVariables.ci);
+            //ugCauTruc.DataSource = dtCauTrucCot;
+            //ugCauTruc1.SetEnvironment(cenCommon.GlobalVariables.connectionStr, cenCommon.GlobalVariables.IDDonVi, cenCommon.GlobalVariables.IDNgonNgu, cenCommon.GlobalVariables.IDDanhMucNguoiSuDung, cenCommon.GlobalVariables.ci);
+            //ugCauTruc1.DataSource = dtHeader;
+        }
+        private void frmReportViewer_FormClosing(object sender, FormClosingEventArgs e)
+        {
+            DeleteReportAfterUse();
+            rpt.Close();
+            rpt.Dispose();
+        }
+        private void frmReportViewer_Load(object sender, EventArgs e)
+        {
+            if (MDIParent != null) this.MdiParent = MDIParent;
+            this.Text = TieuDeBaoCao;
+            ultraTabControl1.Tabs["grid"].Enabled = (dsData.Tables.Count > 0);
+            ultraTabControl1.SelectedTab = (dsData.Tables.Count > 0) ? ultraTabControl1.Tabs["grid"] : ultraTabControl1.Tabs["preview"];
+            LoadReport();
+        }
+        private void ugBaoCao_InitializeRow(object sender, Infragistics.Win.UltraWinGrid.InitializeRowEventArgs e)
+        {
+            //if (!bRefresh)
+            //{
+                if (e.Row.Band.Columns.Exists("rBold") && e.Row.Cells["rBold"].Value != DBNull.Value && Convert.ToInt16(e.Row.Cells["rBold"].Value) == 1)
+                {
+                    e.Row.Appearance.FontData.Bold = Infragistics.Win.DefaultableBoolean.True;
+                    e.Row.Appearance.BackColor = Color.SteelBlue;
+                    //if (MauDetailBold != "")
+                    //    e.Row.Appearance.BackColor = cenCommon.GlobalVariables.UIntToColor(Convert.ToUInt32(MauDetailBold));
+                }
+
+                
+                if (e.Row.Band.Columns.Exists("rBold") && e.Row.Cells["rBold"].Value != DBNull.Value && Convert.ToInt16(e.Row.Cells["rBold"].Value) == 2)
+                {
+                    e.Row.Appearance.FontData.Bold = Infragistics.Win.DefaultableBoolean.True;
+                    e.Row.Appearance.BackColor = Color.LightBlue;
+                    //if (MauDetailBold != "")
+                    //    e.Row.Appearance.BackColor = cenCommon.GlobalVariables.UIntToColor(Convert.ToUInt32(MauDetailBold));
+                }
+
+            if (e.Row.Band.Columns.Exists("rBold") && e.Row.Cells["rBold"].Value != DBNull.Value && Convert.ToInt16(e.Row.Cells["rBold"].Value) == 3)
+            {
+                e.Row.Appearance.FontData.Bold = Infragistics.Win.DefaultableBoolean.True;
+                e.Row.Appearance.BackColor = Color.Orange;
+                //if (MauDetailBold != "")
+                //    e.Row.Appearance.BackColor = cenCommon.GlobalVariables.UIntToColor(Convert.ToUInt32(MauDetailBold));
+            }
+
+            if (e.Row.Band.Columns.Exists("FixDong") && e.Row.Cells["FixDong"].Value != DBNull.Value && Convert.ToBoolean(e.Row.Cells["FixDong"].Value) == true)
+                {
+                    e.Row.Fixed = true;
+                }
+
+                if (e.Row.Band.Columns.Exists("Color") && e.Row.Cells["Color"].Value != DBNull.Value)
+                {
+                    e.Row.Appearance.BackColor = cenCommon.cenCommon.UIntToColor(Convert.ToUInt32(e.Row.Cells["Color"].Value));
+                }
+                
+            //}
+        }
+        /// <summary>
+        /// Lọc theo giá trị trong box Quickfilter
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void filterBoxValueChanged(object sender, EventArgs e)
+        {
+            cenCommon.cenCommon.filterGrid(ugBaoCao, txtfilterBox.Text);
+        }
+        private void frmReportViewer_KeyDown(object sender, KeyEventArgs e)
+        {
+            if (e.KeyCode == Keys.F12)
+            {
+                txtfilterBox.SelectAll();
+                txtfilterBox.Focus();
+            }
+        }
+        private void ultraToolbarsManager1_ToolClick(object sender, Infragistics.Win.UltraWinToolbars.ToolClickEventArgs e)
+        {
+            switch (e.Tool.Key.ToUpper())
+            {
+                case "BTEXCEL":
+                    cenCommon.cenCommon.ExportGrid2Excel((UltraGrid)ugBaoCao);
+                    break;
+                case "BTTAILAI":
+                    Report clsReportUI = new Report
+                    {
+                        IDDanhMucBaoCao = IDDanhMucBaoCao,
+                        MDIParent = MDIParent,
+                        dtThamSo = dtThamSoProc
+                    };
+                    clsReportUI.ProcessReport(this, true);
+                    LoadReport();
+                    break;
+            }
+        }
+
+        private void frmReportViewer_FormClosed(object sender, FormClosedEventArgs e)
+        {
+            this.Dispose();
+        }
+        private void ugBaoCao_DoubleClickRow(object sender, DoubleClickRowEventArgs e)
+        {
+            //Nếu tham chiếu tới chứng từ thì mở chứng từ
+            if (ThamChieuChungTu && e.Row.Band.Columns.Exists("IDChungTu") && e.Row.Cells["IDChungTu"].Value != DBNull.Value)
+            {
+                //cenCommonUIapps.cenCommonUIapps.runChungTu(e.Row.Cells["LoaiManHinh"].Value.ToString(), e.Row.Cells["TenDanhMucChungTu"].Value.ToString(), e.Row.Cells["IDDanhMucChungTu"].Value.ToString(), e.Row.Cells["MaDanhMucChungTu"].Value.ToString(), this.MDIParent, e.Row.Cells["IDChungTu"].Value);
+            }
+        }
+        
+    }
+}

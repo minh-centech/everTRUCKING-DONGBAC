@@ -1,0 +1,123 @@
+﻿using System;
+using System.Windows.Forms;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using Infragistics.Win;
+using Infragistics.Win.Misc;
+using Infragistics.Win.UltraWinGrid;
+using Infragistics.Win.UltraWinGrid.ExcelExport;
+using cenControls;
+using cenCommon;
+using cenCommonUIbase.Forms;
+using cenDAO;
+using System.Data;
+using System.Data.SqlClient;
+using cenBUS;
+using cenBase.Forms;
+using cenBase.Classes;
+using cenReportController;
+namespace cenCommonUIbase
+{
+    public static class cenCommonUIbase
+    {
+        public static void SetDisplayLanguage(Control ctl)
+        {
+
+            foreach (Control iCtl in ctl.Controls)
+            {
+                if (iCtl is saLabel | iCtl is saCheckBox | iCtl is Infragistics.Win.Misc.UltraLabel)
+                    iCtl.Text = cenCommon.cenCommon.TraTuDien(iCtl.Text);
+                if (iCtl is saDateTimeBox)
+                    ((saDateTimeBox)iCtl).FormatProvider = cenCommon.GlobalVariables.ci;
+                if (iCtl is saNumericBox)
+                {
+                    ((saNumericBox)iCtl).FormatProvider = cenCommon.GlobalVariables.ci;
+                    saNumericBox numBox = (saNumericBox)iCtl;
+                    //Định dạng các cột số lượng
+                    if (cenCommon.GlobalVariables.TenCotSoLuong.ToUpper().IndexOf("(" + numBox.Name.ToUpper().Substring(3) + ")") >= 0)
+                    {
+                        numBox.MaskInput = cenCommon.GlobalVariables.DinhDangNhapSoLuong;
+                    }
+                    //Định dạng các cột trọng lượng
+                    if (cenCommon.GlobalVariables.TenCotTrongLuong.ToUpper().IndexOf("(" + numBox.Name.ToUpper().Substring(3) + ")") >= 0)
+                    {
+                        numBox.MaskInput = cenCommon.GlobalVariables.DinhDangNhapTrongLuong;
+                    }
+                    //Định dạng các cột khối lượng
+                    if (cenCommon.GlobalVariables.TenCotKhoiLuong.ToUpper().IndexOf("(" + numBox.Name.ToUpper().Substring(3) + ")") >= 0)
+                    {
+                        numBox.MaskInput = cenCommon.GlobalVariables.DinhDangNhapKhoiLuong;
+                    }
+                    //Định dạng các cột đơn giá
+                    if (cenCommon.GlobalVariables.TenCotGia.ToUpper().IndexOf("(" + numBox.Name.ToUpper().Substring(3) + ")") >= 0)
+                    {
+                        numBox.MaskInput = cenCommon.GlobalVariables.DinhDangNhapGia;
+                    }
+                    //Định dạng các cột số tiền
+                    if (cenCommon.GlobalVariables.TenCotTien.ToUpper().IndexOf("(" + numBox.Name.ToUpper().Substring(3) + ")") >= 0)
+                    {
+                        numBox.MaskInput = cenCommon.GlobalVariables.DinhDangNhapTien;
+                    }
+                }
+                if (iCtl is Infragistics.Win.UltraWinTabControl.UltraTabControl)
+                    foreach (Infragistics.Win.UltraWinTabControl.UltraTab ut in ((Infragistics.Win.UltraWinTabControl.UltraTabControl)iCtl).Tabs)
+                    {
+                        ut.Text = cenCommon.cenCommon.TraTuDien(ut.Text);
+                    }
+                if (iCtl.Controls.Count > 0)
+                    SetDisplayLanguage(iCtl);
+            }
+        }
+        public static Form CheckFormOpened(String frmName)
+        {
+            Form frmOpened = null;
+            foreach (Form frm in Application.OpenForms)
+            {
+                if (frm.Name.ToUpper() == frmName.ToUpper())
+                {
+                    frmOpened = frm;
+                    break;
+                }
+            }
+            return frmOpened;
+        }
+        public static void runChungTu(String LoaiManHinh, String FormCaption, String IDDanhMucChungTu, String MaDanhMucChungTu, Form MDIParent)
+        {
+            if (IDDanhMucChungTu == "") return;
+            //DanhMucBUS _DanhMucBUS = new DanhMucBUS();
+            //if (!CommonBUS.CheckRight("Xem", "ChungTu", IDDanhMucChungTu)) return;
+            //if (LoaiManHinh == null) return;
+            //Lấy thông tin về mẫu in chứng từ và chứng từ liên quan
+            ConnectionDAO _DAO = new ConnectionDAO();
+            SqlParameter[] _sqlParameter = new SqlParameter[1];
+            _sqlParameter[0] = new SqlParameter("@IDDanhMucChungTu", IDDanhMucChungTu);
+            System.Data.DataSet dsThongTinChungTu = _DAO.dsList(_sqlParameter, "Get_ThongTinLoaiChungTu");
+            switch (LoaiManHinh.ToString())
+            {
+                //case cenCommon.LoaiManHinh.ManHinh_eknqHangKienGetIn:
+                //    cenCommonUIapps.KNQ.Forms.frm_eknqHangKienGetIn frm_eknqHangKienGetIn = new cenCommonUIapps.KNQ.Forms.frm_eknqHangKienGetIn
+                //    {
+                //        IDDanhMucChungTu = IDDanhMucChungTu,
+                //        Text = FormCaption,
+                //        LoaiManHinh = LoaiManHinh,
+                //        dsChungTuLienQuan = dsThongTinChungTu,
+                //        MdiParent = MDIParent
+                //    };
+                //    frm_eknqHangKienGetIn.Show();
+                //    break;
+            }
+        }
+        public static void runBaoCao(String IDDanhMucBaoCao, Form MDIParent)
+        {
+            //if (!CommonBUS.CheckRight("Xem", "BaoCao", IDDanhMucBaoCao)) return;
+            Report clsReportUI = new Report
+            {
+                IDDanhMucBaoCao = IDDanhMucBaoCao,
+                MDIParent = MDIParent
+            };
+            clsReportUI.ProcessReport(null, false);
+        }
+        
+    }
+}

@@ -1,0 +1,504 @@
+﻿using System;
+using System.IO;
+using System.Collections.Generic;
+using System.ComponentModel;
+using System.Data;
+using System.Data.SqlClient;
+using System.Drawing;
+using System.Linq;
+using System.Text;
+using System.Windows.Forms;
+using Infragistics.Win.UltraWinGrid;
+using Infragistics.Win.UltraWinEditors;
+using Infragistics.Win.Misc;
+using cenControls;
+using cenCommon;
+using cenDAO;
+using cenBUS;
+namespace cenReportController
+{
+    public partial class frmReportParameters : Form
+    {
+        public String IDDanhMucBaoCao = "";
+        public String TenBaoCao = "";
+        public String TenProcedure = "";
+        //Thông tin trả về
+        public DataSet dsData = null; //Dataset chứa dữ liệu
+        public Boolean OK = false;//Ok hay Cancel
+        public String ChuoiThamSoHienThi = ""; //Chuỗi hiển thị thông tin tham số in lên report
+        public String XMLPath_Data = ""; //Dữ liệu trả về của procedure
+        //Lưu thông tin về tham số và giá trị
+        DataSet dsThamSo = null;
+        public DataTable dtThamSo = null; //Tham số của procedure
+
+        String XMLPathThamSo = Application.StartupPath + "\\Temp\\xmlThamSoBaoCao.xml"; //Tham số và giá trị của tham số báo cáo tĩnh
+
+        public String DanhSachCot = "";
+
+        public DataSet dsThamSoDynamic=null;
+
+        //
+        DataSet dsValid = null;
+
+        public frmReportParameters()
+        {
+            InitializeComponent();
+        }
+
+        private void frm_donvi_capnhat_Load(object sender, EventArgs e)
+        {
+            //Khởi tạo textbox
+            InitInputControl();
+            this.CenterToScreen();
+        }
+        /// <summary>
+        /// Button OK-click
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void cmdSave_Click(object sender, EventArgs e)
+        {
+            
+            OK = SaveParameterValue();
+            if (OK)
+            {
+                Close();
+            }
+            
+        }
+        //Tạo dataset cho ProcName
+        private Boolean SaveParameterValue()
+        {
+            Boolean isCreated = false;
+            SqlConnection connection = new SqlConnection(cenCommon.GlobalVariables.ConnectionString);
+            SqlDataAdapter da = new SqlDataAdapter();
+
+            DataTable dt = new DataTable();
+            SqlCommand sqlCMD = new SqlCommand();
+            //Lưu tham số vào datatable
+            foreach (DataRow drThamSo in dtThamSo.Rows)
+            {
+                String KieuThamSo = drThamSo["Kieu"].ToString().ToUpper();
+                String TenThamSo = drThamSo["Ten"].ToString().ToUpper();
+
+                drThamSo["GiaTri"] = DBNull.Value;
+
+                switch (KieuThamSo)
+                {
+                    case "BOOLEAN": //Bit
+                        foreach (System.Windows.Forms.Control e in this.ultraTabPageControl1.Controls)
+                        {
+                            if (e is saCheckBox && ((saCheckBox)e).Name == TenThamSo)
+                            {
+                                saCheckBox chk = (saCheckBox)e;
+                                if (chk != null)
+                                {
+                                    drThamSo["GiaTri"] = chk.Checked;
+                                    drThamSo["GiaTriMoTa"] = (chk.Checked) ? "Có" : "Không";
+                                    break;
+                                }
+                            }
+                        }
+                        break;
+                    default: 
+                        foreach (System.Windows.Forms.Control e in this.ultraTabPageControl1.Controls)
+                        {
+                            if (e is saNumericBox && ((saNumericBox)e).Name == TenThamSo)
+                            {
+                                saNumericBox nmr = (saNumericBox)e;
+                                if (nmr != null && nmr.Value.ToString() != "0")
+                                {
+                                    drThamSo["GiaTri"] = nmr.Value;
+                                    drThamSo["GiaTriMoTa"] = nmr.Value;
+                                    break;
+                                }
+                            }
+                            if (e is saComboDanhMuc && ((saComboDanhMuc)e).Name == TenThamSo)
+                            {
+                                saComboDanhMuc nmr = (saComboDanhMuc)e;
+                                if (nmr != null && nmr.Value != null)
+                                {
+                                    drThamSo["GiaTri"] = nmr.Value;
+                                    drThamSo["GiaTriMoTa"] = nmr.Text;
+                                    break;
+                                }
+                            }
+                        }
+                        break;
+                    case "STRING": //Text
+                        foreach (System.Windows.Forms.Control e in this.ultraTabPageControl1.Controls)
+                        {
+                            if (e is saTextBox && ((saTextBox)e).Name == TenThamSo)
+                            {
+                                saTextBox nmr = (saTextBox)e;
+                                if (nmr != null && nmr.Text != "")
+                                {
+                                    drThamSo["GiaTri"] = TenThamSo.StartsWith("@ID") ? nmr.ID : nmr.Text;
+                                    drThamSo["GiaTriMoTa"] = nmr.Text;
+                                    break;
+                                }
+                            }
+                            if (e is saComboDanhMuc && ((saComboDanhMuc)e).Name == TenThamSo)
+                            {
+                                saComboDanhMuc nmr = (saComboDanhMuc)e;
+                                if (nmr != null && nmr.Value != null)
+                                {
+                                    drThamSo["GiaTri"] = nmr.Value;
+                                    drThamSo["GiaTriMoTa"] = nmr.Text;
+                                    break;
+                                }
+                            }
+                        }
+                        break;
+                    case "DATE":
+                    case "DATETIME": //Ngày tháng
+                        foreach (System.Windows.Forms.Control e in this.ultraTabPageControl1.Controls)
+                        {
+                            if (e is saDateTimeBox && ((saDateTimeBox)e).Name == TenThamSo)
+                            {
+                                saDateTimeBox dtm = (saDateTimeBox)e;
+                                if (dtm != null && dtm.Value != null)
+                                {
+                                    String strDay = (dtm.DateTime.Day < 10) ? "0" + dtm.DateTime.Day.ToString() : dtm.DateTime.Day.ToString();
+                                    String strMonth = (dtm.DateTime.Month < 10) ? "0" + dtm.DateTime.Month.ToString() : dtm.DateTime.Month.ToString();
+                                    String strDate = strMonth + "/" + strDay + "/" + dtm.DateTime.Year.ToString();
+                                    drThamSo["GiaTri"] = strDate;
+                                    drThamSo["GiaTriMoTa"] = strDay + "/" + strMonth + "/" + dtm.DateTime.Year.ToString();
+                                    break;
+                                }
+                            }
+                        }
+                        break;
+                }
+                    
+            }
+            dtThamSo.AcceptChanges();
+                
+            dsThamSo = new DataSet();
+            dsThamSo.Tables.Add(dtThamSo.Copy());
+                
+            dsThamSo.AcceptChanges();
+            dsThamSo.WriteXml(XMLPathThamSo);
+            isCreated = true;
+            return isCreated;
+            //}
+            //catch (Exception ex)
+            //{
+            //    cenCommon.cenCommon.ErrorMessageOkOnly(ex.Message);
+            //    return false;
+            //}
+            //finally
+            //{
+                //da.Dispose();
+                //connection.Close();
+                //connection.Dispose();
+            //}
+        }
+
+        /// <summary>
+        /// Tạo các textbox input dữ liệu
+        /// </summary>
+        /// <param name="tlp">Groupbox</param>
+        /// <param name="CapNhatLoaiDoiTuong">Cho phép nhập ID Loại đối tượng hay không</param>
+        /// /// <param name="CapNhatLoaiNhomDoiTuong">Cho phép nhập ID Loại nhóm đối tượng hay không</param>
+        /// <param name="CapNhatDoiTuong">Cho phép nhập ID đối tượng hay không</param>
+        protected void InitInputControl()
+        {
+            //Khai báo các biến control
+            saTextBox txtBox = new saTextBox();
+            saTextBox txtTen = new saTextBox();
+            saLabel lblBox = new saLabel();
+            saCheckBox chkBox = new saCheckBox();
+            saNumericBox numBox = new saNumericBox();
+            saDateTimeBox dateBox = new saDateTimeBox();
+            saComboDanhMuc cboDanhMuc = new saComboDanhMuc();
+
+            Int32 VerticalSpace = 12; //Toạ độ Y bắt đầu đặt control, 2 lần khoảng cách dọc giữa các control
+            Int32 ctlHeight = 0;
+            Int32 MaxLabelWidth = 0;
+            //Đọc cấu trúc bảng
+            foreach (DataRow drThamSo in dtThamSo.Rows)
+            {
+                String TenThamSo = drThamSo["Ten"].ToString().ToUpper();
+                if (TenThamSo != "@IDDONVI")
+                {
+                    //Kiểu giá trị tham số: 0-Bit, 1-Số, 2-Text, 3-Ngày tháng, 4-Tham chiếu
+                    String KieuThamSo = drThamSo["Kieu"].ToString().ToUpper();
+
+                    //Tìm tham số lưu lần trước nếu có
+                    Object vGiaTriCu = drThamSo["GiaTri"];
+                    Object vGiaTriCuMoTa = drThamSo["GiaTriMoTa"];
+                    Object vGiaTriCuTen = drThamSo["GiaTriTen"];
+
+
+                    lblBox = new saLabel
+                    {
+                        Left = 12
+                    };
+                    if (ctlHeight == 0) ctlHeight = VerticalSpace;
+                    else
+                        ctlHeight = ctlHeight + VerticalSpace / 2;
+                    lblBox.Top = ctlHeight;
+                    lblBox.Text = (KieuThamSo != "BOOLEAN") ? cenCommon.cenCommon.TraTuDien(TenThamSo.Substring(1)) : "";
+                    lblBox.Visible = true;
+                    lblBox.AutoSize = true;
+                    this.ultraTabPageControl1.Controls.Add(lblBox);
+                    if (lblBox.Width > MaxLabelWidth)
+                        MaxLabelWidth = lblBox.Width;
+
+                    if (cenCommon.GlobalVariables.TenCotDropdown.ToUpper().IndexOf("(" + TenThamSo.Substring(1) + ")") < 0) //Nếu không phải cột dropdown thì đặt textbox
+                    {
+                        if (TenThamSo.StartsWith("@ID"))
+                        {
+                            txtBox = new saTextBox
+                            {
+                                Left = 100,
+                                Top = ctlHeight,
+                                Name = TenThamSo,
+                                Tag = TenThamSo,
+                                IsValid = true,
+                                IsMultiSelect = true
+                            };
+                            //Thiết lập độ rộng và vị trí control
+                            txtBox.Width = (!txtBox.IsMultiSelect) ? 150 : 580;
+                            //Thiết lập độ dài chuỗi được phép nhập vào control
+                            txtBox.Visible = true;
+                            txtBox.IsModified = false;
+                            this.ultraTabPageControl1.Controls.Add(txtBox);
+                            txtBox.Editor.ExitEditMode(true, true);
+                            
+                            //Xác định loại đối tượng valid
+                            String LoaiDoiTuong = TenThamSo.Substring(3);
+                            if (LoaiDoiTuong == "DANHMUCCHUHANG" || LoaiDoiTuong == "DANHMUCCHUVO")
+                                LoaiDoiTuong = "DANHMUCKHACHHANG";
+                            LoaddsValid(LoaiDoiTuong);
+                            if (LoaiDoiTuong.StartsWith("DANHMUCDONVITINH") || LoaiDoiTuong.StartsWith("DANHMUCKHO"))
+                                LoaiDoiTuong = "DANHMUCDOITUONG";
+                            if (dsValid.Tables.Contains(LoaiDoiTuong))
+                                txtBox.dtValid = dsValid.Tables[LoaiDoiTuong];
+                            
+                            //Đặt thêm 01 textbox chứa tên
+                            string TenTxtMa = txtBox.Name;
+                            saTextBox txtName = new saTextBox
+                            {
+                                Left = txtBox.Left + txtBox.Width + 6,
+                                Top = txtBox.Top,
+                                Name = "Ten" + txtBox.Name,
+                                Tag = "Ten" + txtBox.Name,
+                                Width = 424,
+                                MaxLength = 512,
+                                Visible = !txtBox.IsMultiSelect,
+                                IsValid = false,
+                                IsNullable = true,
+                                Enabled = false
+                            };
+                            //
+                            txtBox.txtMoRong = new saTextBox[1];
+                            txtBox.txtMoRong[0] = txtName;
+                            txtBox.ReturnedColumnsList = "Ten";
+                            this.ultraTabPageControl1.Controls.Add(txtName);
+                            if (vGiaTriCu != DBNull.Value)
+                                txtBox.ID = vGiaTriCu.ToString();
+                            if (vGiaTriCuMoTa != DBNull.Value)
+                            txtBox.Text = vGiaTriCuMoTa.ToString();
+                            
+                            ctlHeight += txtBox.Height;
+                            txtBox.Validating += new System.ComponentModel.CancelEventHandler(cenBase.Classes.DanhMuc.txtBox_Validating);
+
+                        }
+                        else
+                        {
+                            switch (KieuThamSo)
+                            {
+                                //Dữ liệu kiểu chuỗi
+                                case "STRING":
+                                    if (lblBox.Width > MaxLabelWidth)
+                                        MaxLabelWidth = lblBox.Width;
+                                    //Nếu là giá trị đơn
+                                    txtBox = new saTextBox
+                                    {
+                                        Left = 100,
+                                        Top = ctlHeight,
+                                        Name = TenThamSo,
+                                        Tag = TenThamSo,
+                                        //Thiết lập độ rộng và vị trí control
+                                        Width = 580,
+                                        //Thiết lập độ dài chuỗi được phép nhập vào control
+                                        Visible = true,
+                                        IsModified = false
+                                    };
+                                    if (vGiaTriCu != DBNull.Value)
+                                        txtBox.Value = vGiaTriCu;
+                                    this.ultraTabPageControl1.Controls.Add(txtBox);
+                                    ctlHeight += txtBox.Height;
+                                    break;
+                                case "INT16": //Số
+                                case "INT32":
+                                case "INT64":
+                                case "FLOAT":
+                                case "DECIMAL":
+                                    //Đặt numeric box
+                                    numBox = new saNumericBox
+                                    {
+                                        NumericType = NumericType.Double,
+                                        Left = 100,
+                                        Top = ctlHeight,
+                                        Name = TenThamSo,
+                                        Tag = TenThamSo,
+                                        Width = 150,
+                                        Visible = true,
+                                        FormatProvider = cenCommon.GlobalVariables.ci,
+                                        Nullable = true
+                                    };
+                                    if (vGiaTriCu != DBNull.Value)
+                                        numBox.Value = vGiaTriCu;
+                                    numBox.IsModified = false;
+                                    this.ultraTabPageControl1.Controls.Add(numBox);
+                                    ctlHeight += numBox.Height;
+                                    break;
+                                case "DATE":
+                                case "DATETIME": //Ngày tháng
+                                    dateBox = new saDateTimeBox
+                                    {
+                                        //txtBox.Multiline = true;
+                                        Left = 100,
+                                        Top = ctlHeight,
+                                        Name = TenThamSo,
+                                        Tag = TenThamSo,
+                                        Width = 150
+                                    };
+                                    if (vGiaTriCu != DBNull.Value)
+                                        dateBox.Value = vGiaTriCu;
+                                    dateBox.Visible = true;
+                                    dateBox.FormatProvider = cenCommon.GlobalVariables.ci;
+                                    dateBox.Nullable = true;
+                                    dateBox.IsModified = false;
+                                    this.ultraTabPageControl1.Controls.Add(dateBox);
+                                    ctlHeight += dateBox.Height;
+                                    break;
+                                case "BOOLEAN": //Bit
+                                    //Đặt check box
+                                    chkBox = new saCheckBox
+                                    {
+                                        Left = 100,
+                                        Top = ctlHeight,
+                                        Name = TenThamSo,
+                                        Tag = TenThamSo,
+                                        Text = cenCommon.cenCommon.TraTuDien(TenThamSo.Substring(1)),
+                                        AutoSize = true,
+                                        Visible = true
+                                    };
+                                    if (vGiaTriCu != DBNull.Value)
+                                        chkBox.Checked = Convert.ToBoolean(vGiaTriCu);
+                                    this.ultraTabPageControl1.Controls.Add(chkBox);
+                                    chkBox.IsModified = false;
+                                    ctlHeight += chkBox.Height;
+                                    break;
+                            }
+                        }
+                    }
+                    else
+                    {
+                        //Đặt check box
+                        cboDanhMuc = new saComboDanhMuc
+                        {
+                            Left = 100,
+                            Top = ctlHeight,
+                            Name = TenThamSo,
+                            Tag = TenThamSo,
+                            Width = 150,
+                            Visible = true
+                        };
+                        cboDanhMuc.Value = vGiaTriCu;
+                        this.ultraTabPageControl1.Controls.Add(cboDanhMuc);
+                        cboDanhMuc.IsModified = false;
+                        ctlHeight += cboDanhMuc.Height;
+                    }
+                }
+                
+            }
+            //Đặt lại tọa độ left cho các control
+            foreach (Control ctl in this.ultraTabPageControl1.Controls)
+            {
+                if ((ctl is saTextBox | ctl is saNumericBox | ctl is saDateTimeBox | ctl is saCheckBox | ctl is saComboDanhMuc | ctl is saPictureBox))
+                {
+                    Int32 oLeft = ctl.Left;
+                    if (ctl.Enabled) ctl.Left = MaxLabelWidth + 20;
+                    ctl.Width = ctl.Width - (ctl.Left - oLeft);
+                }
+
+            }
+            ////Đặt chiều cao, độ rộng form
+            ultraTabControl1.Size = new Size(ultraTabControl1.Width, ctlHeight + VerticalSpace+26);
+            this.Height = ctlHeight + VerticalSpace + 102;
+            this.Width = 714;    
+        }
+        /// <summary>
+        /// Phím chức năng F6: Lưu dữ liệu, ESC: Thoát
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void FormKeyDown(object sender, KeyEventArgs e)
+        {
+            switch (e.KeyCode)
+            {
+                case (Keys.Escape):
+                    Cancel();
+                    break;
+                case (Keys.Enter):
+                    if (e.Control)
+                    {
+                        OK = SaveParameterValue();
+                        if (OK)
+                        {
+                            Close();
+                        }
+                        
+                        e.Handled = true;
+                    }
+                    break;
+                case (Keys.F6):
+                    OK = SaveParameterValue();
+                    if (OK)
+                    {
+                        Close();
+                    }
+                    break;
+            }
+        }
+        /// <summary>
+        /// Ngừng cập nhật
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void cmdCancel_Click(object sender, EventArgs e)
+        {
+            Cancel();
+        }
+        /// <summary>
+        /// Ngừng
+        /// </summary>
+        private void Cancel()
+        {
+            OK = false;
+            Close();
+        }
+        //Load danh mục valid
+        private void LoaddsValid(String LoaiDanhMuc)
+        {
+            if (dsValid == null) dsValid = new DataSet();
+            if (dsValid.Tables.Contains(LoaiDanhMuc)) dsValid.Tables.Remove(LoaiDanhMuc);
+            //DanhMucBUS _BUS = new DanhMucBUS();
+            //DataTable dt = null;
+            //if (!_BUS.List(ref dt, LoaiDanhMuc))
+            //{
+            //    cenCommon.cenCommon.ErrorMessageOkOnly("Lỗi load danh mục:" + "\\n" + _BUS.Error);
+            //    return;
+            //}
+            //if (dt != null)
+            //    dsValid.Tables.Add(dt);
+        }
+        
+
+    }
+}

@@ -1,0 +1,291 @@
+﻿using System;
+using System.Data;
+using System.ComponentModel;
+using System.Data.SqlClient;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Drawing;
+using System.Windows.Forms;
+using System.Xml;
+using System.IO;
+using Infragistics.Win.UltraWinGrid;
+using cenDAO;
+
+//Class chứa các function & method liên quan tới việc xử lý báo cáo
+namespace cenReportController
+{
+    public class Report
+    {
+        Icon rptIco = null;
+        //Thông tin về báo cáo cần xử lý 
+        public Int16 LoaiBaoCao = 1;
+        public String LoaiDanhMuc = ""; //Loại danh mục cần in
+        public String IDLoaiDoiTuong = ""; //ID Loại đối tượng cần in
+        public String DanhSachCot=""; //Danh sách cột hiển thị trên grid
+        public String DanhSachTieuDeCot = "";
+        public String IDDanhMucBaoCao = ""; //ID Danh mục báo cáo
+        public String IDDanhMucBaoCaoThamChieu = "";
+        public Boolean DrillDown = false; //Tham số lấy từ màn hình nhập hay từ tham số của báo cáo cha
+        public UltraGridRow ugrBaoCaoDuLieu = null;
+        public String TenProcedure = "";
+        public String FixedColumnList = "";
+        public Boolean ThamChieuChungTu = false;
+        //Các thông tin khác về báo cáo cần xử lý
+        String ChuoiThamSoHienThi = ""; //Chuối tham số hiển thị trên header báo cáo
+        String XMLPath_ThamSo = Application.StartupPath + "\\Temp\\xmlThamSoBaoCao.xml"; //Tham số và giá trị của tham số
+        //XML chứa dữ liệu
+        public String XMLPath_Data = "";
+        //DataSet chứa dữ liệu
+        public DataSet dsData = new DataSet();
+        public DataTable dtThamSo = null;
+        //Danh sách file báo cáo được sinh ra
+        public String ReportFileName = "";
+        //Tạo báo cáo thành công hay không?
+        public Boolean ReportCreated = false;
+        public Form MDIParent = null;
+        /// <summary>
+        /// Xử lý báo cáo
+        /// </summary>
+        /// <param name="IDDanhMucBaoCao">ID Danh mục báo cáo</param>
+        public void ProcessReport(frmReportViewer frmViewer, Boolean Refresh)
+        {
+            Boolean bContinue = true;
+            //Lấy tên procedure
+            List<SqlParameter> paramList=new List<SqlParameter>();
+            paramList.Add(new SqlParameter("@IDDonVi", cenCommon.GlobalVariables.IDDonVi));
+            paramList.Add(new SqlParameter("@ID", IDDanhMucBaoCao));
+            DataSet dsBaoCao = commonDAO.ExecQueryStoredProcedure("List_DanhMucBaoCao", paramList);
+            if (dsBaoCao != null && dsBaoCao.Tables.Count > 0 && dsBaoCao.Tables[0].Rows.Count > 0)
+            {
+                TenProcedure = dsBaoCao.Tables[0].Rows[0]["TenStore"].ToString();
+                //Lấy danh sách tham số 
+                if (!Refresh) GetParameter();
+                //Nếu có tham số thì hiển thị form nhập tham số
+                if (dtThamSo != null && dtThamSo.Rows.Count > 0)
+                {
+                    frmReportParameters frmReportParameters = new frmReportParameters();
+                    frmReportParameters.dtThamSo = dtThamSo;
+                    frmReportParameters.Text = dsBaoCao.Tables[0].Rows[0]["Ten"].ToString();
+                    frmReportParameters.ShowDialog();
+                    bContinue = frmReportParameters.OK;
+                }
+                //Thực hiện thủ tục 
+                if (bContinue)
+                {
+                    Cursor.Current = Cursors.WaitCursor;
+                    String A = GenerateReportData(TenProcedure, dtThamSo);
+                    CrystalReportGenerator crg = new CrystalReportGenerator();
+                    if (A != "")
+                    {
+                        //Lấy thông tin về báo cáo
+                        ConnectionDAO DAO = new ConnectionDAO();
+                        SqlParameter[] sqlParameter = new SqlParameter[1];
+                        sqlParameter[0] = new SqlParameter("@IDDonVi", cenCommon.GlobalVariables.IDDonVi);
+                        DataTable dtBaoCaoCot = DAO.tableList(sqlParameter, "List_DanhMucBaoCaoCot", "DanhMucBaoCaoCot");
+                        foreach (DataRow dr in dtBaoCaoCot.Rows)
+                        {
+                            if (dr["IDDanhMucBaoCao"].ToString() != IDDanhMucBaoCao)
+                            {
+                                dr.Delete();
+                            }
+                        }
+                        dtBaoCaoCot.AcceptChanges();
+                        crg.dtBaoCaoCot = dtBaoCaoCot;
+                        crg.NgayIn = Convert.ToDateTime(cenCommon.cenCommon.NgayHachToan());
+                        crg.TenBaoCao = dsBaoCao.Tables[0].Rows[0]["Ten"].ToString();
+                        crg.TieuDe = dsBaoCao.Tables[0].Rows[0]["Ten"].ToString().ToUpper();
+                        crg.ChucVuNguoiKy = dsBaoCao.Tables[0].Rows[0]["ChucDanhKy"].ToString();
+                        crg.TenNguoiKy=dsBaoCao.Tables[0].Rows[0]["TenNguoiKy"].ToString();
+                        crg.NoiDungKy = dsBaoCao.Tables[0].Rows[0]["DienGiaiKy"].ToString();
+                        crg.PaperOrientation = (Convert.ToInt16(dsBaoCao.Tables[0].Rows[0]["HuongIn"]) == 2) ? true : false;
+                        crg.PaperSize = (Convert.ToInt16(dsBaoCao.Tables[0].Rows[0]["KhoGiay"]) == 1) ? "A3" : ((Convert.ToInt16(dsBaoCao.Tables[0].Rows[0]["KhoGiay"]) == 2) ? "A4" : "A5");
+                        crg.TenDonVi = cenCommon.GlobalVariables.TenDonVi;
+                        crg.TenDonViCapTren = cenCommon.GlobalVariables.TenDonViCapTren;
+                        crg.DiaChi = cenCommon.GlobalVariables.DiaChi;
+                        crg.MaSoThue = cenCommon.GlobalVariables.MaSoThue;
+                        crg.ThamSoReport = ChuoiThamSoHienThi;
+                        crg.xsd_path = XMLPath_Data;
+                        crg.FixedColumnList = dsBaoCao.Tables[0].Rows[0]["FixedColumnList"].ToString();
+                        ReportCreated = crg.ReportRender();
+                        Cursor.Current = Cursors.Default;
+                        if (ReportCreated)
+                        {
+                            ReportFileName = crg.ReportFileName;
+                            //Nếu có báo cáo được tạo thì gọi form preview
+                            if (frmViewer == null) frmViewer = new frmReportViewer();
+                            if (rptIco != null)
+                                frmViewer.Icon = rptIco;
+                            frmViewer.MDIParent = MDIParent;
+                            frmViewer.LoaiBaoCao = LoaiBaoCao;
+                            frmViewer.LoaiApDung = 1;
+                            frmViewer.TenProcedure = TenProcedure;
+                            frmViewer.FixedColumnList = crg.FixedColumnList;
+                            frmViewer.dtThamSoProc = dtThamSo;
+                            frmViewer.dsData = dsData;
+                            frmViewer.IDDanhMucBaoCao = IDDanhMucBaoCao;
+                            frmViewer.ThamChieuChungTu = (dsBaoCao.Tables[0].Rows[0]["ThamChieuChungTu"].ToString()!="") ? Convert.ToBoolean(dsBaoCao.Tables[0].Rows[0]["ThamChieuChungTu"].ToString()) : false;
+                            frmViewer.IDDanhMucBaoCaoThamChieu = (frmViewer.ThamChieuChungTu) ? "" : IDDanhMucBaoCaoThamChieu;
+                            frmViewer.ReportFileName = ReportFileName;
+                            frmViewer.DataXMLPath = XMLPath_Data;
+                            frmViewer.TieuDeBaoCao = dsBaoCao.Tables[0].Rows[0]["Ten"].ToString();
+                            frmViewer.DanhSachCot = DanhSachCot;
+                            frmViewer.DanhSachTieuDeCot = DanhSachTieuDeCot;
+                            if (crg.LogoImage != null)
+                                frmViewer.LogoImage = crg.LogoImage;
+                            frmViewer.Show();
+                        }
+                    }
+                    crg.Dispose();
+                } 
+                dsBaoCao.Dispose();
+            }
+            else
+                cenCommon.cenCommon.ErrorMessageOkOnly("Không tìm thấy thông tin về store của báo cáo này!");
+            
+        }
+        //Tạo dataset cho ProcName với những tham số và giá trị lấy trong bảng dtThamSo
+        public String GenerateReportData(String TenProcedure, DataTable dtThamSo)
+        {
+            String FileCreated = "";
+            SqlConnection connection = new SqlConnection(cenCommon.GlobalVariables.ConnectionString);
+            SqlDataAdapter da = new SqlDataAdapter();
+            DataSet ds = new DataSet();
+            DataTable dt = new DataTable();
+            SqlCommand sqlCMD = new SqlCommand();
+            sqlCMD.CommandTimeout = 0;
+            try
+            {
+                connection.Open();
+                sqlCMD.CommandText = TenProcedure;
+                sqlCMD.Connection = connection;
+                sqlCMD.CommandType = CommandType.StoredProcedure;
+                //Lấy tham số 
+                SqlCommandBuilder.DeriveParameters(sqlCMD);
+                //Truyển một số giá trị mặc định vào tham số
+                foreach (SqlParameter param in sqlCMD.Parameters)
+                {
+                    //Đặt giá trị của tham số về null
+                    param.Value = DBNull.Value;
+                    if (param.ParameterName != "@RETURN_VALUE")
+                    {
+                        //Nếu không phải drilldown thì lấy giá trị từ bảng tham số
+                        foreach (DataRow drThamSoProc in dtThamSo.Rows)
+                        {
+                            if (drThamSoProc["Ten"].ToString().ToUpper() == param.ParameterName.ToUpper())
+                            {
+                                if (drThamSoProc["GiaTri"] != DBNull.Value && drThamSoProc["GiaTri"].ToString() != "")
+                                {
+                                    if (param.SqlDbType == SqlDbType.Date || param.SqlDbType == SqlDbType.DateTime || param.SqlDbType == SqlDbType.SmallDateTime)
+                                    {
+                                        param.Value = Convert.ToDateTime(drThamSoProc["GiaTri"].ToString().Substring(6) + "-" + drThamSoProc["GiaTri"].ToString().Substring(0, 2) + "-" + drThamSoProc["GiaTri"].ToString().Substring(3, 2));
+                                                    
+                                    }
+                                    else
+                                        param.Value = drThamSoProc["GiaTri"];
+                                }
+                                break;
+                            }
+                        }
+                    }
+                }
+                //Truyền giá trị cho những tham số mặc định
+                commonDAO.SetGlobalParameterValue(sqlCMD.Parameters);
+                //Tạo câu điều kiện để in lên report
+                foreach (DataRow drThamSoHienThi in dtThamSo.Rows)
+                {
+                    String TenThamSo = cenCommon.cenCommon.TraTuDien(drThamSoHienThi["Ten"].ToString().Substring(1));
+                    String MoTaThamSo = drThamSoHienThi["GiaTriMoTa"].ToString();
+                    if (MoTaThamSo != "")
+                    {
+                        if (ChuoiThamSoHienThi != "")
+                            ChuoiThamSoHienThi = ChuoiThamSoHienThi + "+chrW(13)+\"" + TenThamSo + ": " + MoTaThamSo + "\"";
+                        else
+                            ChuoiThamSoHienThi = ChuoiThamSoHienThi + "\" " + TenThamSo + ": " + MoTaThamSo + " \"";
+                    }
+                }
+                ChuoiThamSoHienThi = ChuoiThamSoHienThi + ";";
+                dtThamSo.AcceptChanges();
+                //Chạy Procedure
+                da.SelectCommand = sqlCMD;
+                da.Fill(dsData);
+                if (dsData != null && dsData.Tables.Count>0)
+                {
+                    //Lưu thành file XML
+                    Guid XMLDataFileName = new Guid();
+                    XMLDataFileName = Guid.NewGuid();
+                    XMLPath_Data = cenCommon.GlobalVariables.TempDir + XMLDataFileName.ToString() + ".xml";
+                    dsData.WriteXml(XMLPath_Data, XmlWriteMode.WriteSchema);
+                    FileCreated = XMLPath_Data;
+                }
+                return FileCreated;
+            }
+            catch (Exception ex)
+            {
+                cenCommon.cenCommon.ErrorMessageOkOnly(ex.Message);
+                return "";
+            }
+            finally
+            {
+                da.Dispose();
+                connection.Close();
+                connection.Dispose();
+            }
+        }
+        /// <summary>
+        /// Lấy tham số của store tạo báo cáo rồi lưu vào datatable
+        /// </summary>
+        private void GetParameter()
+        {
+            DataTable dtResult = new DataTable();
+            SqlConnection connection = new SqlConnection(cenCommon.GlobalVariables.ConnectionString);
+            SqlCommand sqlCMD = new SqlCommand();
+            try
+            {
+                //Tạo bảng
+                dtThamSo = new DataTable();
+                DataColumn dcIDDanhMucBaoCao = dtThamSo.Columns.Add("IDDanhMucBaoCao", typeof(String));
+                DataColumn dcTenThamSo = dtThamSo.Columns.Add("Ten", typeof(String));
+                DataColumn dcKieuDuLieu = dtThamSo.Columns.Add("Kieu", typeof(String));
+                DataColumn dcGiaTri = dtThamSo.Columns.Add("GiaTri", typeof(String));
+                DataColumn dcGiaTriMoTa = dtThamSo.Columns.Add("GiaTriMoTa", typeof(String));
+                DataColumn dcGiaTriTen = dtThamSo.Columns.Add("GiaTriTen", typeof(String));
+                dtThamSo.AcceptChanges();
+                //Lấy tham số
+                connection.Open();
+                sqlCMD.CommandText = TenProcedure;
+                sqlCMD.Connection = connection;
+                sqlCMD.CommandType = CommandType.StoredProcedure;
+                //Lấy tham số và ghi vào dt
+                SqlCommandBuilder.DeriveParameters(sqlCMD);
+                foreach (SqlParameter param in sqlCMD.Parameters)
+                {
+                    if (param.ParameterName != "@RETURN_VALUE")
+                    {
+                        DataRow drThamSo = dtThamSo.NewRow();
+                        drThamSo["IDDanhMucBaoCao"] = IDDanhMucBaoCao;
+                        drThamSo["Ten"] = param.ParameterName.ToUpper();
+                        drThamSo["Kieu"] = param.DbType.ToString().ToUpper();
+                        drThamSo["GiaTri"] = DBNull.Value;
+                        drThamSo["GiaTriMoTa"] = DBNull.Value;
+                        drThamSo["GiaTriTen"] = DBNull.Value;
+                        dtThamSo.Rows.Add(drThamSo);
+                    }
+                }
+                dtThamSo.AcceptChanges();
+                connection.Close();
+            }
+            catch (Exception ex)
+            {
+                cenCommon.cenCommon.ErrorMessageOkOnly(ex.Message);
+            }
+            finally
+            {
+                connection.Close();
+                connection.Dispose();
+            }
+        }
+
+        
+    }
+}

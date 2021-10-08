@@ -1,0 +1,115 @@
+D:\S3-CFS 2018\Projects\s3CommonUI\obj\Debug\tmsCommonUIbase.Properties.Resources.resources
+D:\S3-CFS 2018\Projects\s3CommonUI\obj\Debug\tmsCommonUIbase.csproj.GenerateResource.Cache
+D:\S3-CFS 2018\Projects\s3CommonUI\obj\Debug\tmsCommonUIbase.dll.licenses
+D:\S3-CFS 2018\Projects\s3CommonUI\obj\Debug\tmsCommonUIbase.csprojResolveAssemblyReference.cache
+D:\S3-CFS 2018\Projects\s3CommonUI\obj\Debug\tmsCommonUIbase.Forms.frmDesktop.resources
+D:\S3-CFS 2018\Projects\s3CommonUI\obj\Debug\tmsCommonUIbase.Forms.frmMain.resources
+D:\S3-CFS 2018\Runtimes\tmsCommonUIbase.dll
+D:\S3-CFS 2018\Runtimes\tmsCommonUIbase.pdb
+D:\S3-CFS 2018\Projects\s3CommonUI\obj\Debug\tmsCommonUIbase.dll
+D:\S3-CFS 2018\Projects\s3CommonUI\obj\Debug\tmsCommonUIbase.pdb
+D:\S3-CFS 2018\Projects\tmsCommonUIbase\obj\Debug\tmsCommonUIbase.csprojResolveAssemblyReference.cache
+D:\S3-CFS 2018\Projects\tmsCommonUIbase\obj\Debug\tmsCommonUIbase.Forms.frmDesktop.resources
+D:\S3-CFS 2018\Projects\tmsCommonUIbase\obj\Debug\tmsCommonUIbase.Forms.frmMain.resources
+D:\S3-CFS 2018\Projects\tmsCommonUIbase\obj\Debug\tmsCommonUIbase.Properties.Resources.resources
+D:\S3-CFS 2018\Projects\tmsCommonUIbase\obj\Debug\tmsCommonUIbase.csproj.GenerateResource.Cache
+D:\S3-CFS 2018\Projects\tmsCommonUIbase\obj\Debug\tmsCommonUIbase.dll.licenses
+D:\S3-CFS 2018\Projects\tmsCommonUIbase\obj\Debug\tmsCommonUIbase.dll
+D:\S3-CFS 2018\Projects\tmsCommonUIbase\obj\Debug\tmsCommonUIbase.pdb
+E:\tmsCFS 2018\Runtimes\tmsCommonUIbase.dll
+E:\tmsCFS 2018\Runtimes\tmsCommonUIbase.pdb
+E:\tmsCFS 2018\Projects\tmsCommonUIbase\obj\Debug\tmsCommonUIbase.csprojResolveAssemblyReference.cache
+E:\tmsCFS 2018\Projects\tmsCommonUIbase\obj\Debug\tmsCommonUIbase.Forms.frmDesktop.resources
+E:\tmsCFS 2018\Projects\tmsCommonUIbase\obj\Debug\tmsCommonUIbase.Forms.frmMain.resources
+E:\tmsCFS 2018\Projects\tmsCommonUIbase\obj\Debug\tmsCommonUIbase.Properties.Resources.resources
+E:\tmsCFS 2018\Projects\tmsCommonUIbase\obj\Debug\tmsCommonUIbase.csproj.GenerateResource.Cache
+E:\tmsCFS 2018\Projects\tmsCommonUIbase\obj\Debug\tmsCommonUIbase.dll.licenses
+E:\tmsCFS 2018\Projects\tmsCommonUIbase\obj\Debug\tmsCommonUIbase.dll
+E:\tmsCFS 2018\Projects\tmsCommonUIbase\obj\Debug\tmsCommonUIbase.pdb
+F:\tmsCFS 2018\Runtimes\tmsCommonUIbase.dll
+F:\tmsCFS 2018\Runtimes\tmsCommonUIbase.pdb
+F:\tmsCFS 2018\Projects\tmsCommonUIbase\obj\Debug\tmsCommonUIbase.Forms.frmDesktop.resources
+F:\tmsCFS 2018\Projects\tmsCommonUIbase\obj\Debug\tmsCommonUIbase.Forms.frmMain.resources
+F:\tmsCFS 2018\Projects\tmsCommonUIbase\obj\Debug\tmsCommonUIbase.Properties.Resources.resources
+F:\tmsCFS 2018\Projects\tmsCommonUIbase\obj\Debug\tmsCommonUIbase.dll.licenses
+F:\tmsCFS 2018\Projects\tmsCommonUIbase\obj\Debug\tmsCommonUIbase.dll
+F:\tmsCFS 2018\Projects\tmsCommonUIbase\obj\Debug\tmsCommonUIbase.pdb
+G:\tmsCFS 2018\Runtimes\tmsCommonUIbase.dll
+G:\tmsCFS 2018\Runtimes\tmsCommonUIbase.pdb
+G:\tmsCFS 2018\Projects\tmsCommonUIbase\obj\Debug\tmsCommonUIbase.Forms.frmDesktop.resources
+G:\tmsCFS 2018\Projects\tmsCommonUIbase\obj\Debug\tmsCommonUIbase.Forms.frmMain.resources
+G:\tmsCFS 2018\Projects\tmsCommonUIbase\obj\Debug\tmsCommonUIbase.Properties.Resources.resources
+G:\tmsCFS 2018\Projects\tmsCommonUIbase\obj\Debug\tmsCommonUIbase.dll.licenses
+G:\tmsCFS 2018\Projects\tmsCommonUIbase\obj\Debug\tmsCommonUIbase.dll
+G:\tmsCFS 2018\Projects\tmsCommonUIbase\obj\Debug\tmsCommonUIbase.pdb
+G:\tmsCFS 2018\Projects\tmsCommonUIbase\obj\Debug\ResolveAssemblyReference.cache
+G:\tmsCFS 2018\Projects\tmsCommonUIbase\obj\Debug\GenerateResource.read.1.tlog
+G:\tmsCFS 2018\Projects\tmsCommonUIbase\obj\Debug\GenerateResource.write.1.tlog
+H:\tmsCFS 2018\Runtimes\tmsCommonUIbase.dll
+H:\tmsCFS 2018\Runtimes\tmsCommonUIbase.pdb
+H:\tmsCFS 2018\Projects\tmsCommonUIbase\obj\Debug\tmsCommonUIbase.csprojResolveAssemblyReference.cache
+H:\tmsCFS 2018\Projects\tmsCommonUIbase\obj\Debug\tmsCommonUIbase.Forms.frmDesktop.resources
+H:\tmsCFS 2018\Projects\tmsCommonUIbase\obj\Debug\tmsCommonUIbase.Forms.frmMain.resources
+H:\tmsCFS 2018\Projects\tmsCommonUIbase\obj\Debug\tmsCommonUIbase.Properties.Resources.resources
+H:\tmsCFS 2018\Projects\tmsCommonUIbase\obj\Debug\tmsCommonUIbase.csproj.GenerateResource.Cache
+H:\tmsCFS 2018\Projects\tmsCommonUIbase\obj\Debug\tmsCommonUIbase.dll.licenses
+H:\tmsCFS 2018\Projects\tmsCommonUIbase\obj\Debug\tmsCommonUIbase.dll
+H:\tmsCFS 2018\Projects\tmsCommonUIbase\obj\Debug\tmsCommonUIbase.pdb
+F:\tmsCFS 2018\Projects\tmsCommonUIbase\obj\Debug\ResolveAssemblyReference.cache
+F:\tmsCFS 2018\Projects\tmsCommonUIbase\obj\Debug\GenerateResource.read.1.tlog
+F:\tmsCFS 2018\Projects\tmsCommonUIbase\obj\Debug\GenerateResource.write.1.tlog
+E:\Minh\tmsCFS 2018\Runtimes\tmsCommonUIbase.dll
+E:\Minh\tmsCFS 2018\Runtimes\tmsCommonUIbase.pdb
+E:\Minh\tmsCFS 2018\Projects\tmsCommonUIbase\obj\Debug\tmsCommonUIbase.csprojResolveAssemblyReference.cache
+E:\Minh\tmsCFS 2018\Projects\tmsCommonUIbase\obj\Debug\tmsCommonUIbase.Forms.frmDesktop.resources
+E:\Minh\tmsCFS 2018\Projects\tmsCommonUIbase\obj\Debug\tmsCommonUIbase.Forms.frmMain.resources
+E:\Minh\tmsCFS 2018\Projects\tmsCommonUIbase\obj\Debug\tmsCommonUIbase.Properties.Resources.resources
+E:\Minh\tmsCFS 2018\Projects\tmsCommonUIbase\obj\Debug\tmsCommonUIbase.csproj.GenerateResource.Cache
+E:\Minh\tmsCFS 2018\Projects\tmsCommonUIbase\obj\Debug\tmsCommonUIbase.dll.licenses
+E:\Minh\tmsCFS 2018\Projects\tmsCommonUIbase\obj\Debug\tmsCommonUIbase.dll
+E:\Minh\tmsCFS 2018\Projects\tmsCommonUIbase\obj\Debug\tmsCommonUIbase.pdb
+D:\tmsCFS 2018\Runtimes\tmsCommonUIbase.dll
+D:\tmsCFS 2018\Runtimes\tmsCommonUIbase.pdb
+D:\tmsCFS 2018\Projects\tmsCommonUIbase\obj\Debug\tmsCommonUIbase.csprojResolveAssemblyReference.cache
+D:\tmsCFS 2018\Projects\tmsCommonUIbase\obj\Debug\tmsCommonUIbase.Forms.frmDesktop.resources
+D:\tmsCFS 2018\Projects\tmsCommonUIbase\obj\Debug\tmsCommonUIbase.Forms.frmMain.resources
+D:\tmsCFS 2018\Projects\tmsCommonUIbase\obj\Debug\tmsCommonUIbase.Properties.Resources.resources
+D:\tmsCFS 2018\Projects\tmsCommonUIbase\obj\Debug\tmsCommonUIbase.csproj.GenerateResource.Cache
+D:\tmsCFS 2018\Projects\tmsCommonUIbase\obj\Debug\tmsCommonUIbase.dll.licenses
+D:\tmsCFS 2018\Projects\tmsCommonUIbase\obj\Debug\tmsCommonUIbase.dll
+D:\tmsCFS 2018\Projects\tmsCommonUIbase\obj\Debug\tmsCommonUIbase.pdb
+F:\tmsCFS 2018 - HAAL\Runtimes\tmsCommonUIbase.dll
+F:\tmsCFS 2018 - HAAL\Runtimes\tmsCommonUIbase.pdb
+F:\tmsCFS 2018 - HAAL\Projects\tmsCommonUIbase\obj\Debug\ResolveAssemblyReference.cache
+F:\tmsCFS 2018 - HAAL\Projects\tmsCommonUIbase\obj\Debug\tmsCommonUIbase.Forms.frmDesktop.resources
+F:\tmsCFS 2018 - HAAL\Projects\tmsCommonUIbase\obj\Debug\tmsCommonUIbase.Forms.frmMain.resources
+F:\tmsCFS 2018 - HAAL\Projects\tmsCommonUIbase\obj\Debug\tmsCommonUIbase.Properties.Resources.resources
+F:\tmsCFS 2018 - HAAL\Projects\tmsCommonUIbase\obj\Debug\GenerateResource.read.1.tlog
+F:\tmsCFS 2018 - HAAL\Projects\tmsCommonUIbase\obj\Debug\GenerateResource.write.1.tlog
+F:\tmsCFS 2018 - HAAL\Projects\tmsCommonUIbase\obj\Debug\tmsCommonUIbase.dll.licenses
+F:\tmsCFS 2018 - HAAL\Projects\tmsCommonUIbase\obj\Debug\tmsCommonUIbase.dll
+F:\tmsCFS 2018 - HAAL\Projects\tmsCommonUIbase\obj\Debug\tmsCommonUIbase.pdb
+D:\tmsCFS 2018 - HAAL\Runtimes\tmsCommonUIbase.dll
+D:\tmsCFS 2018 - HAAL\Runtimes\tmsCommonUIbase.pdb
+D:\tmsCFS 2018 - HAAL\Projects\tmsCommonUIbase\obj\Debug\tmsCommonUIbase.csprojAssemblyReference.cache
+D:\tmsCFS 2018 - HAAL\Projects\tmsCommonUIbase\obj\Debug\tmsCommonUIbase.Forms.frmDesktop.resources
+D:\tmsCFS 2018 - HAAL\Projects\tmsCommonUIbase\obj\Debug\tmsCommonUIbase.Forms.frmMain.resources
+D:\tmsCFS 2018 - HAAL\Projects\tmsCommonUIbase\obj\Debug\tmsCommonUIbase.Properties.Resources.resources
+D:\tmsCFS 2018 - HAAL\Projects\tmsCommonUIbase\obj\Debug\tmsCommonUIbase.csproj.GenerateResource.cache
+D:\tmsCFS 2018 - HAAL\Projects\tmsCommonUIbase\obj\Debug\tmsCommonUIbase.dll.licenses
+D:\tmsCFS 2018 - HAAL\Projects\tmsCommonUIbase\obj\Debug\tmsCommonUIbase.csproj.CoreCompileInputs.cache
+D:\tmsCFS 2018 - HAAL\Projects\tmsCommonUIbase\obj\Debug\tmsCommonUIbase.csproj.CopyComplete
+D:\tmsCFS 2018 - HAAL\Projects\tmsCommonUIbase\obj\Debug\tmsCommonUIbase.dll
+D:\tmsCFS 2018 - HAAL\Projects\tmsCommonUIbase\obj\Debug\tmsCommonUIbase.pdb
+D:\Minh\tmsCFS 2018 - HAAL\Runtimes\tmsCommonUIbase.dll
+D:\Minh\tmsCFS 2018 - HAAL\Runtimes\tmsCommonUIbase.pdb
+D:\Minh\tmsCFS 2018 - HAAL\Projects\tmsCommonUIbase\obj\Debug\tmsCommonUIbase.csprojAssemblyReference.cache
+D:\Minh\tmsCFS 2018 - HAAL\Projects\tmsCommonUIbase\obj\Debug\tmsCommonUIbase.Forms.frmDesktop.resources
+D:\Minh\tmsCFS 2018 - HAAL\Projects\tmsCommonUIbase\obj\Debug\tmsCommonUIbase.Forms.frmMain.resources
+D:\Minh\tmsCFS 2018 - HAAL\Projects\tmsCommonUIbase\obj\Debug\tmsCommonUIbase.Properties.Resources.resources
+D:\Minh\tmsCFS 2018 - HAAL\Projects\tmsCommonUIbase\obj\Debug\tmsCommonUIbase.csproj.GenerateResource.cache
+D:\Minh\tmsCFS 2018 - HAAL\Projects\tmsCommonUIbase\obj\Debug\tmsCommonUIbase.dll.licenses
+D:\Minh\tmsCFS 2018 - HAAL\Projects\tmsCommonUIbase\obj\Debug\tmsCommonUIbase.csproj.CoreCompileInputs.cache
+D:\Minh\tmsCFS 2018 - HAAL\Projects\tmsCommonUIbase\obj\Debug\tmsCommonUIbase.csproj.CopyComplete
+D:\Minh\tmsCFS 2018 - HAAL\Projects\tmsCommonUIbase\obj\Debug\tmsCommonUIbase.dll
+D:\Minh\tmsCFS 2018 - HAAL\Projects\tmsCommonUIbase\obj\Debug\tmsCommonUIbase.pdb

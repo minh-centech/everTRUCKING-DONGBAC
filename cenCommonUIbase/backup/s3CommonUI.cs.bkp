@@ -1,0 +1,317 @@
+﻿using System;
+using System.Windows.Forms;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using Infragistics.Win;
+using Infragistics.Win.Misc;
+using Infragistics.Win.UltraWinGrid;
+using Infragistics.Win.UltraWinGrid.ExcelExport;
+using s3CFS.Forms;
+using s3Controls;
+using s3Common;
+using s3DAL;
+using s3CFS.Classes;
+namespace s3CommonUI
+{
+    public static class s3CommonUI
+    {
+        public static void SetDisplayLanguage(Control ctl)
+        {
+
+            foreach (Control iCtl in ctl.Controls)
+            {
+                if (iCtl is saLabel | iCtl is saCheckBox | iCtl is Infragistics.Win.Misc.UltraLabel)
+                    iCtl.Text = s3Common.s3Common.TraTuDien(iCtl.Text);
+                if (iCtl is saDateTimeBox)
+                    ((saDateTimeBox)iCtl).FormatProvider = s3Common.s3Common.ci;
+                if (iCtl is saNumericBox)
+                {
+                    ((saNumericBox)iCtl).FormatProvider = s3Common.s3Common.ci;
+                    saNumericBox numBox = (saNumericBox)iCtl;
+                    //Định dạng các cột số lượng
+                    if (s3Common.s3Common.TenCotSoLuong.ToUpper().IndexOf("(" + numBox.Name.ToUpper().Substring(3) + ")") >= 0)
+                    {
+                        numBox.MaskInput = s3Common.s3Common.DinhDangNhapSoLuong;
+                    }
+                    //Định dạng các cột trọng lượng
+                    if (s3Common.s3Common.TenCotTrongLuong.ToUpper().IndexOf("(" + numBox.Name.ToUpper().Substring(3) + ")") >= 0)
+                    {
+                        numBox.MaskInput = s3Common.s3Common.DinhDangNhapTrongLuong;
+                    }
+                    //Định dạng các cột khối lượng
+                    if (s3Common.s3Common.TenCotKhoiLuong.ToUpper().IndexOf("(" + numBox.Name.ToUpper().Substring(3) + ")") >= 0)
+                    {
+                        numBox.MaskInput = s3Common.s3Common.DinhDangNhapKhoiLuong;
+                    }
+                    //Định dạng các cột đơn giá
+                    if (s3Common.s3Common.TenCotGia.ToUpper().IndexOf("(" + numBox.Name.ToUpper().Substring(3) + ")") >= 0)
+                    {
+                        numBox.MaskInput = s3Common.s3Common.DinhDangNhapGia;
+                    }
+                    //Định dạng các cột số tiền
+                    if (s3Common.s3Common.TenCotTien.ToUpper().IndexOf("(" + numBox.Name.ToUpper().Substring(3) + ")") >= 0)
+                    {
+                        numBox.MaskInput = s3Common.s3Common.DinhDangNhapTien;
+                    }
+                }
+                if (iCtl is Infragistics.Win.UltraWinTabControl.UltraTabControl)
+                    foreach (Infragistics.Win.UltraWinTabControl.UltraTab ut in ((Infragistics.Win.UltraWinTabControl.UltraTabControl)iCtl).Tabs)
+                    {
+                        ut.Text = s3Common.s3Common.TraTuDien(ut.Text);
+                    }
+                if (iCtl.Controls.Count > 0)
+                    SetDisplayLanguage(iCtl);
+            }
+        }
+        public static Form CheckFormOpened(String frmName)
+        {
+            Form frmOpened = null;
+            foreach (Form frm in Application.OpenForms)
+            {
+                if (frm.Name.ToUpper() == frmName.ToUpper())
+                {
+                    frmOpened = frm;
+                    break;
+                }
+            }
+            return frmOpened;
+        }
+        public static Boolean CheckFormDanhMucOpened(String IDDanhMucLoaiDoiTuong)
+        {
+            Boolean frmOpened = false;
+            foreach (Form frm in Application.OpenForms)
+            {
+                if (frm.Name.ToUpper() == "FRMDANHMUC" && ((frmDanhMuc)frm).IDDanhMucLoaiDoiTuong == IDDanhMucLoaiDoiTuong)
+                {
+                    frmOpened = true;
+                    frm.Focus();
+                    break;
+                }
+            }
+            return frmOpened;
+        }
+        public static void runDanhMuc(String FormCaption, String IDDanhMucLoaiDoiTuong, Form MDIParent)
+        {
+            frmDanhMuc frmQuanLy;
+            if (IDDanhMucLoaiDoiTuong == "") return;
+            if (!DanhMuc.CheckRight("Xem", "LoaiDoiTuong", IDDanhMucLoaiDoiTuong)) return;
+            if (!CheckFormDanhMucOpened(IDDanhMucLoaiDoiTuong))
+            {
+                DanhMuc clsDanhMuc = new DanhMuc();
+                String TenBangDuLieu = clsDanhMuc.GetTenBangDuLieu(IDDanhMucLoaiDoiTuong);
+                clsDanhMuc.Dispose();
+                switch (TenBangDuLieu.ToUpper())
+                {
+                    case "DANHMUCPHI":
+                        //Nếu cần gọi form riêng cho từng loại đối tượng thì switch case
+                        frmDanhMucPhi frmDanhMucPhi = new frmDanhMucPhi();
+                        //frmDanhMucPhi.IDDanhMucLoaiDoiTuong = IDDanhMucLoaiDoiTuong;
+                        //frmDanhMucPhi.LoaiDanhMuc = TenBangDuLieu;
+                        frmDanhMucPhi.Text = FormCaption;
+                        frmDanhMucPhi.MdiParent = MDIParent;
+                        frmDanhMucPhi.Show();
+                        break;
+                    default:
+                        //Nếu cần gọi form riêng cho từng loại đối tượng thì switch case
+                        frmQuanLy = new frmDanhMuc();
+                        frmQuanLy.IDDanhMucLoaiDoiTuong = IDDanhMucLoaiDoiTuong;
+                        frmQuanLy.LoaiDanhMuc = TenBangDuLieu;
+                        frmQuanLy.Text = FormCaption;
+                        frmQuanLy.MdiParent = MDIParent;
+                        frmQuanLy.Show();
+                        break;
+                }
+
+                
+            }
+        }
+        public static void runChungTu(String LoaiManHinh, String FormCaption, String IDDanhMucChungTu, Form MDIParent)
+        {
+            if (IDDanhMucChungTu == "") return;
+            if (!DanhMuc.CheckRight("Xem", "ChungTu", IDDanhMucChungTu)) return;
+            if (LoaiManHinh == null) return;
+            switch (LoaiManHinh.ToString())
+            {
+                case s3Common.s3Common.ManHinh_cyContainerGetIn:
+                    s3CFS.Forms.CY.frm_cyContainerGetIn frm_cyContainerGetIn = new s3CFS.Forms.CY.frm_cyContainerGetIn();
+                    frm_cyContainerGetIn.IDDanhMucChungTu = IDDanhMucChungTu;
+                    frm_cyContainerGetIn.Text = FormCaption;
+                    frm_cyContainerGetIn.LoaiManHinh = LoaiManHinh;
+                    frm_cyContainerGetIn.MdiParent = MDIParent;
+                    frm_cyContainerGetIn.Show();
+                    break;
+                case s3Common.s3Common.ManHinh_imToKhaiDuDieuKienQuaKVGS:
+                    s3CFS.Forms.HangNhap.frm_imToKhaiDuDieuKienQuaKVGS frm_imToKhaiDuDieuKienQuaKVGS = new s3CFS.Forms.HangNhap.frm_imToKhaiDuDieuKienQuaKVGS();
+                    frm_imToKhaiDuDieuKienQuaKVGS.IDDanhMucChungTu = IDDanhMucChungTu;
+                    frm_imToKhaiDuDieuKienQuaKVGS.Text = FormCaption;
+                    frm_imToKhaiDuDieuKienQuaKVGS.LoaiManHinh = LoaiManHinh;
+                    frm_imToKhaiDuDieuKienQuaKVGS.MdiParent = MDIParent;
+                    frm_imToKhaiDuDieuKienQuaKVGS.Show();
+                    break;
+                case s3Common.s3Common.ManHinh_imThongTinHangHoaVaoKhoQuaTKVC:
+                    s3CFS.Forms.HangNhap.frm_imThongTinHangHoaVaoKhoQuaTKVC frm_imThongTinHangHoaVaoKhoQuaTKVC = new s3CFS.Forms.HangNhap.frm_imThongTinHangHoaVaoKhoQuaTKVC();
+                    frm_imThongTinHangHoaVaoKhoQuaTKVC.IDDanhMucChungTu = IDDanhMucChungTu;
+                    frm_imThongTinHangHoaVaoKhoQuaTKVC.Text = FormCaption;
+                    frm_imThongTinHangHoaVaoKhoQuaTKVC.LoaiManHinh = LoaiManHinh;
+                    frm_imThongTinHangHoaVaoKhoQuaTKVC.MdiParent = MDIParent;
+                    frm_imThongTinHangHoaVaoKhoQuaTKVC.Show();
+                    break;
+                case s3Common.s3Common.ManHinh_kctContainerGetOut:
+                    s3CFS.Forms.KhongChungTu.frm_kctContainerGetOut frm_kctContainerGetOut = new s3CFS.Forms.KhongChungTu.frm_kctContainerGetOut();
+                    frm_kctContainerGetOut.IDDanhMucChungTu = IDDanhMucChungTu;
+                    frm_kctContainerGetOut.Text = FormCaption;
+                    frm_kctContainerGetOut.LoaiManHinh = LoaiManHinh;
+                    frm_kctContainerGetOut.MdiParent = MDIParent;
+                    frm_kctContainerGetOut.Show();
+                    break;
+                case s3Common.s3Common.ManHinh_HuyHangKienGetIn:
+                    s3CFS.Forms.SuaHuy.frm_HuyGetInHangKien frm_HuyGetInHangKien = new s3CFS.Forms.SuaHuy.frm_HuyGetInHangKien();
+                    frm_HuyGetInHangKien.IDDanhMucChungTu = IDDanhMucChungTu;
+                    frm_HuyGetInHangKien.Text = FormCaption;
+                    frm_HuyGetInHangKien.LoaiManHinh = LoaiManHinh;
+                    frm_HuyGetInHangKien.MdiParent = MDIParent;
+                    frm_HuyGetInHangKien.Show();
+                    break;
+                case s3Common.s3Common.ManHinh_HuyContainerGetIn:
+                    s3CFS.Forms.SuaHuy.frm_HuyGetInContainer frm_HuyGetInContainer = new s3CFS.Forms.SuaHuy.frm_HuyGetInContainer();
+                    frm_HuyGetInContainer.IDDanhMucChungTu = IDDanhMucChungTu;
+                    frm_HuyGetInContainer.Text = FormCaption;
+                    frm_HuyGetInContainer.LoaiManHinh = LoaiManHinh;
+                    frm_HuyGetInContainer.MdiParent = MDIParent;
+                    frm_HuyGetInContainer.Show();
+                    break;
+                case s3Common.s3Common.ManHinh_SuaGetIn:
+                    s3CFS.Forms.SuaHuy.frm_SuaGetIn frm_SuaGetIn = new s3CFS.Forms.SuaHuy.frm_SuaGetIn();
+                    frm_SuaGetIn.IDDanhMucChungTu = IDDanhMucChungTu;
+                    frm_SuaGetIn.Text = FormCaption;
+                    frm_SuaGetIn.LoaiManHinh = LoaiManHinh;
+                    frm_SuaGetIn.MdiParent = MDIParent;
+                    frm_SuaGetIn.Show();
+                    break;
+                case s3Common.s3Common.ManHinh_imXinSoDinhDanhHangHoa:
+                    s3CFS.Forms.HangNhap.frm_imXinSoDinhDanhHangHoa frm_imXinSoDinhDanhHangHoa = new s3CFS.Forms.HangNhap.frm_imXinSoDinhDanhHangHoa();
+                    frm_imXinSoDinhDanhHangHoa.IDDanhMucChungTu = IDDanhMucChungTu;
+                    frm_imXinSoDinhDanhHangHoa.Text = FormCaption;
+                    frm_imXinSoDinhDanhHangHoa.LoaiManHinh = LoaiManHinh;
+                    frm_imXinSoDinhDanhHangHoa.MdiParent = MDIParent;
+                    frm_imXinSoDinhDanhHangHoa.Show();
+                    break;
+                case s3Common.s3Common.ManHinh_imContainerGetIn:
+                    s3CFS.Forms.HangNhap.frm_imContainerGetIn frmContainerGetIn = new s3CFS.Forms.HangNhap.frm_imContainerGetIn();
+                    frmContainerGetIn.IDDanhMucChungTu = IDDanhMucChungTu;
+                    frmContainerGetIn.Text = FormCaption;
+                    frmContainerGetIn.LoaiManHinh = LoaiManHinh;
+                    frmContainerGetIn.MdiParent = MDIParent;
+                    frmContainerGetIn.Show();
+                    break;
+                case s3Common.s3Common.ManHinh_imHangKienGetIn:
+                    s3CFS.Forms.HangNhap.frm_imHangKienGetIn frm_imHangKienGetIn = new s3CFS.Forms.HangNhap.frm_imHangKienGetIn();
+                    frm_imHangKienGetIn.IDDanhMucChungTu = IDDanhMucChungTu;
+                    frm_imHangKienGetIn.Text = FormCaption;
+                    frm_imHangKienGetIn.LoaiManHinh = LoaiManHinh;
+                    frm_imHangKienGetIn.MdiParent = MDIParent;
+                    frm_imHangKienGetIn.Show();
+                    break;
+                case s3Common.s3Common.ManHinh_imRutHang:
+                    s3CFS.Forms.HangNhap.frm_imRutHang frm_imRutHang = new s3CFS.Forms.HangNhap.frm_imRutHang();
+                    frm_imRutHang.IDDanhMucChungTu = IDDanhMucChungTu;
+                    frm_imRutHang.Text = FormCaption;
+                    frm_imRutHang.LoaiManHinh = LoaiManHinh;
+                    frm_imRutHang.MdiParent = MDIParent;
+                    frm_imRutHang.Show();
+                    break;
+                case s3Common.s3Common.ManHinh_CauHinhHeThong:
+                    s3CFS.Forms.frmHqCauHinh frmHqCauHinh = new s3CFS.Forms.frmHqCauHinh();
+                    frmHqCauHinh.MdiParent = MDIParent;
+                    frmHqCauHinh.Show();
+                    break;
+                case s3Common.s3Common.ManHinh_imVanDonDieuKienQuaKVGS:
+                    s3CFS.Forms.HangNhap.frm_imVanDonDuDieuKienQuaKVGS frmVanDonDuDieuKienQuaKVGS = new s3CFS.Forms.HangNhap.frm_imVanDonDuDieuKienQuaKVGS();
+                    frmVanDonDuDieuKienQuaKVGS.IDDanhMucChungTu = IDDanhMucChungTu;
+                    frmVanDonDuDieuKienQuaKVGS.Text = FormCaption;
+                    frmVanDonDuDieuKienQuaKVGS.LoaiManHinh = LoaiManHinh;
+                    frmVanDonDuDieuKienQuaKVGS.MdiParent = MDIParent;
+                    frmVanDonDuDieuKienQuaKVGS.Show();
+                    break;
+                case s3Common.s3Common.ManHinh_imHangKienGetOut:
+                    s3CFS.Forms.HangNhap.frm_imHangKienGetOut frm_imHangKienGetOut = new s3CFS.Forms.HangNhap.frm_imHangKienGetOut();
+                    frm_imHangKienGetOut.IDDanhMucChungTu = IDDanhMucChungTu;
+                    frm_imHangKienGetOut.Text = FormCaption;
+                    frm_imHangKienGetOut.LoaiManHinh = LoaiManHinh;
+                    frm_imHangKienGetOut.MdiParent = MDIParent;
+                    frm_imHangKienGetOut.Show();
+                    break;
+                case s3Common.s3Common.ManHinh_exHangKienGetOut:
+                    s3CFS.Forms.HangXuat.frm_exHangKienGetOut frm_exHangKienGetOut = new s3CFS.Forms.HangXuat.frm_exHangKienGetOut();
+                    frm_exHangKienGetOut.IDDanhMucChungTu = IDDanhMucChungTu;
+                    frm_exHangKienGetOut.Text = FormCaption;
+                    frm_exHangKienGetOut.LoaiManHinh = LoaiManHinh;
+                    frm_exHangKienGetOut.MdiParent = MDIParent;
+                    frm_exHangKienGetOut.Show();
+                    break;
+                //case s3Common.s3Common.ManHinh_imHangKienGetOut:
+                //    s3CFS.Forms.HangNhap.frm_imHangKienGetOutToKhai frmToKhaiDuDieuKienQuaKVGS = new s3CFS.Forms.HangNhap.frm_imHangKienGetOutToKhai();
+                //    frmToKhaiDuDieuKienQuaKVGS.IDDanhMucChungTu = IDDanhMucChungTu;
+                //    frmToKhaiDuDieuKienQuaKVGS.Text = FormCaption;
+                //    frmToKhaiDuDieuKienQuaKVGS.LoaiManHinh = LoaiManHinh;
+                //    frmToKhaiDuDieuKienQuaKVGS.MdiParent = MDIParent;
+                //    frmToKhaiDuDieuKienQuaKVGS.Show();
+                //    break;
+                case s3Common.s3Common.ManHinh_exHangKienGetIn:
+                    s3CFS.Forms.HangXuat.frm_exHangKienGetIn frm_exHangKienGetIn = new s3CFS.Forms.HangXuat.frm_exHangKienGetIn();
+                    frm_exHangKienGetIn.IDDanhMucChungTu = IDDanhMucChungTu;
+                    frm_exHangKienGetIn.Text = FormCaption;
+                    frm_exHangKienGetIn.LoaiManHinh = LoaiManHinh;
+                    frm_exHangKienGetIn.MdiParent = MDIParent;
+                    frm_exHangKienGetIn.Show();
+                    break;
+                case s3Common.s3Common.ManHinh_exContainerGetIn:
+                    s3CFS.Forms.HangXuat.frm_exContainerGetIn frm_exContainerGetIn = new s3CFS.Forms.HangXuat.frm_exContainerGetIn();
+                    frm_exContainerGetIn.IDDanhMucChungTu = IDDanhMucChungTu;
+                    frm_exContainerGetIn.Text = FormCaption;
+                    frm_exContainerGetIn.LoaiManHinh = LoaiManHinh;
+                    frm_exContainerGetIn.MdiParent = MDIParent;
+                    frm_exContainerGetIn.Show();
+                    break;
+                case s3Common.s3Common.ManHinh_exGetOutContainer:
+                    s3CFS.Forms.HangXuat.frm_exContainerGetOut frm_exContainerGetOut = new s3CFS.Forms.HangXuat.frm_exContainerGetOut();
+                    frm_exContainerGetOut.IDDanhMucChungTu = IDDanhMucChungTu;
+                    frm_exContainerGetOut.Text = FormCaption;
+                    frm_exContainerGetOut.LoaiManHinh = LoaiManHinh;
+                    frm_exContainerGetOut.MdiParent = MDIParent;
+                    frm_exContainerGetOut.Show();
+                    break;
+                case s3Common.s3Common.ManHinh_exGhepHang:
+                    s3CFS.Forms.HangXuat.frm_exGhepHang frm_exGhepHang = new s3CFS.Forms.HangXuat.frm_exGhepHang();
+                    frm_exGhepHang.IDDanhMucChungTu = IDDanhMucChungTu;
+                    frm_exGhepHang.Text = FormCaption;
+                    frm_exGhepHang.LoaiManHinh = LoaiManHinh;
+                    frm_exGhepHang.MdiParent = MDIParent;
+                    frm_exGhepHang.Show();
+                    break;
+                case s3Common.s3Common.ManHinh_exContainerDuDieuKienQuaKVGS:
+                    s3CFS.Forms.HangXuat.frm_exContainerDuDieuKienQuaKVGS frm_exContainerDuDieuKienQuaKVGS = new s3CFS.Forms.HangXuat.frm_exContainerDuDieuKienQuaKVGS();
+                    frm_exContainerDuDieuKienQuaKVGS.IDDanhMucChungTu = IDDanhMucChungTu;
+                    frm_exContainerDuDieuKienQuaKVGS.Text = FormCaption;
+                    frm_exContainerDuDieuKienQuaKVGS.LoaiManHinh = LoaiManHinh;
+                    frm_exContainerDuDieuKienQuaKVGS.MdiParent = MDIParent;
+                    frm_exContainerDuDieuKienQuaKVGS.Show();
+                    break;
+                case s3Common.s3Common.ManHinh_imLoHang:
+                    s3CFS.Forms.frm_imLoHang frm_imLoHang = new s3CFS.Forms.frm_imLoHang();
+                    frm_imLoHang.MdiParent = MDIParent;
+                    frm_imLoHang.Show();
+                    break;
+            }
+        }
+        public static void runBaoCao(String IDDanhMucBaoCao, Form MDIParent)
+        {
+            ReportUI clsReportUI = new ReportUI();
+            clsReportUI.IDDanhMucBaoCao = IDDanhMucBaoCao;
+            clsReportUI.MDIParent = MDIParent;
+            clsReportUI.ProcessReport();
+            clsReportUI.Dispose();
+        }
+    }
+}

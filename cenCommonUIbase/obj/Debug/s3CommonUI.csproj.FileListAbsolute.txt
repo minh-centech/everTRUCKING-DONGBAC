@@ -1,0 +1,127 @@
+D:\S3-TASA\Projects\s3CommonUI\bin\Debug\s3CommonUI.dll
+D:\S3-TASA\Projects\s3CommonUI\bin\Debug\s3CommonUI.pdb
+D:\S3-TASA\Projects\s3CommonUI\bin\Debug\Common.dll
+D:\S3-TASA\Projects\s3CommonUI\bin\Debug\CustomControls.dll
+D:\S3-TASA\Projects\s3CommonUI\bin\Debug\s3Base.dll
+D:\S3-TASA\Projects\s3CommonUI\bin\Debug\s3BUS.dll
+D:\S3-TASA\Projects\s3CommonUI\bin\Debug\s3CFS.dll
+D:\S3-TASA\Projects\s3CommonUI\bin\Debug\s3DAL.dll
+D:\S3-TASA\Projects\s3CommonUI\bin\Debug\s3DTO.dll
+D:\S3-TASA\Projects\s3CommonUI\bin\Debug\s3DAO.dll
+D:\S3-TASA\Projects\s3CommonUI\bin\Debug\HQSoapClient.dll
+D:\S3-TASA\Projects\s3CommonUI\bin\Debug\HQSoapConnect.dll
+D:\S3-TASA\Projects\s3CommonUI\bin\Debug\CrystalReportGenerator.dll
+D:\S3-TASA\Projects\s3CommonUI\bin\Debug\s3Base.pdb
+D:\S3-TASA\Projects\s3CommonUI\bin\Debug\s3BUS.pdb
+D:\S3-TASA\Projects\s3CommonUI\bin\Debug\Common.pdb
+D:\S3-TASA\Projects\s3CommonUI\bin\Debug\CustomControls.pdb
+D:\S3-TASA\Projects\s3CommonUI\bin\Debug\s3DAL.pdb
+D:\S3-TASA\Projects\s3CommonUI\bin\Debug\s3DTO.pdb
+D:\S3-TASA\Projects\s3CommonUI\bin\Debug\s3CFS.pdb
+D:\S3-TASA\Projects\s3CommonUI\bin\Debug\s3DAO.pdb
+D:\S3-TASA\Projects\s3CommonUI\bin\Debug\HQSoapClient.pdb
+D:\S3-TASA\Projects\s3CommonUI\bin\Debug\HQSoapConnect.pdb
+D:\S3-TASA\Projects\s3CommonUI\bin\Debug\CrystalReportGenerator.pdb
+E:\S3-TASA\Projects\s3CommonUI\bin\Debug\s3CommonUI.dll
+E:\S3-TASA\Projects\s3CommonUI\bin\Debug\s3CommonUI.pdb
+E:\S3-TASA\Projects\s3CommonUI\bin\Debug\Common.dll
+E:\S3-TASA\Projects\s3CommonUI\bin\Debug\CustomControls.dll
+E:\S3-TASA\Projects\s3CommonUI\bin\Debug\s3Base.dll
+E:\S3-TASA\Projects\s3CommonUI\bin\Debug\s3BUS.dll
+E:\S3-TASA\Projects\s3CommonUI\bin\Debug\s3CFS.dll
+E:\S3-TASA\Projects\s3CommonUI\bin\Debug\s3DAL.dll
+E:\S3-TASA\Projects\s3CommonUI\bin\Debug\s3DTO.dll
+E:\S3-TASA\Projects\s3CommonUI\bin\Debug\s3DAO.dll
+E:\S3-TASA\Projects\s3CommonUI\bin\Debug\HQSoapClient.dll
+E:\S3-TASA\Projects\s3CommonUI\bin\Debug\HQSoapConnect.dll
+E:\S3-TASA\Projects\s3CommonUI\bin\Debug\CrystalReportGenerator.dll
+E:\S3-TASA\Projects\s3CommonUI\bin\Debug\log4net.dll
+E:\S3-TASA\Projects\s3CommonUI\bin\Debug\s3Base.pdb
+E:\S3-TASA\Projects\s3CommonUI\bin\Debug\s3BUS.pdb
+E:\S3-TASA\Projects\s3CommonUI\bin\Debug\Common.pdb
+E:\S3-TASA\Projects\s3CommonUI\bin\Debug\CustomControls.pdb
+E:\S3-TASA\Projects\s3CommonUI\bin\Debug\s3DAL.pdb
+E:\S3-TASA\Projects\s3CommonUI\bin\Debug\s3DTO.pdb
+E:\S3-TASA\Projects\s3CommonUI\bin\Debug\s3CFS.pdb
+E:\S3-TASA\Projects\s3CommonUI\bin\Debug\s3DAO.pdb
+E:\S3-TASA\Projects\s3CommonUI\bin\Debug\HQSoapClient.pdb
+E:\S3-TASA\Projects\s3CommonUI\bin\Debug\HQSoapConnect.pdb
+E:\S3-TASA\Projects\s3CommonUI\bin\Debug\CrystalReportGenerator.pdb
+E:\S3-TASA\Runtimes\s3CommonUI.dll
+E:\S3-TASA\Runtimes\s3CommonUI.pdb
+E:\S3-TASA\Projects\s3CommonUI\obj\Debug\s3CommonUI.Forms.frmChangePassword.resources
+E:\S3-TASA\Projects\s3CommonUI\obj\Debug\s3CommonUI.Forms.frmDesktop.resources
+E:\S3-TASA\Projects\s3CommonUI\obj\Debug\s3CommonUI.Forms.frmLogin.resources
+E:\S3-TASA\Projects\s3CommonUI\obj\Debug\s3CommonUI.Forms.frmLoginExtended.resources
+E:\S3-TASA\Projects\s3CommonUI\obj\Debug\s3CommonUI.Forms.frmMain.resources
+E:\S3-TASA\Projects\s3CommonUI\obj\Debug\s3CommonUI.dll.licenses
+E:\S3-TASA\Projects\s3CommonUI\obj\Debug\s3CommonUI.dll
+E:\S3-TASA\Projects\s3CommonUI\obj\Debug\s3CommonUI.pdb
+F:\New folder\S3-TASA\Runtimes\s3CommonUI.dll
+F:\New folder\S3-TASA\Runtimes\s3CommonUI.pdb
+F:\New folder\S3-TASA\Projects\s3CommonUI\obj\Debug\ResolveAssemblyReference.cache
+F:\New folder\S3-TASA\Projects\s3CommonUI\obj\Debug\s3CommonUI.Forms.frmChangePassword.resources
+F:\New folder\S3-TASA\Projects\s3CommonUI\obj\Debug\s3CommonUI.Forms.frmDesktop.resources
+F:\New folder\S3-TASA\Projects\s3CommonUI\obj\Debug\s3CommonUI.Forms.frmLogin.resources
+F:\New folder\S3-TASA\Projects\s3CommonUI\obj\Debug\s3CommonUI.Forms.frmLoginExtended.resources
+F:\New folder\S3-TASA\Projects\s3CommonUI\obj\Debug\s3CommonUI.Forms.frmMain.resources
+F:\New folder\S3-TASA\Projects\s3CommonUI\obj\Debug\GenerateResource.read.1.tlog
+F:\New folder\S3-TASA\Projects\s3CommonUI\obj\Debug\GenerateResource.write.1.tlog
+F:\New folder\S3-TASA\Projects\s3CommonUI\obj\Debug\s3CommonUI.dll.licenses
+F:\New folder\S3-TASA\Projects\s3CommonUI\obj\Debug\s3CommonUI.dll
+F:\New folder\S3-TASA\Projects\s3CommonUI\obj\Debug\s3CommonUI.pdb
+E:\S3-TASA\Projects\s3CommonUI\obj\Debug\ResolveAssemblyReference.cache
+E:\S3-TASA\Projects\s3CommonUI\obj\Debug\GenerateResource.read.1.tlog
+E:\S3-TASA\Projects\s3CommonUI\obj\Debug\GenerateResource.write.1.tlog
+D:\S3-TASA\Runtimes\s3CommonUI.dll
+D:\S3-TASA\Runtimes\s3CommonUI.pdb
+D:\S3-TASA\Projects\s3CommonUI\obj\Debug\s3CommonUI.csprojResolveAssemblyReference.cache
+D:\S3-TASA\Projects\s3CommonUI\obj\Debug\s3CommonUI.Forms.frmChangePassword.resources
+D:\S3-TASA\Projects\s3CommonUI\obj\Debug\s3CommonUI.Forms.frmDesktop.resources
+D:\S3-TASA\Projects\s3CommonUI\obj\Debug\s3CommonUI.Forms.frmLogin.resources
+D:\S3-TASA\Projects\s3CommonUI\obj\Debug\s3CommonUI.Forms.frmLoginExtended.resources
+D:\S3-TASA\Projects\s3CommonUI\obj\Debug\s3CommonUI.Forms.frmMain.resources
+D:\S3-TASA\Projects\s3CommonUI\obj\Debug\s3CommonUI.csproj.GenerateResource.Cache
+D:\S3-TASA\Projects\s3CommonUI\obj\Debug\s3CommonUI.dll.licenses
+D:\S3-TASA\Projects\s3CommonUI\obj\Debug\s3CommonUI.dll
+D:\S3-TASA\Projects\s3CommonUI\obj\Debug\s3CommonUI.pdb
+G:\S3-CFS 2018\Runtimes\s3CommonUI.dll
+G:\S3-CFS 2018\Runtimes\s3CommonUI.pdb
+G:\S3-CFS 2018\Projects\s3CommonUI\obj\Debug\ResolveAssemblyReference.cache
+G:\S3-CFS 2018\Projects\s3CommonUI\obj\Debug\s3CommonUI.Forms.frmChangePassword.resources
+G:\S3-CFS 2018\Projects\s3CommonUI\obj\Debug\s3CommonUI.Forms.frmDesktop.resources
+G:\S3-CFS 2018\Projects\s3CommonUI\obj\Debug\s3CommonUI.Forms.frmLogin.resources
+G:\S3-CFS 2018\Projects\s3CommonUI\obj\Debug\s3CommonUI.Forms.frmLoginExtended.resources
+G:\S3-CFS 2018\Projects\s3CommonUI\obj\Debug\s3CommonUI.Forms.frmMain.resources
+G:\S3-CFS 2018\Projects\s3CommonUI\obj\Debug\GenerateResource.read.1.tlog
+G:\S3-CFS 2018\Projects\s3CommonUI\obj\Debug\GenerateResource.write.1.tlog
+G:\S3-CFS 2018\Projects\s3CommonUI\obj\Debug\s3CommonUI.dll.licenses
+G:\S3-CFS 2018\Projects\s3CommonUI\obj\Debug\s3CommonUI.dll
+G:\S3-CFS 2018\Projects\s3CommonUI\obj\Debug\s3CommonUI.pdb
+D:\S3-CFS 2018\Runtimes\s3CommonUI.dll
+D:\S3-CFS 2018\Runtimes\s3CommonUI.pdb
+D:\S3-CFS 2018\Projects\s3CommonUI\obj\Debug\s3CommonUI.csprojResolveAssemblyReference.cache
+D:\S3-CFS 2018\Projects\s3CommonUI\obj\Debug\s3CommonUI.Forms.frmDanhMucBaoCao.resources
+D:\S3-CFS 2018\Projects\s3CommonUI\obj\Debug\s3CommonUI.Forms.frmChangePassword.resources
+D:\S3-CFS 2018\Projects\s3CommonUI\obj\Debug\s3CommonUI.Forms.frmChungTuFilter.resources
+D:\S3-CFS 2018\Projects\s3CommonUI\obj\Debug\s3CommonUI.Forms.frmChungTuList.resources
+D:\S3-CFS 2018\Projects\s3CommonUI\obj\Debug\s3CommonUI.Forms.frmChungTuPrintPreview.resources
+D:\S3-CFS 2018\Projects\s3CommonUI\obj\Debug\s3CommonUI.Forms.frmDanhMuc.resources
+D:\S3-CFS 2018\Projects\s3CommonUI\obj\Debug\s3CommonUI.Forms.frmDanhMucChungTu.resources
+D:\S3-CFS 2018\Projects\s3CommonUI\obj\Debug\s3CommonUI.Forms.frmDanhMucDonVi.resources
+D:\S3-CFS 2018\Projects\s3CommonUI\obj\Debug\s3CommonUI.Forms.frmDanhMucDonViUpdate.resources
+D:\S3-CFS 2018\Projects\s3CommonUI\obj\Debug\s3CommonUI.Forms.frmDanhMucMenu.resources
+D:\S3-CFS 2018\Projects\s3CommonUI\obj\Debug\s3CommonUI.Forms.frmDanhMucPhanQuyen.resources
+D:\S3-CFS 2018\Projects\s3CommonUI\obj\Debug\s3CommonUI.Forms.frmDanhMucUpdate.resources
+D:\S3-CFS 2018\Projects\s3CommonUI\obj\Debug\s3CommonUI.Forms.frmDanhMucValid.resources
+D:\S3-CFS 2018\Projects\s3CommonUI\obj\Debug\s3CommonUI.Forms.frmLogin.resources
+D:\S3-CFS 2018\Projects\s3CommonUI\obj\Debug\s3CommonUI.Forms.frmLoginExtended.resources
+D:\S3-CFS 2018\Projects\s3CommonUI\obj\Debug\s3CommonUI.Forms.frmReportParameters.resources
+D:\S3-CFS 2018\Projects\s3CommonUI\obj\Debug\s3CommonUI.Forms.frmReportViewer.resources
+D:\S3-CFS 2018\Projects\s3CommonUI\obj\Debug\s3CommonUI.Properties.Resources.resources
+D:\S3-CFS 2018\Projects\s3CommonUI\obj\Debug\s3CommonUI.csproj.GenerateResource.Cache
+D:\S3-CFS 2018\Projects\s3CommonUI\obj\Debug\s3CommonUI.dll.licenses
+D:\S3-CFS 2018\Projects\s3CommonUI\obj\Debug\s3CommonUI.dll
+D:\S3-CFS 2018\Projects\s3CommonUI\obj\Debug\s3CommonUI.pdb
+D:\S3-CFS 2018\Projects\s3CommonUI\obj\Debug\s3CommonUI.Forms.frmDesktop.resources
+D:\S3-CFS 2018\Projects\s3CommonUI\obj\Debug\s3CommonUI.Forms.frmMain.resources
