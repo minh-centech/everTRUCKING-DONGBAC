@@ -190,5 +190,35 @@ namespace cenDAO.cenLogistics
                 return false;
             }
         }
+        public object ListChiTietDonHangChinh(object IDChungTu)
+        {
+            try
+            {
+                using (SqlConnection sqlConnection = new SqlConnection(cenCommon.GlobalVariables.ConnectionString))
+                {
+                    sqlConnection.Open();
+                    using (SqlCommand sqlCommand = new SqlCommand(ctDieuHanh.listChiTietDonHangChinhProcedureName, sqlConnection))
+                    {
+                        sqlCommand.CommandType = CommandType.StoredProcedure;
+                        SqlParameter[] sqlParameters = new SqlParameter[3];
+                        sqlParameters[0] = new SqlParameter("@IDDanhMucDonVi", cenCommon.GlobalVariables.IDDonVi);
+                        sqlParameters[1] = new SqlParameter("@ID", IDChungTu);
+                        sqlParameters[2] = new SqlParameter("@countDonHangChinh", DBNull.Value)
+                        {
+                            Direction = ParameterDirection.InputOutput,
+                            Size = 4
+                        };
+                        sqlCommand.Parameters.AddRange(sqlParameters);
+                        int rowAffected = sqlCommand.ExecuteNonQuery();
+                        return sqlParameters[2].Value;
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                cenCommon.cenCommon.ErrorMessageOkOnly(ex.Message);
+                return null;
+            }
+        }
     }
 }

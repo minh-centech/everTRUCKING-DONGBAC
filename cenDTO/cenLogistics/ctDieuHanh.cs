@@ -22,6 +22,7 @@
         public const string insertProcedureName = "Insert_" + tableName;
         public const string updateProcedureName = "Update_" + tableName;
         public const string deleteProcedureName = "Delete_" + tableName;
+        public const string listChiTietDonHangChinhProcedureName = "List_" + tableName + "_ChiTietDonHangChinh";
         //
         public ctDieuHanh()
         {

@@ -684,3 +684,4 @@ C:\Users\Duong Pham\OneDrive\Desktop\DoAN\everTRUCKING-DONGBAC\cenControls\obj\D
 C:\Users\Duong Pham\OneDrive\Desktop\DoAN\everTRUCKING-DONGBAC\cenControls\obj\Debug\cenControls.csproj.CopyComplete
 C:\Users\Duong Pham\OneDrive\Desktop\DoAN\everTRUCKING-DONGBAC\cenControls\obj\Debug\cenControls.dll
 C:\Users\Duong Pham\OneDrive\Desktop\DoAN\everTRUCKING-DONGBAC\cenControls\obj\Debug\cenControls.pdb
+D:\everTRUCKING-DONGBAC\cenControls\obj\Debug\cenControls.csproj.CopyComplete

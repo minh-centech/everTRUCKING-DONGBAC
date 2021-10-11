@@ -115,6 +115,7 @@ namespace cenCommonUIapps.cenLogistics.Forms
             this.ug.Location = new System.Drawing.Point(0, 62);
             this.ug.Size = new System.Drawing.Size(1140, 388);
             this.ug.InitializeRow += new Infragistics.Win.UltraWinGrid.InitializeRowEventHandler(this.ug_InitializeRow);
+            this.ug.ClickCell += new Infragistics.Win.UltraWinGrid.ClickCellEventHandler(this.ug_ClickCell);
             // 
             // UltraToolbarsManager1
             // 

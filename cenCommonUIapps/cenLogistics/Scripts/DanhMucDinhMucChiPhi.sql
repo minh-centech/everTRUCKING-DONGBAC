@@ -397,7 +397,7 @@ begin
 end
 go
 ---
-create procedure Get_DanhMucDinhMucChiPhi_SoTien
+alter procedure Get_DanhMucDinhMucChiPhi_SoTien
 	@IDChungTu							bigint,
 	@IDDanhMucTuyenVanTai				bigint,
 	@IDDanhMucXe						bigint,
@@ -416,30 +416,39 @@ begin
 	--kiểm tra xem đơn có nằm trong danh sách kết hợp hay không
 	declare @countKetHop int;
 	select @countKetHop = count(ID) from ctDieuHanhChiTietDonHangKetHop where IDctDonHang = @IDChungTu;
-	if @countKetHop = 0 and @IDDanhMucTuyenVanTai is not null and @IDDanhMucXe is not null
+
+	if (@countKetHop > 0)
 	begin
-		select	@SoLuongNhienLieu = T.SoLuongNhienLieu,
-				@SoTienVeCauDuong = T.SoTienVeCauDuong,
-				@SoTienLuatAnCa = T.SoTienLuatAnCa,
-				@SoTienKetHopVeCauDuongLuatAnCa = T.SoTienKetHopVeCauDuongLuatAnCa,
-				@SoTienLuuCaKhac = T.SoTienLuuCaKhac,
-				@SoTienLuatDuongCam = T.SoTienLuatDuongCam,
-				@SoTienTongLuuCaKhacLuatDuongCam = T.SoTienTongLuuCaKhacLuatDuongCam,
-				@SoTienLuongChuyen = T.SoTienLuongChuyen
-		from 
-		(
-			select top 1 
-				a.SoLuongNhienLieu,
-				a.SoTienVeCauDuong,
-				a.SoTienLuatAnCa,
-				a.SoTienKetHopVeCauDuongLuatAnCa,
-				a.SoTienLuuCaKhac,
-				a.SoTienLuatDuongCam,
-				a.SoTienTongLuuCaKhacLuatDuongCam,
-				a.SoTienLuongChuyen
-			from DanhMucDinhMucChiPhi a left join DanhMucDinhMucChiPhiXe b on a.ID = b.IDDanhMucDinhMucChiPhi
-			where a.IDDanhMucTuyenVanTai = @IDDanhMucTuyenVanTai and a.LoaiTacNghiep = @LoaiTacNghiep and b.IDDanhMucXe = @IDDanhMucXe
-		) T;
+		raiserror(N'Đơn hàng này là đơn hàng nhánh, không được cập nhật chi phí từ định mức!', 16, 1);
+		return;
+	end
+	else
+		begin
+		if @countKetHop = 0 and @IDDanhMucTuyenVanTai is not null and @IDDanhMucXe is not null
+		begin
+			select	@SoLuongNhienLieu = T.SoLuongNhienLieu,
+					@SoTienVeCauDuong = T.SoTienVeCauDuong,
+					@SoTienLuatAnCa = T.SoTienLuatAnCa,
+					@SoTienKetHopVeCauDuongLuatAnCa = T.SoTienKetHopVeCauDuongLuatAnCa,
+					@SoTienLuuCaKhac = T.SoTienLuuCaKhac,
+					@SoTienLuatDuongCam = T.SoTienLuatDuongCam,
+					@SoTienTongLuuCaKhacLuatDuongCam = T.SoTienTongLuuCaKhacLuatDuongCam,
+					@SoTienLuongChuyen = T.SoTienLuongChuyen
+			from 
+			(
+				select top 1 
+					a.SoLuongNhienLieu,
+					a.SoTienVeCauDuong,
+					a.SoTienLuatAnCa,
+					a.SoTienKetHopVeCauDuongLuatAnCa,
+					a.SoTienLuuCaKhac,
+					a.SoTienLuatDuongCam,
+					a.SoTienTongLuuCaKhacLuatDuongCam,
+					a.SoTienLuongChuyen
+				from DanhMucDinhMucChiPhi a left join DanhMucDinhMucChiPhiXe b on a.ID = b.IDDanhMucDinhMucChiPhi
+				where a.IDDanhMucTuyenVanTai = @IDDanhMucTuyenVanTai and a.LoaiTacNghiep = @LoaiTacNghiep and b.IDDanhMucXe = @IDDanhMucXe
+			) T;
+		end;
 	end;
 end
 go

@@ -25,6 +25,11 @@ namespace cenCommonUIapps.cenLogistics.Forms
         }
         private bool Save()
         {
+            if (!cenCommon.cenCommon.IsNull(ctDieuHanhBUS.ListChiTietDonHangChinh(dataRow["ID"])) && int.Parse(ctDieuHanhBUS.ListChiTietDonHangChinh(dataRow["ID"]).ToString()) > 0 && cboTrangThaiDonHang.Value.ToString() != "5")
+            {
+                cenCommon.cenCommon.ErrorMessageOkOnly("Đây là đơn hàng nhánh, không được phép khai báo đơn hàng kẹp/kết hợp");
+                return false;
+            }
             //if (!cenCommon.cenCommon.IsNull(ctDonHangBUS.GetIDctChotDoanhThuGuiKeToan(IDctDonHang))) { cenCommon.cenCommon.ErrorMessageOkOnly("Đơn hàng đã chốt doanh thu, không sửa được thông tin điều hành!"); return false; }
             //if (cenCommon.cenCommon.IsNull(cboIDDanhMucThauPhu.Value) || !cboIDDanhMucThauPhu.IsItemInList()) { cenCommon.cenCommon.ErrorMessageOkOnly("Thiếu mã chủ xe!"); cboIDDanhMucThauPhu.Focus(); return false; }
             if (!cenCommon.cenCommon.IsNull(cboIDDanhMucXe.Value) && !cboIDDanhMucXe.IsItemInList()) { cenCommon.cenCommon.ErrorMessageOkOnly("Số xe chưa được khai báo!"); cboIDDanhMucXe.Focus(); return false; }
@@ -163,6 +168,7 @@ namespace cenCommonUIapps.cenLogistics.Forms
             cboTrangThaiDonHang.Items.Add("2", "Kẹp");
             cboTrangThaiDonHang.Items.Add("3", "1h-1v/1v-1h");
             cboTrangThaiDonHang.Items.Add("4", "Kết hợp");
+            cboTrangThaiDonHang.Items.Add("5", "Nhánh");
             //Xe
             DanhMucXeBUS DanhMucXeBUS = new DanhMucXeBUS();
             dtXe = DanhMucXeBUS.List(null, DanhMucLoaiDoiTuongBUS.GetID(DanhMucThamSoHeThongBUS.GetGiaTri(cenCommon.ThamSoHeThong.MaThamSoLoaiDoiTuongXe)), null, null, null);
@@ -302,6 +308,11 @@ namespace cenCommonUIapps.cenLogistics.Forms
         }
         private void OpenChiTietDonHangKetHop()
         {
+            if (!cenCommon.cenCommon.IsNull(ctDieuHanhBUS.ListChiTietDonHangChinh(dataRow["ID"])) && int.Parse(ctDieuHanhBUS.ListChiTietDonHangChinh(dataRow["ID"]).ToString()) > 0)
+            {
+                cenCommon.cenCommon.ErrorMessageOkOnly("Đây là đơn hàng nhánh, không được phép khai báo đơn hàng kẹp/kết hợp");
+                return;
+            }    
             //Update số đơn hàng kết hợp của đơn hàng này
             frm_ctDieuHanhChiTietDonHangKetHopUpdate frmUpdate = new frm_ctDieuHanhChiTietDonHangKetHopUpdate()
             {

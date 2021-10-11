@@ -56,17 +56,17 @@ namespace cenCommonUIapps.cenLogistics.Forms
         }
         private void ug_InitializeRow(object sender, InitializeRowEventArgs e)
         {
-            if (!cenCommon.cenCommon.IsNull(e.Row.Cells["ChuXe"].Value) && e.Row.Cells["ChuXe"].Value.ToString().ToUpper().StartsWith("PLJ") && e.Row.Cells["TrangThaiDonHang"].Value.ToString() == "Đơn")
+            if (e.Row.Cells["TrangThaiDonHang"].Value.ToString() == "Nhánh")
             {
-                e.Row.Appearance.BackColor = Color.FromArgb(206, 231, 255);
+                e.Row.Appearance.BackColor = System.Drawing.Color.FromArgb(206, 231, 255);
             }
-            if (!cenCommon.cenCommon.IsNull(e.Row.Cells["ChuXe"].Value) && e.Row.Cells["ChuXe"].Value.ToString().ToUpper().StartsWith("PLJ") && e.Row.Cells["TrangThaiDonHang"].Value.ToString() == "Kết hợp")
+            if (e.Row.Cells["TrangThaiDonHang"].Value.ToString() == "Kẹp")
             {
-                e.Row.Appearance.BackColor = Color.FromArgb(131, 192, 255);
+                e.Row.Appearance.BackColor = System.Drawing.Color.FromArgb(131, 192, 255);
             }
-            if (!cenCommon.cenCommon.IsNull(e.Row.Cells["ChuXe"].Value) && !e.Row.Cells["ChuXe"].Value.ToString().ToUpper().StartsWith("PLJ") && e.Row.Cells["TrangThaiDonHang"].Value.ToString() == "Kết hợp")
+            if (e.Row.Cells["TrangThaiDonHang"].Value.ToString() == "Kết hợp")
             {
-                e.Row.Appearance.BackColor = Color.FromArgb(202, 237, 97);
+                e.Row.Appearance.BackColor = System.Drawing.Color.FromArgb(202, 237, 97);
             }
         }
     }

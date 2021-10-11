@@ -65,18 +65,18 @@ namespace cenCommonUIapps.cenLogistics.Forms
 
         private void ug_InitializeRow(object sender, Infragistics.Win.UltraWinGrid.InitializeRowEventArgs e)
         {
-            //if (!cenCommon.cenCommon.IsNull(e.Row.Cells["MaDanhMucThauPhu"].Value) && e.Row.Cells["MaDanhMucThauPhu"].Value.ToString().ToUpper().StartsWith("PLJ") && e.Row.Cells["TrangThaiDonHang"].Value.ToString() == "Đơn")
-            //{
-            //    e.Row.Appearance.BackColor = System.Drawing.Color.FromArgb(206, 231, 255);
-            //}
-            //if (!cenCommon.cenCommon.IsNull(e.Row.Cells["MaDanhMucThauPhu"].Value) && e.Row.Cells["MaDanhMucThauPhu"].Value.ToString().ToUpper().StartsWith("PLJ") && e.Row.Cells["TrangThaiDonHang"].Value.ToString() == "Kết hợp")
-            //{
-            //    e.Row.Appearance.BackColor = System.Drawing.Color.FromArgb(131, 192, 255);
-            //}
-            //if (!cenCommon.cenCommon.IsNull(e.Row.Cells["MaDanhMucThauPhu"].Value) && !e.Row.Cells["MaDanhMucThauPhu"].Value.ToString().ToUpper().StartsWith("PLJ") && e.Row.Cells["TrangThaiDonHang"].Value.ToString() == "Kết hợp")
-            //{
-            //    e.Row.Appearance.BackColor = System.Drawing.Color.FromArgb(202, 237, 97);
-            //}
+            if (e.Row.Cells["TrangThaiDonHang"].Value.ToString() == "Nhánh")
+            {
+                e.Row.Appearance.BackColor = System.Drawing.Color.FromArgb(206, 231, 255);
+            }
+            if (e.Row.Cells["TrangThaiDonHang"].Value.ToString() == "Kẹp")
+            {
+                e.Row.Appearance.BackColor = System.Drawing.Color.FromArgb(131, 192, 255);
+            }
+            if (e.Row.Cells["TrangThaiDonHang"].Value.ToString() == "Kết hợp")
+            {
+                e.Row.Appearance.BackColor = System.Drawing.Color.FromArgb(202, 237, 97);
+            }
             if (!cenCommon.cenCommon.IsNull(e.Row.Cells["Huy"].Value) && bool.Parse(e.Row.Cells["Huy"].Value.ToString()))
             {
                 e.Row.Appearance.ForeColor = Color.Red;

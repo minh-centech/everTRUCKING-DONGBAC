@@ -82,5 +82,10 @@ namespace cenBUS.cenLogistics
                 return false;
             }
         }
+        public static object ListChiTietDonHangChinh(object IDChungTu)
+        {
+            ctDieuHanhDAO dao = new ctDieuHanhDAO();
+            return dao.ListChiTietDonHangChinh(IDChungTu);
+        }
     }
 }

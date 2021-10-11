@@ -41,6 +41,7 @@ namespace cenCommonUIapps.cenLogistics.Forms
             ug.HiddenColumnsList = "[LoaiHang][NgayLap]";
             ug.FixedColumnsList = "[So][DebitNote]";
             ug.DataSource = bsDanhMuc;
+            ug.DisplayLayout.Bands[0].Columns["DanhSachDonHangKetHop"].Style = Infragistics.Win.UltraWinGrid.ColumnStyle.URL;
             //
             ctDonHangBUS ctDonHangBUS = new ctDonHangBUS();
             DataTable dtTotalNhomHangVanChuyen = ctDonHangBUS.ListNhomHangVanChuyen(IDDanhMucChungTu, txtTuNgay.Value, txtDenNgay.Value, cboIDDanhMucNhomHangVanChuyen.Value);
@@ -54,6 +55,8 @@ namespace cenCommonUIapps.cenLogistics.Forms
             txtTotal.SetDataBinding(bsTotal, "Total", true, DataSourceUpdateMode.OnPropertyChanged);
             txtCont.SetDataBinding(bsTotal, "Cont", true, DataSourceUpdateMode.OnPropertyChanged);
             txtTruck.SetDataBinding(bsTotal, "Truck", true, DataSourceUpdateMode.OnPropertyChanged);
+
+
         }
 
         protected override void InsertDanhMuc()
@@ -122,18 +125,27 @@ namespace cenCommonUIapps.cenLogistics.Forms
 
         private void ug_InitializeRow(object sender, Infragistics.Win.UltraWinGrid.InitializeRowEventArgs e)
         {
-            if (!cenCommon.cenCommon.IsNull(e.Row.Cells["MaDanhMucThauPhu"].Value) && e.Row.Cells["MaDanhMucThauPhu"].Value.ToString().ToUpper().StartsWith("PLJ") && e.Row.Cells["TrangThaiDonHang"].Value.ToString() == "Đơn")
+            if (e.Row.Cells["TrangThaiDonHang"].Value.ToString() == "Nhánh")
             {
                 e.Row.Appearance.BackColor = System.Drawing.Color.FromArgb(206, 231, 255);
             }
-            if (!cenCommon.cenCommon.IsNull(e.Row.Cells["MaDanhMucThauPhu"].Value) && e.Row.Cells["MaDanhMucThauPhu"].Value.ToString().ToUpper().StartsWith("PLJ") && e.Row.Cells["TrangThaiDonHang"].Value.ToString() == "Kết hợp")
+            if (e.Row.Cells["TrangThaiDonHang"].Value.ToString() == "Kẹp")
             {
                 e.Row.Appearance.BackColor = System.Drawing.Color.FromArgb(131, 192, 255);
             }
-            if (!cenCommon.cenCommon.IsNull(e.Row.Cells["MaDanhMucThauPhu"].Value) && !e.Row.Cells["MaDanhMucThauPhu"].Value.ToString().ToUpper().StartsWith("PLJ") && e.Row.Cells["TrangThaiDonHang"].Value.ToString() == "Kết hợp")
+            if (e.Row.Cells["TrangThaiDonHang"].Value.ToString() == "Kết hợp")
             {
                 e.Row.Appearance.BackColor = System.Drawing.Color.FromArgb(202, 237, 97);
             }
+        }
+
+        private void ug_ClickCell(object sender, Infragistics.Win.UltraWinGrid.ClickCellEventArgs e)
+        {
+            //if (e.Cell.Row.IsDataRow && e.Cell.Column.Key == "DanhSachDonHangKetHop" && !cenCommon.cenCommon.IsNull(e.Cell.Value))
+            //{
+            //    //Hiển thị danh sách đơn kết hợp
+            //    cenCommon.cenCommon.ErrorMessageOkOnly("OK");
+            //}    
         }
     }
 }
