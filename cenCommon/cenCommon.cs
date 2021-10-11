@@ -12,7 +12,6 @@ using System.Linq;
 using System.Runtime.Serialization.Formatters.Binary;
 using System.Security.Cryptography;
 using System.Windows.Forms;
-
 namespace cenCommon
 {
     public static class cenCommon

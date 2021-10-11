@@ -643,7 +643,6 @@ D:\everTRUCKING-DONGBAC\cenControls\obj\Debug\cenControls.saUpdateGrid.resources
 D:\everTRUCKING-DONGBAC\cenControls\obj\Debug\cenControls.csproj.GenerateResource.cache
 D:\everTRUCKING-DONGBAC\cenControls\obj\Debug\cenControls.dll.licenses
 D:\everTRUCKING-DONGBAC\cenControls\obj\Debug\cenControls.csproj.CoreCompileInputs.cache
-D:\everTRUCKING-DONGBAC\cenControls\obj\Debug\cenControls.csproj.CopyComplete
 D:\everTRUCKING-DONGBAC\cenControls\obj\Debug\cenControls.dll
 D:\everTRUCKING-DONGBAC\cenControls\obj\Debug\cenControls.pdb
 C:\Users\Duong Pham\OneDrive\Desktop\DoAN\everTRUCKING-DONGBAC\cenControls\bin\Debug\cenControls.dll

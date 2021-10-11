@@ -495,3 +495,4 @@ C:\Users\Duong Pham\OneDrive\Desktop\DoAN\everTRUCKING-DONGBAC\cenDAO\obj\Debug\
 C:\Users\Duong Pham\OneDrive\Desktop\DoAN\everTRUCKING-DONGBAC\cenDAO\obj\Debug\cenDAO.csproj.CopyComplete
 C:\Users\Duong Pham\OneDrive\Desktop\DoAN\everTRUCKING-DONGBAC\cenDAO\obj\Debug\cenDAO.dll
 C:\Users\Duong Pham\OneDrive\Desktop\DoAN\everTRUCKING-DONGBAC\cenDAO\obj\Debug\cenDAO.pdb
+D:\everTRUCKING-DONGBAC\cenDAO\obj\Debug\cenDAO.csproj.CopyComplete

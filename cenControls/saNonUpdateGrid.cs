@@ -137,7 +137,10 @@ namespace cenControls
                         {
                             ugcol.Header.Fixed = true;
                         }
-                        cenCommon.cenCommon.SetGridColumnWidth(ugcol);
+                        if (!cenCommon.cenCommon.IsNull(cenBUS.DatabaseCore.DanhMucThamSoHeThongBUS.GetGiaTri("DoRongCot_" + ColumnKey)))
+                            ugcol.Width = int.Parse(cenBUS.DatabaseCore.DanhMucThamSoHeThongBUS.GetGiaTri("DoRongCot_" + ColumnKey).ToString());
+                        else
+                            cenCommon.cenCommon.SetGridColumnWidth(ugcol);
                         cenCommon.cenCommon.SetGridColumnMask(ugcol);
                     }
                     if (AddSummaryRow)

@@ -423,7 +423,6 @@ D:\everTRUCKING-DONGBAC\cenCommon\bin\Debug\Infragistics4.Documents.Core.v18.1.x
 D:\everTRUCKING-DONGBAC\cenCommon\bin\Debug\Infragistics4.Win.UltraWinTabControl.v18.1.xml
 D:\everTRUCKING-DONGBAC\cenCommon\bin\Debug\Infragistics4.Win.UltraWinStatusBar.v18.1.xml
 D:\everTRUCKING-DONGBAC\cenCommon\obj\Debug\cenCommon.csproj.CoreCompileInputs.cache
-D:\everTRUCKING-DONGBAC\cenCommon\obj\Debug\cenCommon.csproj.CopyComplete
 D:\everTRUCKING-DONGBAC\cenCommon\obj\Debug\cenCommon.dll
 D:\everTRUCKING-DONGBAC\cenCommon\obj\Debug\cenCommon.pdb
 D:\everTRUCKING-DONGBAC\cenCommon\obj\Debug\cenCommon.csproj.AssemblyReference.cache
